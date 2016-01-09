@@ -78,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Introduction </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>ATSuite C++ is a collection of scientific routines in C++ originally developed by Alexis Tantet for <em>research purpose</em>. These codes are open source in order to promote reproducibility. Visit Alexis' home page <a href="http://www.uu.nl/staff/AJJTantet/" title="Alexis&apos; personal page">UU</a> for contact.</p>
+<div class="textblock"><p>ATSuite C++ is a collection of scientific routines in C++ originally developed by Alexis Tantet for <em>research purpose</em>. These codes are open source in order to promote reproducibility. Visit Alexis' home page <a href="http://www.uu.nl/staff/AJJTantet/" title="Alexis&apos; personal page">UU</a> for contact. The full documentation can be found at <a href="http://atantet.github.io/ATSuite_cpp/" title="ATSuite C++ documentation">ATSuite_cpp_doc</a>.</p>
 <h1><a class="anchor" id="installation"></a>
 Installation    </h1>
 <h2>Getting the code </h2>
@@ -88,18 +88,28 @@ Installation    </h1>
 </ol>
 <h2>Installing the code </h2>
 <ol type="1">
-<li>Create a directory ATSuite/ in your favorite include directory $INCLUDE: mkdir $INCLUDE/ATSuite</li>
-<li>Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/: cd $GITDIR/ATSuite_cpp cp *.hpp $INCLUDE/ATSuite</li>
-<li>Include these files in your C++ codes. For example, in order to include the matrix manipulation functions in atmatrix.hpp, add: #include &lt;ATSuite/atmatrix.hpp&gt; in your C++ file.</li>
+<li><p class="startli">Create a directory ATSuite/ in your favorite include directory $INCLUDE:</p>
+<p class="startli">mkdir $INCLUDE/ATSuite</p>
+</li>
+<li><p class="startli">Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/:</p>
+<p class="startli">cd $GITDIR/ATSuite_cpp cp *.hpp $INCLUDE/ATSuite</p>
+</li>
+<li>Include these files in your C++ codes. For example, in order to include the matrix manipulation functions in atmatrix.hpp, add: <pre class="fragment"> #include &lt;ATSuite/atmatrix.hpp&gt;
+</pre></li>
 </ol>
+<p>in your C++ file.</p>
 <h2>Updating the code </h2>
 <ol type="1">
-<li>Pull the ATSuite_cpp repository: cd $GITDIR/ATSuite_cpp git pull</li>
-<li>Copy the source files to your favorite include directory $INCLUDE: cp *.hpp $INCLUDE/ATSuite</li>
+<li><p class="startli">Pull the ATSuite_cpp repository:</p>
+<p class="startli">cd $GITDIR/ATSuite_cpp git pull</p>
+</li>
+<li><p class="startli">Copy the source files to your favorite include directory $INCLUDE:</p>
+<p class="startli">cp *.hpp $INCLUDE/ATSuite</p>
+</li>
 </ol>
 <h1><a class="anchor" id="disclaimer"></a>
 Disclaimer    </h1>
-<p>These codes are developed for <em>research purpose</em>. No warranty is given regarding their robustess. </p>
+<p>These codes are developed for <em>research purpose</em>. <em>No warranty</em> is given regarding their robustess. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
