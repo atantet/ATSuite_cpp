@@ -1,0 +1,372 @@
+\begin{theindex}
+
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.\+hpp}, 
+		\hyperpage{11}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+S\+D\+E\+Solvers.\+hpp}, 
+		\hyperpage{12}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph.\+hpp}, 
+		\hyperpage{3}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph\+\_\+alglib.\+hpp}, 
+		\hyperpage{4}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atio.\+hpp}, 
+		\hyperpage{6}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atmath.\+hpp}, 
+		\hyperpage{8}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atspectrum.\+hpp}, 
+		\hyperpage{11}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/transfer\+Operator.\+hpp}, 
+		\hyperpage{13}
+  \item {/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/transfer\+Operator\+Test.\+hpp}, 
+		\hyperpage{15}
+
+  \indexspace
+
+  \item {add\+Col2\+Col}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {add\+Col2\+Col\+Triplet}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {add\+Row2\+Row}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {add\+Row2\+Row\+Triplet}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {additive\+Wiener\+Field}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {any}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {argmax}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {array2igraph}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {atgraph.\+hpp}
+    \subitem {add\+Col2\+Col}, \hyperpage{4}
+    \subitem {add\+Col2\+Col\+Triplet}, \hyperpage{4}
+    \subitem {add\+Row2\+Row}, \hyperpage{4}
+    \subitem {add\+Row2\+Row\+Triplet}, \hyperpage{4}
+    \subitem {array2igraph}, \hyperpage{4}
+    \subitem {Eigen\+Sparse2\+Pajek}, \hyperpage{4}
+    \subitem {get\+Modularity}, \hyperpage{4}
+    \subitem {igraph2\+Eigen\+Sparse}, \hyperpage{4}
+    \subitem {pajek2\+Eigen\+Sparse}, \hyperpage{4}
+    \subitem {pajek2igraph}, \hyperpage{4}
+    \subitem {pajek2igraph\+No\+Vertices}, \hyperpage{4}
+    \subitem {pajek2igraph\+Sym}, \hyperpage{4}
+    \subitem {scal\+Prod\+Inner}, \hyperpage{4}
+    \subitem {scal\+Prod\+Outer}, \hyperpage{4}
+    \subitem {Sp\+Mat}, \hyperpage{4}
+    \subitem {Sp\+Mat\+C\+SR}, \hyperpage{4}
+    \subitem {Tri}, \hyperpage{4}
+  \item {atgraph\+\_\+alglib.\+hpp}
+    \subitem {entropy}, \hyperpage{5}
+    \subitem {entropy\+Rate}, \hyperpage{5}
+    \subitem {get\+Min}, \hyperpage{5}
+    \subitem {get\+N\+NZ}, \hyperpage{5}
+    \subitem {igraph2\+Hash\+Table}, \hyperpage{5}
+    \subitem {pajek2\+Hash\+Table}, \hyperpage{5}
+    \subitem {plog2p}, \hyperpage{5}
+    \subitem {set\+Col}, \hyperpage{6}
+    \subitem {set\+Constant}, \hyperpage{6}
+    \subitem {set\+Lin\+Spaced}, \hyperpage{6}
+    \subitem {set\+Row}, \hyperpage{6}
+    \subitem {sp\+Alg}, \hyperpage{5}
+  \item {atio.\+hpp}
+    \subitem {C\+S\+C2\+AR}, \hyperpage{7}
+    \subitem {C\+S\+C2\+C\+SR}, \hyperpage{7}
+    \subitem {C\+S\+R2\+C\+SC}, \hyperpage{7}
+    \subitem {Compressed2\+AR}, \hyperpage{7}
+    \subitem {Compressed2\+Edge\+List}, \hyperpage{7}
+    \subitem {Compressed2\+Eigen}, \hyperpage{7}
+    \subitem {Eigen2\+A\+R\+Sym}, \hyperpage{8}
+    \subitem {Eigen2\+AR}, \hyperpage{7, 8}
+    \subitem {Eigen2\+Compressed}, \hyperpage{8}
+    \subitem {Eigen2\+Pajek}, \hyperpage{8}
+    \subitem {Eigen2\+Triplet}, \hyperpage{8}
+    \subitem {fprintf\+Eigen}, \hyperpage{8}
+    \subitem {line\+Count}, \hyperpage{8}
+    \subitem {pajek2\+AR}, \hyperpage{8}
+    \subitem {pajek2\+Eigen}, \hyperpage{8}
+    \subitem {Sp\+Mat\+C\+SC}, \hyperpage{7}
+    \subitem {Sp\+Mat\+C\+SR}, \hyperpage{7}
+    \subitem {Tri}, \hyperpage{7}
+  \item {atmath.\+hpp}
+    \subitem {any}, \hyperpage{10}
+    \subitem {argmax}, \hyperpage{10}
+    \subitem {condition4\+Entropy}, \hyperpage{10}
+    \subitem {cwise\+GT}, \hyperpage{10}
+    \subitem {cwise\+LT}, \hyperpage{10}
+    \subitem {entropy}, \hyperpage{10}
+    \subitem {entropy\+Rate}, \hyperpage{10}
+    \subitem {get\+Col\+Sum}, \hyperpage{10}
+    \subitem {get\+Row\+Sum}, \hyperpage{10}
+    \subitem {get\+Sum}, \hyperpage{10}
+    \subitem {lowlevel\+Transition}, \hyperpage{10}
+    \subitem {max}, \hyperpage{10}
+    \subitem {min}, \hyperpage{10}
+    \subitem {normalize\+Rows}, \hyperpage{10}
+    \subitem {normalize\+Vector}, \hyperpage{10}
+    \subitem {plog2p}, \hyperpage{9}
+    \subitem {Sp\+Mat\+C\+S\+C\+Bool}, \hyperpage{9}
+    \subitem {Sp\+Mat\+C\+SC}, \hyperpage{9}
+    \subitem {Sp\+Mat\+C\+SR}, \hyperpage{9}
+    \subitem {Sp\+Mat\+Int\+C\+SR}, \hyperpage{9}
+    \subitem {sum\+Vector\+Elements}, \hyperpage{10}
+    \subitem {to\+And\+Stochastic}, \hyperpage{10}
+    \subitem {to\+Left\+Stochastic}, \hyperpage{11}
+    \subitem {to\+Right\+Stochastic}, \hyperpage{11}
+  \item {atspectrum.\+hpp}
+    \subitem {get\+Eig\+Val\+Non\+Sym}, \hyperpage{11}
+
+  \indexspace
+
+  \item {C\+S\+C2\+AR}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {C\+S\+C2\+C\+SR}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {C\+S\+R2\+C\+SC}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {Compressed2\+AR}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {Compressed2\+Edge\+List}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {Compressed2\+Eigen}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {condition4\+Entropy}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {cusp\+Additive\+Wiener\+EM}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {cusp\+Euler}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {cusp\+Field}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {cwise\+GT}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {cwise\+LT}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {Eigen2\+A\+R\+Sym}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {Eigen2\+AR}
+    \subitem {atio.\+hpp}, \hyperpage{7, 8}
+  \item {Eigen2\+Compressed}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {Eigen2\+Pajek}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {Eigen2\+Triplet}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {Eigen\+Sparse2\+Pajek}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {entropy}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {entropy\+Rate}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {filter\+Transition\+Matrix}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {fprintf\+Eigen}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+
+  \indexspace
+
+  \item {generate\+Cusp\+Additive\+Wiener\+EM}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {generate\+Cusp\+Euler}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {generate\+Lorenz\+Linear\+Wiener\+EM}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{13}
+  \item {generate\+Lorenz\+R\+K4}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {get\+Box\+Membership}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {get\+Col\+Sum}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {get\+Eig\+Val\+Non\+Sym}
+    \subitem {atspectrum.\+hpp}, \hyperpage{11}
+  \item {get\+Grid\+Membership}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {get\+Grid\+Rect}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {get\+Min}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+  \item {get\+Modularity}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {get\+N\+NZ}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+  \item {get\+Row\+Sum}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {get\+Shuffled\+Count\+Matrix}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {get\+Shuffled\+Row}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {get\+Sum}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {get\+Surrogate\+Spectrum}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {get\+Surrogate\+Spectrum\+From\+Count}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {get\+Transition\+Matrix}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+
+  \indexspace
+
+  \item {igraph2\+Eigen\+Sparse}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {igraph2\+Hash\+Table}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+
+  \indexspace
+
+  \item {line\+Count}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {linear\+Wiener\+Field}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{13}
+  \item {lorenz\+Field}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {lorenz\+Linear\+Wiener\+EM}
+    \subitem {S\+D\+E\+Solvers.\+hpp}, \hyperpage{13}
+  \item {lorenz\+R\+K4}
+    \subitem {O\+D\+E\+Solvers.\+hpp}, \hyperpage{12}
+  \item {lowlevel\+Transition}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {max}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {min}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {normalize\+Rows}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {normalize\+Vector}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {O\+D\+E\+Solvers.\+hpp}
+    \subitem {cusp\+Euler}, \hyperpage{12}
+    \subitem {cusp\+Field}, \hyperpage{12}
+    \subitem {generate\+Cusp\+Euler}, \hyperpage{12}
+    \subitem {generate\+Lorenz\+R\+K4}, \hyperpage{12}
+    \subitem {lorenz\+Field}, \hyperpage{12}
+    \subitem {lorenz\+R\+K4}, \hyperpage{12}
+
+  \indexspace
+
+  \item {pajek2\+AR}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {pajek2\+Eigen}
+    \subitem {atio.\+hpp}, \hyperpage{8}
+  \item {pajek2\+Eigen\+Sparse}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {pajek2\+Hash\+Table}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+  \item {pajek2igraph}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {pajek2igraph\+No\+Vertices}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {pajek2igraph\+Sym}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {plog2p}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+    \subitem {atmath.\+hpp}, \hyperpage{9}
+
+  \indexspace
+
+  \item {S\+D\+E\+Solvers.\+hpp}
+    \subitem {additive\+Wiener\+Field}, \hyperpage{12}
+    \subitem {cusp\+Additive\+Wiener\+EM}, \hyperpage{12}
+    \subitem {generate\+Cusp\+Additive\+Wiener\+EM}, \hyperpage{12}
+    \subitem {generate\+Lorenz\+Linear\+Wiener\+EM}, \hyperpage{13}
+    \subitem {linear\+Wiener\+Field}, \hyperpage{13}
+    \subitem {lorenz\+Linear\+Wiener\+EM}, \hyperpage{13}
+  \item {scal\+Prod\+Inner}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {scal\+Prod\+Outer}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {set\+Col}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{6}
+  \item {set\+Constant}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{6}
+  \item {set\+Lin\+Spaced}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{6}
+  \item {set\+Row}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{6}
+  \item {sp\+Alg}
+    \subitem {atgraph\+\_\+alglib.\+hpp}, \hyperpage{5}
+  \item {Sp\+Mat}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+  \item {Sp\+Mat\+C\+S\+C\+Bool}
+    \subitem {atmath.\+hpp}, \hyperpage{9}
+  \item {Sp\+Mat\+C\+SC}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+    \subitem {atmath.\+hpp}, \hyperpage{9}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {Sp\+Mat\+C\+SR}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+    \subitem {atmath.\+hpp}, \hyperpage{9}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {Sp\+Mat\+Int\+C\+SR}
+    \subitem {atmath.\+hpp}, \hyperpage{9}
+  \item {sum\+Vector\+Elements}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {to\+And\+Stochastic}
+    \subitem {atmath.\+hpp}, \hyperpage{10}
+  \item {to\+Left\+Stochastic}
+    \subitem {atmath.\+hpp}, \hyperpage{11}
+  \item {to\+Right\+Stochastic}
+    \subitem {atmath.\+hpp}, \hyperpage{11}
+  \item {transfer\+Operator.\+hpp}
+    \subitem {filter\+Transition\+Matrix}, \hyperpage{14}
+    \subitem {get\+Box\+Membership}, \hyperpage{14}
+    \subitem {get\+Grid\+Membership}, \hyperpage{14}
+    \subitem {get\+Grid\+Rect}, \hyperpage{14}
+    \subitem {get\+Transition\+Matrix}, \hyperpage{14}
+    \subitem {Sp\+Mat\+C\+SC}, \hyperpage{14}
+    \subitem {Sp\+Mat\+C\+SR}, \hyperpage{14}
+    \subitem {triplet}, \hyperpage{14}
+    \subitem {triplet\+U\+Int}, \hyperpage{14}
+    \subitem {triplet\+U\+Int\+Vector}, \hyperpage{14}
+    \subitem {triplet\+Vector}, \hyperpage{14}
+    \subitem {write\+Grid\+Rect}, \hyperpage{14}
+  \item {transfer\+Operator\+Test.\+hpp}
+    \subitem {get\+Shuffled\+Count\+Matrix}, \hyperpage{15}
+    \subitem {get\+Shuffled\+Row}, \hyperpage{15}
+    \subitem {get\+Surrogate\+Spectrum}, \hyperpage{15}
+    \subitem {get\+Surrogate\+Spectrum\+From\+Count}, \hyperpage{15}
+    \subitem {Sp\+Mat\+C\+SC}, \hyperpage{15}
+    \subitem {Sp\+Mat\+C\+SR}, \hyperpage{15}
+    \subitem {triplet}, \hyperpage{15}
+    \subitem {triplet\+Vector}, \hyperpage{15}
+  \item {Tri}
+    \subitem {atgraph.\+hpp}, \hyperpage{4}
+    \subitem {atio.\+hpp}, \hyperpage{7}
+  \item {triplet}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+  \item {triplet\+U\+Int}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {triplet\+U\+Int\+Vector}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+  \item {triplet\+Vector}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+    \subitem {transfer\+Operator\+Test.\+hpp}, \hyperpage{15}
+
+  \indexspace
+
+  \item {write\+Grid\+Rect}
+    \subitem {transfer\+Operator.\+hpp}, \hyperpage{14}
+
+\end{theindex}

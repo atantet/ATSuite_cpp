@@ -1,0 +1,62 @@
+\hypertarget{_o_d_e_solvers_8hpp~}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.hpp$\sim$ File Reference}
+\label{_o_d_e_solvers_8hpp~}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.\+hpp````~@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.\+hpp$\sim$}}
+{\ttfamily \#include $<$gsl/gsl\+\_\+vector.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+matrix.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_o_d_e_solvers_8hpp~_a99ed9c13bc18ed8dd50358cef254d795}{O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{_o_d_e_solvers_8hpp~_a46bf35e5fe04c6a20682bd22617316c8}{generate\+Lorenz\+R\+K4} (gsl\+\_\+vector $\ast$, double, double, double, double, double, int, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp~_a259a5746df59fd097bb4fe510cf69c17}{lorenz\+R\+K4} (gsl\+\_\+vector $\ast$, double, double, double, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp~_a2936e95597953066f305dfb7adad4b04}{lorenz\+Field} (gsl\+\_\+vector $\ast$, double, double, double)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}!O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP@{O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}}
+\index{O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP@{O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}!O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}{ODESOLVERS_HPP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}\hypertarget{_o_d_e_solvers_8hpp~_a99ed9c13bc18ed8dd50358cef254d795}{}\label{_o_d_e_solvers_8hpp~_a99ed9c13bc18ed8dd50358cef254d795}
+
+
+\subsection{Function Documentation}
+\index{O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}!generate\+Lorenz\+R\+K4@{generate\+Lorenz\+R\+K4}}
+\index{generate\+Lorenz\+R\+K4@{generate\+Lorenz\+R\+K4}!O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{generate\+Lorenz\+R\+K4(gsl\+\_\+vector $\ast$, double, double, double, double, double, int, double)}{generateLorenzRK4(gsl_vector *, double, double, double, double, double, int, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix$\ast$ generate\+Lorenz\+R\+K4 (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{double}]{length, }
+\item[{double}]{dt, }
+\item[{int}]{sampling, }
+\item[{double}]{spinup}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp~_a46bf35e5fe04c6a20682bd22617316c8}{}\label{_o_d_e_solvers_8hpp~_a46bf35e5fe04c6a20682bd22617316c8}
+\index{O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}!lorenz\+Field@{lorenz\+Field}}
+\index{lorenz\+Field@{lorenz\+Field}!O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{lorenz\+Field(gsl\+\_\+vector $\ast$, double, double, double)}{lorenzField(gsl_vector *, double, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ lorenz\+Field (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp~_a2936e95597953066f305dfb7adad4b04}{}\label{_o_d_e_solvers_8hpp~_a2936e95597953066f305dfb7adad4b04}
+\index{O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}!lorenz\+R\+K4@{lorenz\+R\+K4}}
+\index{lorenz\+R\+K4@{lorenz\+R\+K4}!O\+D\+E\+Solvers.\+hpp````~@{O\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{lorenz\+R\+K4(gsl\+\_\+vector $\ast$, double, double, double, double)}{lorenzRK4(gsl_vector *, double, double, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ lorenz\+R\+K4 (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp~_a259a5746df59fd097bb4fe510cf69c17}{}\label{_o_d_e_solvers_8hpp~_a259a5746df59fd097bb4fe510cf69c17}
