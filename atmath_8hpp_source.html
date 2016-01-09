@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
-<title>ATSuite C++: Introduction</title>
+<title>ATSuite C++: atmath.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,8 +39,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,6 +57,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
           </span>
         </div>
       </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -76,48 +82,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Introduction </div>  </div>
+<div class="title">atmath.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>ATSuite C++ is a collection of scientific routines in C++ originally developed by Alexis Tantet for <em>research purpose</em>. These codes are open source in order to promote reproducibility. Visit Alexis' home page <a href="http://www.uu.nl/staff/AJJTantet/" title="Alexis&apos; personal page">UU</a> for contact. The full documentation can be found at <a href="http://atantet.github.io/ATSuite_cpp/" title="ATSuite C++ documentation">ATSuite_cpp_doc</a>.</p>
-<h1><a class="anchor" id="installation"></a>
-Installation               </h1>
-<h2>Getting the code </h2>
-<p>First the ATSuite_cpp repository should be cloned using <a href="https://git-scm.com/" title="git">git</a>. To do so:</p><ol type="1">
-<li>Change directory to where you want to clone the repository $GITDIR: <pre class="fragment"> cd $GITDIR
-</pre></li>
-<li>Clone the ATSuite_cpp repository (git should be installed): <pre class="fragment"> git clone https://github.com/atantet/ATSuite_cpp
-</pre></li>
-</ol>
-<h2><a class="anchor" id="dependencies"></a>
-Dependencies                    </h2>
-<ul>
-<li><a href="http://www.gnu.org/software/gsl/" title="GSL - GNU Scientific Library">GSL</a> is used as the main C scientific library.</li>
-<li><a href="http://eigen.tuxfamily.org/" title="Eigen">Eigen</a> is a C++ template library for linear algebra, mainly used for sparse matrices manipulation.</li>
-<li><a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html" title="ARPACK++">ARPACK++</a> is an object-oriented version of the ARPACK package, mainly used to find the leading part of the spectrum of sparse matrices.</li>
-</ul>
-<h2>Installing the code </h2>
-<ol type="1">
-<li>Create a directory ATSuite/ in your favorite include directory $INCLUDE: <pre class="fragment"> mkdir $INCLUDE/ATSuite
-</pre></li>
-<li>Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/: <pre class="fragment"> cd $GITDIR/ATSuite_cpp
- cp *.hpp $INCLUDE/ATSuite
-</pre></li>
-<li>Include these files in your C++ codes. For example, in order to include the matrix manipulation functions in <a class="el" href="atmatrix_8hpp.html" title="Matrix manipulation. ">atmatrix.hpp</a>, add in your C++ file: <pre class="fragment">    #include &lt;ATSuite/atmatrix.hpp&gt;
-</pre></li>
-</ol>
-<h2>Updating the code </h2>
-<ol type="1">
-<li>Pull the ATSuite_cpp repository: <pre class="fragment"> cd $GITDIR/ATSuite_cpp     
- git pull
-</pre></li>
-<li>Copy the source files to your favorite include directory $INCLUDE: <pre class="fragment"> cp *.hpp $INCLUDE/ATSuite
-</pre></li>
-</ol>
-<h1><a class="anchor" id="disclaimer"></a>
-Disclaimer            </h1>
-<p>These codes are developed for <em>research purpose</em>. <em>No warranty</em> is given regarding their robustess. </p>
-</div></div><!-- contents -->
+<a href="atmath_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ATMATH_HPP</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ATMATH_HPP</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif</span></div></div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
