@@ -1,4 +1,4 @@
-Introduction    #{introduction}
+Introduction    {#introduction}
 ============
 
 ATSuite C++ is a collection of scientific routines in C++
@@ -9,19 +9,19 @@ Visit Alexis' home page [UU] for contact.
 [UU]: http://www.uu.nl/staff/AJJTantet/ "Alexis' personal page"
 
 
-Installation    #{installation}
+Installation    {#installation}
 ============
 
 - Create a directory ATSuite in your favorite include directory $INCLUDE. 
 - Copy the *.hpp files to $INCLUDE/ATSuite/.
-- Include these files in your c++ codes.
+- Include these files in your C++ codes.
 For example, in order to include the matrix manipulation functions in atmatrix.hpp,
 add
-#include <ATSuite/atmatrix.hpp>
-in your c++ file.
+"#include <ATSuite/atmatrix.hpp>"
+in your C++ file.
 
 
-Disclaimer
+Disclaimer    {#disclaimer}
 ==========
 
 These codes are developed for _research purpose_.
