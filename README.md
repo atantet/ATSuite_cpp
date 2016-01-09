@@ -24,6 +24,12 @@ To do so:
 
         git clone https://github.com/atantet/ATSuite_cpp
      
+Dependencies
+------------
+
+- [GSL]: used as the main C scientific library.
+- [Eigen]: a C++ template library for linear algebra, mainly used for sparse matrices manipulation.
+- [Arpackpp]: an object-oriented version of the ARPACK package, mainly used to find the leading part of the spectrum of sparse matrices.
 
 Installing the code
 -------------------
@@ -65,3 +71,6 @@ _No warranty_ is given regarding their robustess.
 [UU]: http://www.uu.nl/staff/AJJTantet/ "Alexis' personal page"
 [git]: https://git-scm.com/ "git"
 [ATSuite_cpp_doc]: http://atantet.github.io/ATSuite_cpp/ "ATSuite C++ documentation"
+[GSL]: http://www.gnu.org/software/gsl/ "GSL - GNU Scientific Library"
+[Eigen]: http://eigen.tuxfamily.org/ "Eigen"
+[Arpackpp]: http://www.caam.rice.edu/software/ARPACK/arpack++.html "ARPACK++"
