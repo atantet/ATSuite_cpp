@@ -5,6 +5,7 @@ ATSuite C++ is a collection of scientific routines in C++
 originally developed by Alexis Tantet for _research purpose_.
 These codes are open source in order to promote reproducibility.
 Visit Alexis' home page [UU] for contact.
+The full documentation can be found at [ATSuite_cpp_doc].
 
 
 Installation    {#installation}
@@ -24,31 +25,40 @@ Installing the code
 -------------------
 
 1. Create a directory ATSuite/ in your favorite include directory $INCLUDE:
-    mkdir $INCLUDE/ATSuite
+
+     mkdir $INCLUDE/ATSuite
 2. Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/:
-    cd $GITDIR/ATSuite_cpp
-    cp *.hpp $INCLUDE/ATSuite
+
+     cd $GITDIR/ATSuite_cpp
+     cp *.hpp $INCLUDE/ATSuite
+     
 3. Include these files in your C++ codes.
 For example, in order to include the matrix manipulation functions in atmatrix.hpp,
 add:
-    #include <ATSuite/atmatrix.hpp>
+
+     #include <ATSuite/atmatrix.hpp>
+     
 in your C++ file.
 
 Updating the code
 -----------------
 
 1. Pull the ATSuite_cpp repository:
-    cd $GITDIR/ATSuite_cpp
-    git pull
+
+     cd $GITDIR/ATSuite_cpp
+     git pull
+     
 2. Copy the source files to your favorite include directory $INCLUDE:
-    cp *.hpp $INCLUDE/ATSuite
+
+     cp *.hpp $INCLUDE/ATSuite
 
 
 Disclaimer    {#disclaimer}
 ==========
 
 These codes are developed for _research purpose_.
-No warranty is given regarding their robustess.
+_No warranty_ is given regarding their robustess.
 
 [UU]: http://www.uu.nl/staff/AJJTantet/ "Alexis' personal page"
 [git]: https://git-scm.com/ "git"
+[ATSuite_cpp_doc]: http://atantet.github.io/ATSuite_cpp/ "ATSuite C++ documentation"
