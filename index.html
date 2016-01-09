@@ -83,33 +83,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Installation    </h1>
 <h2>Getting the code </h2>
 <p>First the ATSuite_cpp repository should be cloned using <a href="https://git-scm.com/" title="git">git</a>. To do so:</p><ol type="1">
-<li><p class="startli">Change directory to where you want to clone the repository $GITDIR:</p>
-<p class="startli">cd $GITDIR</p>
-</li>
-<li><p class="startli">Clone the ATSuite_cpp repository (git should be installed):</p>
-<p class="startli">git clone <a href="https://github.com/atantet/ATSuite_cpp">https://github.com/atantet/ATSuite_cpp</a></p>
-</li>
+<li>Change directory to where you want to clone the repository $GITDIR: <pre class="fragment"> cd $GITDIR
+</pre></li>
+<li>Clone the ATSuite_cpp repository (git should be installed): <pre class="fragment"> git clone https://github.com/atantet/ATSuite_cpp
+</pre></li>
 </ol>
 <h2>Installing the code </h2>
 <ol type="1">
-<li><p class="startli">Create a directory ATSuite/ in your favorite include directory $INCLUDE:</p>
-<p class="startli">mkdir $INCLUDE/ATSuite</p>
-</li>
-<li><p class="startli">Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/:</p>
-<p class="startli">cd $GITDIR/ATSuite_cpp cp *.hpp $INCLUDE/ATSuite</p>
-</li>
-<li>Include these files in your C++ codes. For example, in order to include the matrix manipulation functions in atmatrix.hpp, add: <pre class="fragment"> #include &lt;ATSuite/atmatrix.hpp&gt;
+<li>Create a directory ATSuite/ in your favorite include directory $INCLUDE: <pre class="fragment"> mkdir $INCLUDE/ATSuite
+</pre></li>
+<li>Copy the ATSuite_cpp/*.hpp source files to $INCLUDE/ATSuite/: <pre class="fragment"> cd $GITDIR/ATSuite_cpp
+ cp *.hpp $INCLUDE/ATSuite
+</pre></li>
+<li>Include these files in your C++ codes. For example, in order to include the matrix manipulation functions in atmatrix.hpp, add in your C++ file: <pre class="fragment">    #include &lt;ATSuite/atmatrix.hpp&gt;
 </pre></li>
 </ol>
-<p>in your C++ file.</p>
 <h2>Updating the code </h2>
 <ol type="1">
-<li><p class="startli">Pull the ATSuite_cpp repository:</p>
-<p class="startli">cd $GITDIR/ATSuite_cpp git pull</p>
-</li>
-<li><p class="startli">Copy the source files to your favorite include directory $INCLUDE:</p>
-<p class="startli">cp *.hpp $INCLUDE/ATSuite</p>
-</li>
+<li>Pull the ATSuite_cpp repository: <pre class="fragment"> cd $GITDIR/ATSuite_cpp     
+ git pull
+</pre></li>
+<li>Copy the source files to your favorite include directory $INCLUDE: <pre class="fragment"> cp *.hpp $INCLUDE/ATSuite
+</pre></li>
 </ol>
 <h1><a class="anchor" id="disclaimer"></a>
 Disclaimer    </h1>
