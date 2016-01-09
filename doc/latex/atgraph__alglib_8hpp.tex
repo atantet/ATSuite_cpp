@@ -1,0 +1,193 @@
+\hypertarget{atgraph__alglib_8hpp}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph\+\_\+alglib.hpp File Reference}
+\label{atgraph__alglib_8hpp}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph\+\_\+alglib.\+hpp@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph\+\_\+alglib.\+hpp}}
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$stack$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$igraph/igraph.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}linalg.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{atgraph__alglib_8hpp_adfa93a1d44cdfb4e3df06c981de8947e}{plog2p}(x)~( (x) $>$ 0.\+0 ? (x) $\ast$ log(x) / log(2) \+: 0.\+0 )
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef sparsematrix \hyperlink{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{sp\+Alg}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{sp\+Alg} $\ast$ \hyperlink{atgraph__alglib_8hpp_adce43826f718a060c1f5e7bf6c07cf56}{pajek2\+Hash\+Table} (F\+I\+LE $\ast$f)
+\item 
+\hyperlink{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{sp\+Alg} $\ast$ \hyperlink{atgraph__alglib_8hpp_aab5a109288d6cdc8a50b7d98563ffc81}{igraph2\+Hash\+Table} (igraph\+\_\+t $\ast$src\+Graph)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a08323067235ba463febee2feb2579649}{set\+Constant} (real\+\_\+1d\+\_\+array $\ast$v, double constant)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a7ee0cecc2491b74b9f9cac00ed73d533}{set\+Constant} (integer\+\_\+1d\+\_\+array $\ast$v, int constant)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a5883afd5b64adc3f5d9950523e78c19d}{set\+Lin\+Spaced} (real\+\_\+1d\+\_\+array $\ast$v, double low, double high)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a69516632a1ddc9516549dd1ec13c730e}{set\+Lin\+Spaced} (integer\+\_\+1d\+\_\+array $\ast$v, int low, int high)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a1eeeb72bd7625a961b9421cdbad9f375}{set\+Row} (real\+\_\+2d\+\_\+array $\ast$a, real\+\_\+1d\+\_\+array $\ast$row, int i)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a0e1557cbd7f6b697d43ad2e858ebc654}{set\+Row} (integer\+\_\+2d\+\_\+array $\ast$a, integer\+\_\+1d\+\_\+array $\ast$row, int i)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_ab86d39ac5baf94cb49c90dfdbd5df1a4}{set\+Col} (real\+\_\+2d\+\_\+array $\ast$a, real\+\_\+1d\+\_\+array $\ast$col, int j)
+\item 
+void \hyperlink{atgraph__alglib_8hpp_a145e291e72ecccc04a9236acc3a6280a}{set\+Col} (integer\+\_\+2d\+\_\+array $\ast$a, integer\+\_\+1d\+\_\+array $\ast$col, int j)
+\item 
+double \hyperlink{atgraph__alglib_8hpp_a3bbc71cdf4898a2fc8887687415fa6dd}{get\+Min} (real\+\_\+1d\+\_\+array $\ast$v, int $\ast$arg)
+\item 
+int \hyperlink{atgraph__alglib_8hpp_a00edb1a0aea7bd66aa9a6091ae74ce4a}{get\+Min} (integer\+\_\+1d\+\_\+array $\ast$v, int $\ast$arg)
+\item 
+int \hyperlink{atgraph__alglib_8hpp_a33b4b6acc026ed4f09365ed0b0ccaf0c}{get\+N\+NZ} (\hyperlink{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{sp\+Alg} $\ast$s)
+\item 
+double \hyperlink{atgraph__alglib_8hpp_a2c862c442fab736970594252a71023ac}{entropy} (real\+\_\+1d\+\_\+array $\ast$dist)
+\item 
+double \hyperlink{atgraph__alglib_8hpp_a0759330b016c134d8f2ea1196a1a0416}{entropy\+Rate} (\hyperlink{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{sp\+Alg} $\ast$T, real\+\_\+1d\+\_\+array $\ast$dist)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!plog2p@{plog2p}}
+\index{plog2p@{plog2p}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{plog2p}{plog2p}}]{\setlength{\rightskip}{0pt plus 5cm}\#define plog2p(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~( (x) $>$ 0.\+0 ? (x) $\ast$ log(x) / log(2) \+: 0.\+0 )}\hypertarget{atgraph__alglib_8hpp_adfa93a1d44cdfb4e3df06c981de8947e}{}\label{atgraph__alglib_8hpp_adfa93a1d44cdfb4e3df06c981de8947e}
+
+
+\subsection{Typedef Documentation}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!sp\+Alg@{sp\+Alg}}
+\index{sp\+Alg@{sp\+Alg}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{sp\+Alg}{spAlg}}]{\setlength{\rightskip}{0pt plus 5cm}typedef sparsematrix {\bf sp\+Alg}}\hypertarget{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}{}\label{atgraph__alglib_8hpp_afe79d21dd44c45b340797bd728cb42d3}
+
+
+\subsection{Function Documentation}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!entropy@{entropy}}
+\index{entropy@{entropy}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{entropy(real\+\_\+1d\+\_\+array $\ast$dist)}{entropy(real_1d_array *dist)}}]{\setlength{\rightskip}{0pt plus 5cm}double entropy (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{dist}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a2c862c442fab736970594252a71023ac}{}\label{atgraph__alglib_8hpp_a2c862c442fab736970594252a71023ac}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!entropy\+Rate@{entropy\+Rate}}
+\index{entropy\+Rate@{entropy\+Rate}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{entropy\+Rate(sp\+Alg $\ast$\+T, real\+\_\+1d\+\_\+array $\ast$dist)}{entropyRate(spAlg *T, real_1d_array *dist)}}]{\setlength{\rightskip}{0pt plus 5cm}double entropy\+Rate (
+\begin{DoxyParamCaption}
+\item[{{\bf sp\+Alg} $\ast$}]{T, }
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{dist}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a0759330b016c134d8f2ea1196a1a0416}{}\label{atgraph__alglib_8hpp_a0759330b016c134d8f2ea1196a1a0416}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!get\+Min@{get\+Min}}
+\index{get\+Min@{get\+Min}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Min(real\+\_\+1d\+\_\+array $\ast$v, int $\ast$arg)}{getMin(real_1d_array *v, int *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Min (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{int $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a3bbc71cdf4898a2fc8887687415fa6dd}{}\label{atgraph__alglib_8hpp_a3bbc71cdf4898a2fc8887687415fa6dd}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!get\+Min@{get\+Min}}
+\index{get\+Min@{get\+Min}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Min(integer\+\_\+1d\+\_\+array $\ast$v, int $\ast$arg)}{getMin(integer_1d_array *v, int *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Min (
+\begin{DoxyParamCaption}
+\item[{integer\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{int $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a00edb1a0aea7bd66aa9a6091ae74ce4a}{}\label{atgraph__alglib_8hpp_a00edb1a0aea7bd66aa9a6091ae74ce4a}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!get\+N\+NZ@{get\+N\+NZ}}
+\index{get\+N\+NZ@{get\+N\+NZ}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+N\+N\+Z(sp\+Alg $\ast$s)}{getNNZ(spAlg *s)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+N\+NZ (
+\begin{DoxyParamCaption}
+\item[{{\bf sp\+Alg} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a33b4b6acc026ed4f09365ed0b0ccaf0c}{}\label{atgraph__alglib_8hpp_a33b4b6acc026ed4f09365ed0b0ccaf0c}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!igraph2\+Hash\+Table@{igraph2\+Hash\+Table}}
+\index{igraph2\+Hash\+Table@{igraph2\+Hash\+Table}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{igraph2\+Hash\+Table(igraph\+\_\+t $\ast$src\+Graph)}{igraph2HashTable(igraph_t *srcGraph)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sp\+Alg}$\ast$ igraph2\+Hash\+Table (
+\begin{DoxyParamCaption}
+\item[{igraph\+\_\+t $\ast$}]{src\+Graph}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_aab5a109288d6cdc8a50b7d98563ffc81}{}\label{atgraph__alglib_8hpp_aab5a109288d6cdc8a50b7d98563ffc81}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!pajek2\+Hash\+Table@{pajek2\+Hash\+Table}}
+\index{pajek2\+Hash\+Table@{pajek2\+Hash\+Table}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{pajek2\+Hash\+Table(\+F\+I\+L\+E $\ast$f)}{pajek2HashTable(FILE *f)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sp\+Alg}$\ast$ pajek2\+Hash\+Table (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_adce43826f718a060c1f5e7bf6c07cf56}{}\label{atgraph__alglib_8hpp_adce43826f718a060c1f5e7bf6c07cf56}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Col@{set\+Col}}
+\index{set\+Col@{set\+Col}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Col(real\+\_\+2d\+\_\+array $\ast$a, real\+\_\+1d\+\_\+array $\ast$col, int j)}{setCol(real_2d_array *a, real_1d_array *col, int j)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Col (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+2d\+\_\+array $\ast$}]{a, }
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{col, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_ab86d39ac5baf94cb49c90dfdbd5df1a4}{}\label{atgraph__alglib_8hpp_ab86d39ac5baf94cb49c90dfdbd5df1a4}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Col@{set\+Col}}
+\index{set\+Col@{set\+Col}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Col(integer\+\_\+2d\+\_\+array $\ast$a, integer\+\_\+1d\+\_\+array $\ast$col, int j)}{setCol(integer_2d_array *a, integer_1d_array *col, int j)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Col (
+\begin{DoxyParamCaption}
+\item[{integer\+\_\+2d\+\_\+array $\ast$}]{a, }
+\item[{integer\+\_\+1d\+\_\+array $\ast$}]{col, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a145e291e72ecccc04a9236acc3a6280a}{}\label{atgraph__alglib_8hpp_a145e291e72ecccc04a9236acc3a6280a}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Constant@{set\+Constant}}
+\index{set\+Constant@{set\+Constant}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Constant(real\+\_\+1d\+\_\+array $\ast$v, double constant)}{setConstant(real_1d_array *v, double constant)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Constant (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{double}]{constant}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a08323067235ba463febee2feb2579649}{}\label{atgraph__alglib_8hpp_a08323067235ba463febee2feb2579649}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Constant@{set\+Constant}}
+\index{set\+Constant@{set\+Constant}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Constant(integer\+\_\+1d\+\_\+array $\ast$v, int constant)}{setConstant(integer_1d_array *v, int constant)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Constant (
+\begin{DoxyParamCaption}
+\item[{integer\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{int}]{constant}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a7ee0cecc2491b74b9f9cac00ed73d533}{}\label{atgraph__alglib_8hpp_a7ee0cecc2491b74b9f9cac00ed73d533}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Lin\+Spaced@{set\+Lin\+Spaced}}
+\index{set\+Lin\+Spaced@{set\+Lin\+Spaced}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Lin\+Spaced(real\+\_\+1d\+\_\+array $\ast$v, double low, double high)}{setLinSpaced(real_1d_array *v, double low, double high)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Lin\+Spaced (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{double}]{low, }
+\item[{double}]{high}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a5883afd5b64adc3f5d9950523e78c19d}{}\label{atgraph__alglib_8hpp_a5883afd5b64adc3f5d9950523e78c19d}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Lin\+Spaced@{set\+Lin\+Spaced}}
+\index{set\+Lin\+Spaced@{set\+Lin\+Spaced}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Lin\+Spaced(integer\+\_\+1d\+\_\+array $\ast$v, int low, int high)}{setLinSpaced(integer_1d_array *v, int low, int high)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Lin\+Spaced (
+\begin{DoxyParamCaption}
+\item[{integer\+\_\+1d\+\_\+array $\ast$}]{v, }
+\item[{int}]{low, }
+\item[{int}]{high}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a69516632a1ddc9516549dd1ec13c730e}{}\label{atgraph__alglib_8hpp_a69516632a1ddc9516549dd1ec13c730e}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Row@{set\+Row}}
+\index{set\+Row@{set\+Row}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Row(real\+\_\+2d\+\_\+array $\ast$a, real\+\_\+1d\+\_\+array $\ast$row, int i)}{setRow(real_2d_array *a, real_1d_array *row, int i)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Row (
+\begin{DoxyParamCaption}
+\item[{real\+\_\+2d\+\_\+array $\ast$}]{a, }
+\item[{real\+\_\+1d\+\_\+array $\ast$}]{row, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a1eeeb72bd7625a961b9421cdbad9f375}{}\label{atgraph__alglib_8hpp_a1eeeb72bd7625a961b9421cdbad9f375}
+\index{atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}!set\+Row@{set\+Row}}
+\index{set\+Row@{set\+Row}!atgraph\+\_\+alglib.\+hpp@{atgraph\+\_\+alglib.\+hpp}}
+\subsubsection[{\texorpdfstring{set\+Row(integer\+\_\+2d\+\_\+array $\ast$a, integer\+\_\+1d\+\_\+array $\ast$row, int i)}{setRow(integer_2d_array *a, integer_1d_array *row, int i)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Row (
+\begin{DoxyParamCaption}
+\item[{integer\+\_\+2d\+\_\+array $\ast$}]{a, }
+\item[{integer\+\_\+1d\+\_\+array $\ast$}]{row, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph__alglib_8hpp_a0e1557cbd7f6b697d43ad2e858ebc654}{}\label{atgraph__alglib_8hpp_a0e1557cbd7f6b697d43ad2e858ebc654}

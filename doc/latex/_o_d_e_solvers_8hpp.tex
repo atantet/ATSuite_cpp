@@ -1,0 +1,197 @@
+\hypertarget{_o_d_e_solvers_8hpp}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.hpp File Reference}
+\label{_o_d_e_solvers_8hpp}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.\+hpp@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+O\+D\+E\+Solvers.\+hpp}}
+
+
+Ordinary differential equation solvers.  
+
+
+{\ttfamily \#include $<$gsl/gsl\+\_\+vector.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+matrix.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{_o_d_e_solvers_8hpp_a63c147bda9a92f1538cffdab74f2565e}{generate\+Cusp\+Euler} (gsl\+\_\+vector $\ast$, double, double, double, double, int, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp_a931afde553fbf43c441e92e6d1cd04bb}{cusp\+Euler} (gsl\+\_\+vector $\ast$, double, double, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp_ac1e95bb99a13e279a77951223a9b66e7}{cusp\+Field} (gsl\+\_\+vector $\ast$, double, double)
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{_o_d_e_solvers_8hpp_a43f2f5f3119e84c17dde5c7039c5c83b}{generate\+Lorenz\+R\+K4} (gsl\+\_\+vector $\ast$, double, double, double, double, double, int, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp_a0b5c3558df3650a6aa75fe6c54159066}{lorenz\+R\+K4} (gsl\+\_\+vector $\ast$, double, double, double, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_o_d_e_solvers_8hpp_a2c1f7faa704bae7260dc4d4ef1e6b1ae}{lorenz\+Field} (gsl\+\_\+vector $\ast$, double, double, double)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ordinary differential equation solvers. 
+
+A\+T\+Suite ordinary differential equation solvers. 
+
+\subsection{Function Documentation}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!cusp\+Euler@{cusp\+Euler}}
+\index{cusp\+Euler@{cusp\+Euler}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{cusp\+Euler(gsl\+\_\+vector $\ast$, double, double, double)}{cuspEuler(gsl_vector *, double, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector $\ast$ cusp\+Euler (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{r, }
+\item[{double}]{h, }
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_a931afde553fbf43c441e92e6d1cd04bb}{}\label{_o_d_e_solvers_8hpp_a931afde553fbf43c441e92e6d1cd04bb}
+Integrate one step forward the cusp normal form (see Strogatz, 1994) with an Euler scheme. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & Present state. \\
+\hline
+\mbox{\tt in}  & {\em r} & Parameter r. \\
+\hline
+\mbox{\tt in}  & {\em h} & Parameter h. \\
+\hline
+\mbox{\tt in}  & {\em dt} & Time step. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL vector of the future state. 
+\end{DoxyReturn}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!cusp\+Field@{cusp\+Field}}
+\index{cusp\+Field@{cusp\+Field}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{cusp\+Field(gsl\+\_\+vector $\ast$, double, double)}{cuspField(gsl_vector *, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector $\ast$ cusp\+Field (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{r, }
+\item[{double}]{h}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_ac1e95bb99a13e279a77951223a9b66e7}{}\label{_o_d_e_solvers_8hpp_ac1e95bb99a13e279a77951223a9b66e7}
+Get the field of the normal form of the cusp at a given state. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & State. \\
+\hline
+\mbox{\tt in}  & {\em r} & Parameter r. \\
+\hline
+\mbox{\tt in}  & {\em h} & Parameter h. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL vector of the field at the state. 
+\end{DoxyReturn}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!generate\+Cusp\+Euler@{generate\+Cusp\+Euler}}
+\index{generate\+Cusp\+Euler@{generate\+Cusp\+Euler}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{generate\+Cusp\+Euler(gsl\+\_\+vector $\ast$, double, double, double, double, int, double)}{generateCuspEuler(gsl_vector *, double, double, double, double, int, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix $\ast$ generate\+Cusp\+Euler (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{r, }
+\item[{double}]{h, }
+\item[{double}]{length, }
+\item[{double}]{dt, }
+\item[{int}]{sampling, }
+\item[{double}]{spinup}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_a63c147bda9a92f1538cffdab74f2565e}{}\label{_o_d_e_solvers_8hpp_a63c147bda9a92f1538cffdab74f2565e}
+Integrate the cusp normal form (see Strogatz, 1994) with an Euler scheme. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & Initial state. \\
+\hline
+\mbox{\tt in}  & {\em r} & Parameter $r$. \\
+\hline
+\mbox{\tt in}  & {\em h} & Parameter $h$. \\
+\hline
+\mbox{\tt in}  & {\em length} & Length of integration. \\
+\hline
+\mbox{\tt in}  & {\em dt} & Time step. \\
+\hline
+\mbox{\tt in}  & {\em sampling} & Step between each sampled state. \\
+\hline
+\mbox{\tt in}  & {\em spinup} & Lenght of initial spinup period to discard. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL matrix recording the integration. 
+\end{DoxyReturn}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!generate\+Lorenz\+R\+K4@{generate\+Lorenz\+R\+K4}}
+\index{generate\+Lorenz\+R\+K4@{generate\+Lorenz\+R\+K4}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{generate\+Lorenz\+R\+K4(gsl\+\_\+vector $\ast$, double, double, double, double, double, int, double)}{generateLorenzRK4(gsl_vector *, double, double, double, double, double, int, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix $\ast$ generate\+Lorenz\+R\+K4 (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{double}]{length, }
+\item[{double}]{dt, }
+\item[{int}]{sampling, }
+\item[{double}]{spinup}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_a43f2f5f3119e84c17dde5c7039c5c83b}{}\label{_o_d_e_solvers_8hpp_a43f2f5f3119e84c17dde5c7039c5c83b}
+Integrate the Lorenz, 1963 with an Runge-\/\+Kutta 4 scheme. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & Initial state. \\
+\hline
+\mbox{\tt in}  & {\em rho} & Parameter $\rho$. \\
+\hline
+\mbox{\tt in}  & {\em sigma} & Parameter $\sigma$. \\
+\hline
+\mbox{\tt in}  & {\em beta} & Parameter $\beta$. \\
+\hline
+\mbox{\tt in}  & {\em length} & Length of integration. \\
+\hline
+\mbox{\tt in}  & {\em dt} & Time step. \\
+\hline
+\mbox{\tt in}  & {\em sampling} & Step between each sampled state. \\
+\hline
+\mbox{\tt in}  & {\em spinup} & Lenght of initial spinup period to discard. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL matrix recording the integration. 
+\end{DoxyReturn}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!lorenz\+Field@{lorenz\+Field}}
+\index{lorenz\+Field@{lorenz\+Field}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{lorenz\+Field(gsl\+\_\+vector $\ast$, double, double, double)}{lorenzField(gsl_vector *, double, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector $\ast$ lorenz\+Field (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_a2c1f7faa704bae7260dc4d4ef1e6b1ae}{}\label{_o_d_e_solvers_8hpp_a2c1f7faa704bae7260dc4d4ef1e6b1ae}
+Get the field of the Lorenz, 1963 at a given state. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & State. \\
+\hline
+\mbox{\tt in}  & {\em rho} & Parameter $\rho$. \\
+\hline
+\mbox{\tt in}  & {\em sigma} & Parameter $\sigma$. \\
+\hline
+\mbox{\tt in}  & {\em beta} & Parameter $\beta$. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL vector of the field at the state. 
+\end{DoxyReturn}
+\index{O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}!lorenz\+R\+K4@{lorenz\+R\+K4}}
+\index{lorenz\+R\+K4@{lorenz\+R\+K4}!O\+D\+E\+Solvers.\+hpp@{O\+D\+E\+Solvers.\+hpp}}
+\subsubsection[{\texorpdfstring{lorenz\+R\+K4(gsl\+\_\+vector $\ast$, double, double, double, double)}{lorenzRK4(gsl_vector *, double, double, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector $\ast$ lorenz\+R\+K4 (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{_o_d_e_solvers_8hpp_a0b5c3558df3650a6aa75fe6c54159066}{}\label{_o_d_e_solvers_8hpp_a0b5c3558df3650a6aa75fe6c54159066}
+Integrate one step forward the Lorenz, 1963 with an Runge-\/\+Kutta 4 scheme. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em state} & Present state. \\
+\hline
+\mbox{\tt in}  & {\em rho} & Parameter $\rho$. \\
+\hline
+\mbox{\tt in}  & {\em sigma} & Parameter $\sigma$. \\
+\hline
+\mbox{\tt in}  & {\em beta} & Parameter $\beta$. \\
+\hline
+\mbox{\tt in}  & {\em dt} & Time step. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+SL vector of the future state. 
+\end{DoxyReturn}

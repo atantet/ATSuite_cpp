@@ -1,0 +1,206 @@
+\hypertarget{atgraph_8hpp~}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph.hpp$\sim$ File Reference}
+\label{atgraph_8hpp~}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph.\+hpp````~@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atgraph.\+hpp$\sim$}}
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$stack$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$igraph/igraph.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\\*
+{\ttfamily \#include $<$atio.\+hpp$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{atgraph_8hpp~_a501ced292cf425a396c3fbccb5ebd6fa}{A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double $>$ \hyperlink{atgraph_8hpp~_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double, Row\+Major $>$ \hyperlink{atgraph_8hpp~_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR}
+\item 
+typedef Eigen\+::\+Triplet$<$ double $>$ \hyperlink{atgraph_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}{Tri}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{atgraph_8hpp~_a812c8207b7fe7baace1d93f037c94e23}{pajek2igraph} (F\+I\+LE $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph)
+\item 
+int \hyperlink{atgraph_8hpp~_a526a169ce87c8a26fe4eda972580dbce}{pajek2igraph\+No\+Vertices} (F\+I\+LE $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph, int vertex\+\_\+id0)
+\item 
+int \hyperlink{atgraph_8hpp~_abf738a3549cd0e58572bfd392091c4df}{pajek2igraph\+Sym} (F\+I\+LE $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph)
+\item 
+\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$ \hyperlink{atgraph_8hpp~_a3a02cc283a0767baae4d30a09469924a}{pajek2\+Eigen\+Sparse} (F\+I\+LE $\ast$f)
+\item 
+void \hyperlink{atgraph_8hpp~_afd2231b11c18f3272808c65b7b3bb450}{Eigen\+Sparse2\+Pajek} (F\+I\+LE $\ast$f, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$P)
+\item 
+\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$ \hyperlink{atgraph_8hpp~_af5ff8ab31dbeed1a74fc06ecc380866f}{igraph2\+Eigen\+Sparse} (igraph\+\_\+t $\ast$src\+Graph)
+\item 
+int \hyperlink{atgraph_8hpp~_a07caa5d0fe33b68c99f645014bfd93ce}{array2igraph} (F\+I\+LE $\ast$f, int N, igraph\+\_\+t $\ast$dst\+\_\+graph)
+\item 
+void \hyperlink{atgraph_8hpp~_af2442f3238d5fce53c97273d6423012d}{add\+Col2\+Col} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int j\+\_\+src, int j\+\_\+dst)
+\item 
+void \hyperlink{atgraph_8hpp~_ab7b4caa7b28047b3105e3b651776b013}{add\+Col2\+Col\+Triplet} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int j\+Src, int j\+Dst)
+\item 
+void \hyperlink{atgraph_8hpp~_a54dbdaac2fb782e6219afd96d749529e}{add\+Row2\+Row} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int i\+\_\+src, int i\+\_\+dst)
+\item 
+void \hyperlink{atgraph_8hpp~_a7b786470ae9920e272995d0eb4ddd817}{add\+Row2\+Row\+Triplet} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int i\+Src, int i\+Dst)
+\item 
+void \hyperlink{atgraph_8hpp~_a27b0e95d2778faadd9e8456616b8534b}{add\+Row2\+Row\+Triplet} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int i\+Src, int i\+Dst, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$T\+C\+SR)
+\item 
+void \hyperlink{atgraph_8hpp~_ae51012aad07366c2a1ea24960b6915bd}{scal\+Prod\+Inner} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int outer, double coef)
+\item 
+void \hyperlink{atgraph_8hpp~_a0359c83fe1a6cb249cc281b91f50bd8e}{scal\+Prod\+Outer} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T, int inner, double coef)
+\item 
+double \hyperlink{atgraph_8hpp~_a27b56956a5bd215913420772029cca7b}{get\+Modularity} (\hyperlink{atgraph_8hpp_a04b63929a2578b5ce61f09f0b8b18122}{Sp\+Mat} $\ast$T)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP@{A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP}}
+\index{A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP@{A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP}{ATGRAPH_HPP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+T\+G\+R\+A\+P\+H\+\_\+\+H\+PP}\hypertarget{atgraph_8hpp~_a501ced292cf425a396c3fbccb5ebd6fa}{}\label{atgraph_8hpp~_a501ced292cf425a396c3fbccb5ebd6fa}
+
+
+\subsection{Typedef Documentation}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!Sp\+Mat@{Sp\+Mat}}
+\index{Sp\+Mat@{Sp\+Mat}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Sp\+Mat}{SpMat}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double$>$ {\bf Sp\+Mat}}\hypertarget{atgraph_8hpp~_a04b63929a2578b5ce61f09f0b8b18122}{}\label{atgraph_8hpp~_a04b63929a2578b5ce61f09f0b8b18122}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}}
+\index{Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Sp\+Mat\+C\+SR}{SpMatCSR}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double, Row\+Major$>$ {\bf Sp\+Mat\+C\+SR}}\hypertarget{atgraph_8hpp~_aa17b7dc944934633434af049cdf173bd}{}\label{atgraph_8hpp~_aa17b7dc944934633434af049cdf173bd}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!Tri@{Tri}}
+\index{Tri@{Tri}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Tri}{Tri}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Triplet$<$double$>$ {\bf Tri}}\hypertarget{atgraph_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}{}\label{atgraph_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}
+
+
+\subsection{Function Documentation}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!add\+Col2\+Col@{add\+Col2\+Col}}
+\index{add\+Col2\+Col@{add\+Col2\+Col}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{add\+Col2\+Col(\+Sp\+Mat $\ast$\+T, int j\+\_\+src, int j\+\_\+dst)}{addCol2Col(SpMat *T, int j_src, int j_dst)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Col2\+Col (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{j\+\_\+src, }
+\item[{int}]{j\+\_\+dst}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_af2442f3238d5fce53c97273d6423012d}{}\label{atgraph_8hpp~_af2442f3238d5fce53c97273d6423012d}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!add\+Col2\+Col\+Triplet@{add\+Col2\+Col\+Triplet}}
+\index{add\+Col2\+Col\+Triplet@{add\+Col2\+Col\+Triplet}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{add\+Col2\+Col\+Triplet(\+Sp\+Mat $\ast$\+T, int j\+Src, int j\+Dst)}{addCol2ColTriplet(SpMat *T, int jSrc, int jDst)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Col2\+Col\+Triplet (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{j\+Src, }
+\item[{int}]{j\+Dst}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_ab7b4caa7b28047b3105e3b651776b013}{}\label{atgraph_8hpp~_ab7b4caa7b28047b3105e3b651776b013}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!add\+Row2\+Row@{add\+Row2\+Row}}
+\index{add\+Row2\+Row@{add\+Row2\+Row}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{add\+Row2\+Row(\+Sp\+Mat $\ast$\+T, int i\+\_\+src, int i\+\_\+dst)}{addRow2Row(SpMat *T, int i_src, int i_dst)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Row2\+Row (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{i\+\_\+src, }
+\item[{int}]{i\+\_\+dst}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a54dbdaac2fb782e6219afd96d749529e}{}\label{atgraph_8hpp~_a54dbdaac2fb782e6219afd96d749529e}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!add\+Row2\+Row\+Triplet@{add\+Row2\+Row\+Triplet}}
+\index{add\+Row2\+Row\+Triplet@{add\+Row2\+Row\+Triplet}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{add\+Row2\+Row\+Triplet(\+Sp\+Mat $\ast$\+T, int i\+Src, int i\+Dst)}{addRow2RowTriplet(SpMat *T, int iSrc, int iDst)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Row2\+Row\+Triplet (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{i\+Src, }
+\item[{int}]{i\+Dst}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a7b786470ae9920e272995d0eb4ddd817}{}\label{atgraph_8hpp~_a7b786470ae9920e272995d0eb4ddd817}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!add\+Row2\+Row\+Triplet@{add\+Row2\+Row\+Triplet}}
+\index{add\+Row2\+Row\+Triplet@{add\+Row2\+Row\+Triplet}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{add\+Row2\+Row\+Triplet(\+Sp\+Mat $\ast$\+T, int i\+Src, int i\+Dst, Sp\+Mat\+C\+S\+R $\ast$\+T\+C\+S\+R)}{addRow2RowTriplet(SpMat *T, int iSrc, int iDst, SpMatCSR *TCSR)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Row2\+Row\+Triplet (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{i\+Src, }
+\item[{int}]{i\+Dst, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T\+C\+SR}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a27b0e95d2778faadd9e8456616b8534b}{}\label{atgraph_8hpp~_a27b0e95d2778faadd9e8456616b8534b}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!array2igraph@{array2igraph}}
+\index{array2igraph@{array2igraph}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{array2igraph(\+F\+I\+L\+E $\ast$f, int N, igraph\+\_\+t $\ast$dst\+\_\+graph)}{array2igraph(FILE *f, int N, igraph_t *dst_graph)}}]{\setlength{\rightskip}{0pt plus 5cm}int array2igraph (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{int}]{N, }
+\item[{igraph\+\_\+t $\ast$}]{dst\+\_\+graph}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a07caa5d0fe33b68c99f645014bfd93ce}{}\label{atgraph_8hpp~_a07caa5d0fe33b68c99f645014bfd93ce}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!Eigen\+Sparse2\+Pajek@{Eigen\+Sparse2\+Pajek}}
+\index{Eigen\+Sparse2\+Pajek@{Eigen\+Sparse2\+Pajek}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen\+Sparse2\+Pajek(\+F\+I\+L\+E $\ast$f, Sp\+Mat\+C\+S\+R $\ast$\+P)}{EigenSparse2Pajek(FILE *f, SpMatCSR *P)}}]{\setlength{\rightskip}{0pt plus 5cm}void Eigen\+Sparse2\+Pajek (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{P}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_afd2231b11c18f3272808c65b7b3bb450}{}\label{atgraph_8hpp~_afd2231b11c18f3272808c65b7b3bb450}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!get\+Modularity@{get\+Modularity}}
+\index{get\+Modularity@{get\+Modularity}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{get\+Modularity(\+Sp\+Mat $\ast$\+T)}{getModularity(SpMat *T)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Modularity (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a27b56956a5bd215913420772029cca7b}{}\label{atgraph_8hpp~_a27b56956a5bd215913420772029cca7b}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!igraph2\+Eigen\+Sparse@{igraph2\+Eigen\+Sparse}}
+\index{igraph2\+Eigen\+Sparse@{igraph2\+Eigen\+Sparse}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{igraph2\+Eigen\+Sparse(igraph\+\_\+t $\ast$src\+Graph)}{igraph2EigenSparse(igraph_t *srcGraph)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat}$\ast$ igraph2\+Eigen\+Sparse (
+\begin{DoxyParamCaption}
+\item[{igraph\+\_\+t $\ast$}]{src\+Graph}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_af5ff8ab31dbeed1a74fc06ecc380866f}{}\label{atgraph_8hpp~_af5ff8ab31dbeed1a74fc06ecc380866f}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!pajek2\+Eigen\+Sparse@{pajek2\+Eigen\+Sparse}}
+\index{pajek2\+Eigen\+Sparse@{pajek2\+Eigen\+Sparse}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2\+Eigen\+Sparse(\+F\+I\+L\+E $\ast$f)}{pajek2EigenSparse(FILE *f)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat}$\ast$ pajek2\+Eigen\+Sparse (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a3a02cc283a0767baae4d30a09469924a}{}\label{atgraph_8hpp~_a3a02cc283a0767baae4d30a09469924a}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!pajek2igraph@{pajek2igraph}}
+\index{pajek2igraph@{pajek2igraph}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2igraph(\+F\+I\+L\+E $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph)}{pajek2igraph(FILE *f, igraph_t *dst_graph)}}]{\setlength{\rightskip}{0pt plus 5cm}int pajek2igraph (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{igraph\+\_\+t $\ast$}]{dst\+\_\+graph}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a812c8207b7fe7baace1d93f037c94e23}{}\label{atgraph_8hpp~_a812c8207b7fe7baace1d93f037c94e23}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!pajek2igraph\+No\+Vertices@{pajek2igraph\+No\+Vertices}}
+\index{pajek2igraph\+No\+Vertices@{pajek2igraph\+No\+Vertices}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2igraph\+No\+Vertices(\+F\+I\+L\+E $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph, int vertex\+\_\+id0)}{pajek2igraphNoVertices(FILE *f, igraph_t *dst_graph, int vertex_id0)}}]{\setlength{\rightskip}{0pt plus 5cm}int pajek2igraph\+No\+Vertices (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{igraph\+\_\+t $\ast$}]{dst\+\_\+graph, }
+\item[{int}]{vertex\+\_\+id0}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a526a169ce87c8a26fe4eda972580dbce}{}\label{atgraph_8hpp~_a526a169ce87c8a26fe4eda972580dbce}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!pajek2igraph\+Sym@{pajek2igraph\+Sym}}
+\index{pajek2igraph\+Sym@{pajek2igraph\+Sym}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2igraph\+Sym(\+F\+I\+L\+E $\ast$f, igraph\+\_\+t $\ast$dst\+\_\+graph)}{pajek2igraphSym(FILE *f, igraph_t *dst_graph)}}]{\setlength{\rightskip}{0pt plus 5cm}int pajek2igraph\+Sym (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{igraph\+\_\+t $\ast$}]{dst\+\_\+graph}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_abf738a3549cd0e58572bfd392091c4df}{}\label{atgraph_8hpp~_abf738a3549cd0e58572bfd392091c4df}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!scal\+Prod\+Inner@{scal\+Prod\+Inner}}
+\index{scal\+Prod\+Inner@{scal\+Prod\+Inner}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{scal\+Prod\+Inner(\+Sp\+Mat $\ast$\+T, int outer, double coef)}{scalProdInner(SpMat *T, int outer, double coef)}}]{\setlength{\rightskip}{0pt plus 5cm}void scal\+Prod\+Inner (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{outer, }
+\item[{double}]{coef}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_ae51012aad07366c2a1ea24960b6915bd}{}\label{atgraph_8hpp~_ae51012aad07366c2a1ea24960b6915bd}
+\index{atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}!scal\+Prod\+Outer@{scal\+Prod\+Outer}}
+\index{scal\+Prod\+Outer@{scal\+Prod\+Outer}!atgraph.\+hpp````~@{atgraph.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{scal\+Prod\+Outer(\+Sp\+Mat $\ast$\+T, int inner, double coef)}{scalProdOuter(SpMat *T, int inner, double coef)}}]{\setlength{\rightskip}{0pt plus 5cm}void scal\+Prod\+Outer (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat} $\ast$}]{T, }
+\item[{int}]{inner, }
+\item[{double}]{coef}
+\end{DoxyParamCaption}
+)}\hypertarget{atgraph_8hpp~_a0359c83fe1a6cb249cc281b91f50bd8e}{}\label{atgraph_8hpp~_a0359c83fe1a6cb249cc281b91f50bd8e}

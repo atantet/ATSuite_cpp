@@ -1,0 +1,245 @@
+\hypertarget{atio_8hpp~}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atio.hpp$\sim$ File Reference}
+\label{atio_8hpp~}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atio.\+hpp````~@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/atio.\+hpp$\sim$}}
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\\*
+{\ttfamily \#include \char`\"{}arlnsmat.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}arlssym.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+vector.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+matrix.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{atio_8hpp~_a1a6db772be9a8bd7bec6981fd3c26307}{A\+T\+I\+O\+\_\+\+H\+PP}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double, Eigen\+::\+Col\+Major $>$ \hyperlink{atio_8hpp~_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double, Eigen\+::\+Row\+Major $>$ \hyperlink{atio_8hpp~_a2ed0d254391fead9871fed96447cd51a}{Sp\+Mat\+C\+SR}
+\item 
+typedef Eigen\+::\+Triplet$<$ double $>$ \hyperlink{atio_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}{Tri}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{atio_8hpp~_a50b72292e978156fbbc6ed43ec2fede2}{Eigen2\+Pajek} (F\+I\+LE $\ast$, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+void \hyperlink{atio_8hpp~_a50a95389aa589e3207d94fd89b4c0b99}{Eigen2\+Compressed} (F\+I\+LE $\ast$, \hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$)
+\item 
+void \hyperlink{atio_8hpp~_a14021b1f98dc55a75731c9e68cadfd1c}{Eigen2\+Compressed} (F\+I\+LE $\ast$, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$ \hyperlink{atio_8hpp~_af4ed0819739a50ca602655fb72a09ecc}{pajek2\+Eigen} (F\+I\+LE $\ast$)
+\item 
+A\+Rlu\+Non\+Sym\+Matrix$<$ double, double $>$ $\ast$ \hyperlink{atio_8hpp~_a0575dc8ccd7b4e05b16e0a20d7d227a9}{pajek2\+AR} (F\+I\+LE $\ast$)
+\item 
+A\+Rlu\+Non\+Sym\+Matrix$<$ double, double $>$ $\ast$ \hyperlink{atio_8hpp~_ab61e1666645be6384afaedbccdb0b595}{C\+S\+C2\+AR} (F\+I\+LE $\ast$)
+\item 
+A\+Rlu\+Non\+Sym\+Matrix$<$ double, double $>$ $\ast$ \hyperlink{atio_8hpp~_ab0136cb97568cd33011e754d392049b7}{Eigen2\+AR} (\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$)
+\item 
+A\+Rlu\+Non\+Sym\+Matrix$<$ double, double $>$ $\ast$ \hyperlink{atio_8hpp~_aed27cd84c3ecfcb9aab6f20925765eaa}{Eigen2\+AR} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+A\+Rlu\+Sym\+Matrix$<$ double $>$ $\ast$ \hyperlink{atio_8hpp~_aef7fc36390db0f8692c6c03e5c921883}{Eigen2\+A\+R\+Sym} (\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$)
+\item 
+A\+Rlu\+Sym\+Matrix$<$ double $>$ $\ast$ \hyperlink{atio_8hpp~_ab049f78c5281ba314619a35a84513e7e}{Eigen2\+A\+R\+Sym} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+A\+Rlu\+Non\+Sym\+Matrix$<$ double, double $>$ $\ast$ \hyperlink{atio_8hpp~_a3325fe5a0682b0de2be728342656fafc}{Compressed2\+AR} (F\+I\+LE $\ast$)
+\item 
+\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$ \hyperlink{atio_8hpp~_af1b2d96769e0cc2ec6811540bdf3717b}{Compressed2\+Eigen} (F\+I\+LE $\ast$)
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{atio_8hpp~_a575f4438e8108b1eb6716adf256360e2}{Compressed2\+Edge\+List} (F\+I\+LE $\ast$)
+\item 
+void \hyperlink{atio_8hpp~_a81b66b0717997e6f96dbc8f62d4ac72e}{Compressed2\+Edge\+List} (F\+I\+LE $\ast$, F\+I\+LE $\ast$)
+\item 
+\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$ \hyperlink{atio_8hpp~_abd23ff2ce877ca98c59e5007bee484a2}{C\+S\+C2\+C\+SR} (\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$T)
+\item 
+\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$ \hyperlink{atio_8hpp~_a2f0add8f25e4283c4a4fc3803ef4dc34}{C\+S\+R2\+C\+SC} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$T)
+\item 
+vector$<$ \hyperlink{atgraph_8hpp_a687d3949a180c7b0e48230fb63ff4b63}{Tri} $>$ \hyperlink{atio_8hpp~_a3885af69a991bebfc1f46e49488ddf23}{Eigen2\+Triplet} (\hyperlink{atio_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC} $\ast$)
+\item 
+vector$<$ \hyperlink{atgraph_8hpp_a687d3949a180c7b0e48230fb63ff4b63}{Tri} $>$ \hyperlink{atio_8hpp~_a6d6b18688d1f8e37c42ada49836ad27f}{Eigen2\+Triplet} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+void \hyperlink{atio_8hpp~_a9b4a83a72dee95e479ae346f606ad1b6}{fprintf\+Eigen} (F\+I\+LE $\ast$, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$)
+\item 
+size\+\_\+t \hyperlink{atio_8hpp~_a815f702fe2acf04a2e7dd8e35cf27d12}{line\+Count} (F\+I\+LE $\ast$)
+\item 
+void \hyperlink{atio_8hpp~_aead174e64033e91df661d5820915e925}{fprintf\+Eigen} (F\+I\+LE $\ast$fp, \hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$T, const char $\ast$format)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!A\+T\+I\+O\+\_\+\+H\+PP@{A\+T\+I\+O\+\_\+\+H\+PP}}
+\index{A\+T\+I\+O\+\_\+\+H\+PP@{A\+T\+I\+O\+\_\+\+H\+PP}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{A\+T\+I\+O\+\_\+\+H\+PP}{ATIO_HPP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+T\+I\+O\+\_\+\+H\+PP}\hypertarget{atio_8hpp~_a1a6db772be9a8bd7bec6981fd3c26307}{}\label{atio_8hpp~_a1a6db772be9a8bd7bec6981fd3c26307}
+
+
+\subsection{Typedef Documentation}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Sp\+Mat\+C\+SC@{Sp\+Mat\+C\+SC}}
+\index{Sp\+Mat\+C\+SC@{Sp\+Mat\+C\+SC}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Sp\+Mat\+C\+SC}{SpMatCSC}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double, Eigen\+::\+Col\+Major$>$ {\bf Sp\+Mat\+C\+SC}}\hypertarget{atio_8hpp~_ace75979355a5e6ee01cad82e4cdbc8f3}{}\label{atio_8hpp~_ace75979355a5e6ee01cad82e4cdbc8f3}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}}
+\index{Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Sp\+Mat\+C\+SR}{SpMatCSR}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double, Eigen\+::\+Row\+Major$>$ {\bf Sp\+Mat\+C\+SR}}\hypertarget{atio_8hpp~_a2ed0d254391fead9871fed96447cd51a}{}\label{atio_8hpp~_a2ed0d254391fead9871fed96447cd51a}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Tri@{Tri}}
+\index{Tri@{Tri}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Tri}{Tri}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Triplet$<$double$>$ {\bf Tri}}\hypertarget{atio_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}{}\label{atio_8hpp~_a687d3949a180c7b0e48230fb63ff4b63}
+
+
+\subsection{Function Documentation}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Compressed2\+AR@{Compressed2\+AR}}
+\index{Compressed2\+AR@{Compressed2\+AR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Compressed2\+A\+R(\+F\+I\+L\+E $\ast$)}{Compressed2AR(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Non\+Sym\+Matrix$<$double, double$>$$\ast$ Compressed2\+AR (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a3325fe5a0682b0de2be728342656fafc}{}\label{atio_8hpp~_a3325fe5a0682b0de2be728342656fafc}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Compressed2\+Edge\+List@{Compressed2\+Edge\+List}}
+\index{Compressed2\+Edge\+List@{Compressed2\+Edge\+List}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Compressed2\+Edge\+List(\+F\+I\+L\+E $\ast$)}{Compressed2EdgeList(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix$\ast$ Compressed2\+Edge\+List (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a575f4438e8108b1eb6716adf256360e2}{}\label{atio_8hpp~_a575f4438e8108b1eb6716adf256360e2}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Compressed2\+Edge\+List@{Compressed2\+Edge\+List}}
+\index{Compressed2\+Edge\+List@{Compressed2\+Edge\+List}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Compressed2\+Edge\+List(\+F\+I\+L\+E $\ast$, F\+I\+L\+E $\ast$)}{Compressed2EdgeList(FILE *, FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}void Compressed2\+Edge\+List (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{src, }
+\item[{F\+I\+LE $\ast$}]{dst}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a81b66b0717997e6f96dbc8f62d4ac72e}{}\label{atio_8hpp~_a81b66b0717997e6f96dbc8f62d4ac72e}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Compressed2\+Eigen@{Compressed2\+Eigen}}
+\index{Compressed2\+Eigen@{Compressed2\+Eigen}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Compressed2\+Eigen(\+F\+I\+L\+E $\ast$)}{Compressed2Eigen(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat\+C\+SR}$\ast$ Compressed2\+Eigen (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_af1b2d96769e0cc2ec6811540bdf3717b}{}\label{atio_8hpp~_af1b2d96769e0cc2ec6811540bdf3717b}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!C\+S\+C2\+AR@{C\+S\+C2\+AR}}
+\index{C\+S\+C2\+AR@{C\+S\+C2\+AR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{C\+S\+C2\+A\+R(\+F\+I\+L\+E $\ast$)}{CSC2AR(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Non\+Sym\+Matrix$<$double, double$>$$\ast$ C\+S\+C2\+AR (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_ab61e1666645be6384afaedbccdb0b595}{}\label{atio_8hpp~_ab61e1666645be6384afaedbccdb0b595}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!C\+S\+C2\+C\+SR@{C\+S\+C2\+C\+SR}}
+\index{C\+S\+C2\+C\+SR@{C\+S\+C2\+C\+SR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{C\+S\+C2\+C\+S\+R(\+Sp\+Mat\+C\+S\+C $\ast$\+T)}{CSC2CSR(SpMatCSC *T)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat\+C\+SR}$\ast$ C\+S\+C2\+C\+SR (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SC} $\ast$}]{T}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_abd23ff2ce877ca98c59e5007bee484a2}{}\label{atio_8hpp~_abd23ff2ce877ca98c59e5007bee484a2}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!C\+S\+R2\+C\+SC@{C\+S\+R2\+C\+SC}}
+\index{C\+S\+R2\+C\+SC@{C\+S\+R2\+C\+SC}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{C\+S\+R2\+C\+S\+C(\+Sp\+Mat\+C\+S\+R $\ast$\+T)}{CSR2CSC(SpMatCSR *T)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat\+C\+SC}$\ast$ C\+S\+R2\+C\+SC (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a2f0add8f25e4283c4a4fc3803ef4dc34}{}\label{atio_8hpp~_a2f0add8f25e4283c4a4fc3803ef4dc34}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+AR@{Eigen2\+AR}}
+\index{Eigen2\+AR@{Eigen2\+AR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+A\+R(\+Sp\+Mat\+C\+S\+C $\ast$)}{Eigen2AR(SpMatCSC *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Non\+Sym\+Matrix$<$double, double$>$$\ast$ Eigen2\+AR (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SC} $\ast$}]{T\+Eigen}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_ab0136cb97568cd33011e754d392049b7}{}\label{atio_8hpp~_ab0136cb97568cd33011e754d392049b7}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+AR@{Eigen2\+AR}}
+\index{Eigen2\+AR@{Eigen2\+AR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+A\+R(\+Sp\+Mat\+C\+S\+R $\ast$)}{Eigen2AR(SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Non\+Sym\+Matrix$<$double, double$>$$\ast$ Eigen2\+AR (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T\+Eigen\+C\+SR}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_aed27cd84c3ecfcb9aab6f20925765eaa}{}\label{atio_8hpp~_aed27cd84c3ecfcb9aab6f20925765eaa}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+A\+R\+Sym@{Eigen2\+A\+R\+Sym}}
+\index{Eigen2\+A\+R\+Sym@{Eigen2\+A\+R\+Sym}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+A\+R\+Sym(\+Sp\+Mat\+C\+S\+C $\ast$)}{Eigen2ARSym(SpMatCSC *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Sym\+Matrix$<$double$>$$\ast$ Eigen2\+A\+R\+Sym (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SC} $\ast$}]{T\+Eigen}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_aef7fc36390db0f8692c6c03e5c921883}{}\label{atio_8hpp~_aef7fc36390db0f8692c6c03e5c921883}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+A\+R\+Sym@{Eigen2\+A\+R\+Sym}}
+\index{Eigen2\+A\+R\+Sym@{Eigen2\+A\+R\+Sym}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+A\+R\+Sym(\+Sp\+Mat\+C\+S\+R $\ast$)}{Eigen2ARSym(SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Sym\+Matrix$<$double$>$$\ast$ Eigen2\+A\+R\+Sym (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T\+Eigen\+C\+SR}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_ab049f78c5281ba314619a35a84513e7e}{}\label{atio_8hpp~_ab049f78c5281ba314619a35a84513e7e}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+Compressed@{Eigen2\+Compressed}}
+\index{Eigen2\+Compressed@{Eigen2\+Compressed}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+Compressed(\+F\+I\+L\+E $\ast$, Sp\+Mat\+C\+S\+C $\ast$)}{Eigen2Compressed(FILE *, SpMatCSC *)}}]{\setlength{\rightskip}{0pt plus 5cm}void Eigen2\+Compressed (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{{\bf Sp\+Mat\+C\+SC} $\ast$}]{P}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a50a95389aa589e3207d94fd89b4c0b99}{}\label{atio_8hpp~_a50a95389aa589e3207d94fd89b4c0b99}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+Compressed@{Eigen2\+Compressed}}
+\index{Eigen2\+Compressed@{Eigen2\+Compressed}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+Compressed(\+F\+I\+L\+E $\ast$, Sp\+Mat\+C\+S\+R $\ast$)}{Eigen2Compressed(FILE *, SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}void Eigen2\+Compressed (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{P}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a14021b1f98dc55a75731c9e68cadfd1c}{}\label{atio_8hpp~_a14021b1f98dc55a75731c9e68cadfd1c}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+Pajek@{Eigen2\+Pajek}}
+\index{Eigen2\+Pajek@{Eigen2\+Pajek}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+Pajek(\+F\+I\+L\+E $\ast$, Sp\+Mat\+C\+S\+R $\ast$)}{Eigen2Pajek(FILE *, SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}void Eigen2\+Pajek (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{P}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a50b72292e978156fbbc6ed43ec2fede2}{}\label{atio_8hpp~_a50b72292e978156fbbc6ed43ec2fede2}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+Triplet@{Eigen2\+Triplet}}
+\index{Eigen2\+Triplet@{Eigen2\+Triplet}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+Triplet(\+Sp\+Mat\+C\+S\+C $\ast$)}{Eigen2Triplet(SpMatCSC *)}}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Tri}$>$ Eigen2\+Triplet (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SC} $\ast$}]{T}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a3885af69a991bebfc1f46e49488ddf23}{}\label{atio_8hpp~_a3885af69a991bebfc1f46e49488ddf23}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!Eigen2\+Triplet@{Eigen2\+Triplet}}
+\index{Eigen2\+Triplet@{Eigen2\+Triplet}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{Eigen2\+Triplet(\+Sp\+Mat\+C\+S\+R $\ast$)}{Eigen2Triplet(SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Tri}$>$ Eigen2\+Triplet (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a6d6b18688d1f8e37c42ada49836ad27f}{}\label{atio_8hpp~_a6d6b18688d1f8e37c42ada49836ad27f}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!fprintf\+Eigen@{fprintf\+Eigen}}
+\index{fprintf\+Eigen@{fprintf\+Eigen}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{fprintf\+Eigen(\+F\+I\+L\+E $\ast$, Sp\+Mat\+C\+S\+R $\ast$)}{fprintfEigen(FILE *, SpMatCSR *)}}]{\setlength{\rightskip}{0pt plus 5cm}void fprintf\+Eigen (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a9b4a83a72dee95e479ae346f606ad1b6}{}\label{atio_8hpp~_a9b4a83a72dee95e479ae346f606ad1b6}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!fprintf\+Eigen@{fprintf\+Eigen}}
+\index{fprintf\+Eigen@{fprintf\+Eigen}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{fprintf\+Eigen(\+F\+I\+L\+E $\ast$fp, Sp\+Mat\+C\+S\+R $\ast$\+T, const char $\ast$format)}{fprintfEigen(FILE *fp, SpMatCSR *T, const char *format)}}]{\setlength{\rightskip}{0pt plus 5cm}void fprintf\+Eigen (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{fp, }
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{T, }
+\item[{const char $\ast$}]{format}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_aead174e64033e91df661d5820915e925}{}\label{atio_8hpp~_aead174e64033e91df661d5820915e925}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!line\+Count@{line\+Count}}
+\index{line\+Count@{line\+Count}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{line\+Count(\+F\+I\+L\+E $\ast$)}{lineCount(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t line\+Count (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a815f702fe2acf04a2e7dd8e35cf27d12}{}\label{atio_8hpp~_a815f702fe2acf04a2e7dd8e35cf27d12}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!pajek2\+AR@{pajek2\+AR}}
+\index{pajek2\+AR@{pajek2\+AR}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2\+A\+R(\+F\+I\+L\+E $\ast$)}{pajek2AR(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+Rlu\+Non\+Sym\+Matrix$<$double, double$>$$\ast$ pajek2\+AR (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_a0575dc8ccd7b4e05b16e0a20d7d227a9}{}\label{atio_8hpp~_a0575dc8ccd7b4e05b16e0a20d7d227a9}
+\index{atio.\+hpp````~@{atio.\+hpp$\sim$}!pajek2\+Eigen@{pajek2\+Eigen}}
+\index{pajek2\+Eigen@{pajek2\+Eigen}!atio.\+hpp````~@{atio.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{pajek2\+Eigen(\+F\+I\+L\+E $\ast$)}{pajek2Eigen(FILE *)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat\+C\+SC}$\ast$ pajek2\+Eigen (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{atio_8hpp~_af4ed0819739a50ca602655fb72a09ecc}{}\label{atio_8hpp~_af4ed0819739a50ca602655fb72a09ecc}

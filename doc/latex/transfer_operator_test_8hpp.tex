@@ -1,0 +1,108 @@
+\hypertarget{transfer_operator_test_8hpp}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/transfer\+Operator\+Test.hpp File Reference}
+\label{transfer_operator_test_8hpp}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/transfer\+Operator\+Test.\+hpp@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/transfer\+Operator\+Test.\+hpp}}
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+vector.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+vector\+\_\+int.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+matrix.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+rng.\+h$>$}\\*
+{\ttfamily \#include $<$gsl/gsl\+\_\+randist.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\\*
+{\ttfamily \#include \char`\"{}atmath.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}atio.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}atspectrum.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}transfer\+Operator.\+hpp\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef Eigen\+::\+Triplet$<$ double $>$ \hyperlink{transfer_operator_test_8hpp_abf4a98d0009ef51cab3a1934054c6ddd}{triplet}
+\item 
+typedef std\+::vector$<$ \hyperlink{transfer_operator_8hpp_abf4a98d0009ef51cab3a1934054c6ddd}{triplet} $>$ \hyperlink{transfer_operator_test_8hpp_a9acc52217b04e27072f5918fd1bb00c7}{triplet\+Vector}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double, Eigen\+::\+Col\+Major $>$ \hyperlink{transfer_operator_test_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{Sp\+Mat\+C\+SC}
+\item 
+typedef Eigen\+::\+Sparse\+Matrix$<$ double, Eigen\+::\+Row\+Major $>$ \hyperlink{transfer_operator_test_8hpp_a2ed0d254391fead9871fed96447cd51a}{Sp\+Mat\+C\+SR}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{transfer_operator_test_8hpp_acb54fc059ae5dd28ebae058dc054ef19}{get\+Surrogate\+Spectrum} (gsl\+\_\+vector\+\_\+int $\ast$, size\+\_\+t, size\+\_\+t, gsl\+\_\+matrix $\ast$, gsl\+\_\+matrix $\ast$, const char $\ast$, double, int, int, bool, double $\ast$)
+\item 
+void \hyperlink{transfer_operator_test_8hpp_af6e61694372840727ec3430ed93cd29e}{get\+Surrogate\+Spectrum\+From\+Count} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$, gsl\+\_\+rng $\ast$, gsl\+\_\+matrix $\ast$, gsl\+\_\+matrix $\ast$, const char $\ast$, double, int, int, bool, double $\ast$)
+\item 
+\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$ \hyperlink{transfer_operator_test_8hpp_a6f3eff82a8222b47030f0409f761e38e}{get\+Shuffled\+Count\+Matrix} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$, gsl\+\_\+vector $\ast$, gsl\+\_\+rng $\ast$)
+\item 
+void \hyperlink{transfer_operator_test_8hpp_a301aaed27aafac1b6d2fde53dc282fce}{get\+Shuffled\+Row} (\hyperlink{atgraph_8hpp_aa17b7dc944934633434af049cdf173bd}{Sp\+Mat\+C\+SR} $\ast$, size\+\_\+t, size\+\_\+t, \hyperlink{transfer_operator_8hpp_a9acc52217b04e27072f5918fd1bb00c7}{triplet\+Vector} $\ast$, gsl\+\_\+rng $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!Sp\+Mat\+C\+SC@{Sp\+Mat\+C\+SC}}
+\index{Sp\+Mat\+C\+SC@{Sp\+Mat\+C\+SC}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{Sp\+Mat\+C\+SC}{SpMatCSC}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double, Eigen\+::\+Col\+Major$>$ {\bf Sp\+Mat\+C\+SC}}\hypertarget{transfer_operator_test_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}{}\label{transfer_operator_test_8hpp_ace75979355a5e6ee01cad82e4cdbc8f3}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}}
+\index{Sp\+Mat\+C\+SR@{Sp\+Mat\+C\+SR}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{Sp\+Mat\+C\+SR}{SpMatCSR}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Sparse\+Matrix$<$double, Eigen\+::\+Row\+Major$>$ {\bf Sp\+Mat\+C\+SR}}\hypertarget{transfer_operator_test_8hpp_a2ed0d254391fead9871fed96447cd51a}{}\label{transfer_operator_test_8hpp_a2ed0d254391fead9871fed96447cd51a}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!triplet@{triplet}}
+\index{triplet@{triplet}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{triplet}{triplet}}]{\setlength{\rightskip}{0pt plus 5cm}typedef Eigen\+::\+Triplet$<$double$>$ {\bf triplet}}\hypertarget{transfer_operator_test_8hpp_abf4a98d0009ef51cab3a1934054c6ddd}{}\label{transfer_operator_test_8hpp_abf4a98d0009ef51cab3a1934054c6ddd}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!triplet\+Vector@{triplet\+Vector}}
+\index{triplet\+Vector@{triplet\+Vector}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{triplet\+Vector}{tripletVector}}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<${\bf triplet}$>$ {\bf triplet\+Vector}}\hypertarget{transfer_operator_test_8hpp_a9acc52217b04e27072f5918fd1bb00c7}{}\label{transfer_operator_test_8hpp_a9acc52217b04e27072f5918fd1bb00c7}
+
+
+\subsection{Function Documentation}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!get\+Shuffled\+Count\+Matrix@{get\+Shuffled\+Count\+Matrix}}
+\index{get\+Shuffled\+Count\+Matrix@{get\+Shuffled\+Count\+Matrix}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Shuffled\+Count\+Matrix(\+Sp\+Mat\+C\+S\+R $\ast$, gsl\+\_\+vector $\ast$, gsl\+\_\+rng $\ast$)}{getShuffledCountMatrix(SpMatCSR *, gsl_vector *, gsl_rng *)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sp\+Mat\+C\+SR} $\ast$ get\+Shuffled\+Count\+Matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{C, }
+\item[{gsl\+\_\+vector $\ast$}]{n\+Trans\+Per\+Row, }
+\item[{gsl\+\_\+rng $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\hypertarget{transfer_operator_test_8hpp_a6f3eff82a8222b47030f0409f761e38e}{}\label{transfer_operator_test_8hpp_a6f3eff82a8222b47030f0409f761e38e}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!get\+Shuffled\+Row@{get\+Shuffled\+Row}}
+\index{get\+Shuffled\+Row@{get\+Shuffled\+Row}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Shuffled\+Row(\+Sp\+Mat\+C\+S\+R $\ast$, size\+\_\+t, size\+\_\+t, triplet\+Vector $\ast$, gsl\+\_\+rng $\ast$)}{getShuffledRow(SpMatCSR *, size_t, size_t, tripletVector *, gsl_rng *)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Shuffled\+Row (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{C, }
+\item[{size\+\_\+t}]{i\+Row, }
+\item[{size\+\_\+t}]{n\+Trans, }
+\item[{{\bf triplet\+Vector} $\ast$}]{Ts, }
+\item[{gsl\+\_\+rng $\ast$}]{r}
+\end{DoxyParamCaption}
+)}\hypertarget{transfer_operator_test_8hpp_a301aaed27aafac1b6d2fde53dc282fce}{}\label{transfer_operator_test_8hpp_a301aaed27aafac1b6d2fde53dc282fce}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!get\+Surrogate\+Spectrum@{get\+Surrogate\+Spectrum}}
+\index{get\+Surrogate\+Spectrum@{get\+Surrogate\+Spectrum}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Surrogate\+Spectrum(gsl\+\_\+vector\+\_\+int $\ast$, size\+\_\+t, size\+\_\+t, gsl\+\_\+matrix $\ast$, gsl\+\_\+matrix $\ast$, const char $\ast$, double, int, int, bool, double $\ast$)}{getSurrogateSpectrum(gsl_vector_int *, size_t, size_t, gsl_matrix *, gsl_matrix *, const char *, double, int, int, bool, double *)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Surrogate\+Spectrum (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector\+\_\+int $\ast$}]{grid\+Mem, }
+\item[{size\+\_\+t}]{N, }
+\item[{size\+\_\+t}]{tau\+Step, }
+\item[{gsl\+\_\+matrix $\ast$}]{Eig\+Val\+Real\+Dist, }
+\item[{gsl\+\_\+matrix $\ast$}]{Eig\+Val\+Imag\+Dist, }
+\item[{const char $\ast$}]{which = {\ttfamily \char`\"{}LM\char`\"{}}, }
+\item[{double}]{tol = {\ttfamily 0.}, }
+\item[{int}]{maxit = {\ttfamily 0}, }
+\item[{int}]{ncv = {\ttfamily 0}, }
+\item[{bool}]{Auto\+Shift = {\ttfamily true}, }
+\item[{double $\ast$}]{resid = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}\hypertarget{transfer_operator_test_8hpp_acb54fc059ae5dd28ebae058dc054ef19}{}\label{transfer_operator_test_8hpp_acb54fc059ae5dd28ebae058dc054ef19}
+\index{transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}!get\+Surrogate\+Spectrum\+From\+Count@{get\+Surrogate\+Spectrum\+From\+Count}}
+\index{get\+Surrogate\+Spectrum\+From\+Count@{get\+Surrogate\+Spectrum\+From\+Count}!transfer\+Operator\+Test.\+hpp@{transfer\+Operator\+Test.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Surrogate\+Spectrum\+From\+Count(\+Sp\+Mat\+C\+S\+R $\ast$, gsl\+\_\+rng $\ast$, gsl\+\_\+matrix $\ast$, gsl\+\_\+matrix $\ast$, const char $\ast$, double, int, int, bool, double $\ast$)}{getSurrogateSpectrumFromCount(SpMatCSR *, gsl_rng *, gsl_matrix *, gsl_matrix *, const char *, double, int, int, bool, double *)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Surrogate\+Spectrum\+From\+Count (
+\begin{DoxyParamCaption}
+\item[{{\bf Sp\+Mat\+C\+SR} $\ast$}]{C, }
+\item[{gsl\+\_\+rng $\ast$}]{r, }
+\item[{gsl\+\_\+matrix $\ast$}]{Eig\+Val\+Real\+Dist, }
+\item[{gsl\+\_\+matrix $\ast$}]{Eig\+Val\+Imag\+Dist, }
+\item[{const char $\ast$}]{which = {\ttfamily \char`\"{}LM\char`\"{}}, }
+\item[{double}]{tol = {\ttfamily 0.}, }
+\item[{int}]{maxit = {\ttfamily 0}, }
+\item[{int}]{ncv = {\ttfamily 0}, }
+\item[{bool}]{Auto\+Shift = {\ttfamily true}, }
+\item[{double $\ast$}]{resid = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}\hypertarget{transfer_operator_test_8hpp_af6e61694372840727ec3430ed93cd29e}{}\label{transfer_operator_test_8hpp_af6e61694372840727ec3430ed93cd29e}

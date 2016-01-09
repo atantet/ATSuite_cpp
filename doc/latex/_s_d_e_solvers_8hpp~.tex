@@ -1,0 +1,108 @@
+\hypertarget{_s_d_e_solvers_8hpp~}{}\section{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+S\+D\+E\+Solvers.hpp$\sim$ File Reference}
+\label{_s_d_e_solvers_8hpp~}\index{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+S\+D\+E\+Solvers.\+hpp````~@{/\+Users/atantet/\+Ph\+D/dev/\+A\+T\+Suite/cpp/\+S\+D\+E\+Solvers.\+hpp$\sim$}}
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$O\+D\+E\+Solvers.\+hpp$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_s_d_e_solvers_8hpp~_a058d7f187039fc6da1541512eb1ae567}{S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_af35dd474194c55b4e7231dda1f337948}{generate\+Cusp\+Additive\+Wiener\+EM} (gsl\+\_\+vector $\ast$, double, double, gsl\+\_\+matrix $\ast$, double, double, double, int, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_a379664d48a40edc2167f14e1fca77a0c}{cusp\+Additive\+Wiener\+EM} (gsl\+\_\+vector $\ast$, double, double, gsl\+\_\+vector $\ast$, double, double)
+\item 
+gsl\+\_\+matrix $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_a0599474c6877e2197ebbc0061c228e6f}{generate\+Lorenz\+Linear\+Wiener\+EM} (gsl\+\_\+vector $\ast$, double, double, double, gsl\+\_\+matrix $\ast$, double, double, double, int, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_a40d94d98ad681fc3197efdfb17e496c4}{lorenz\+Linear\+Wiener\+EM} (gsl\+\_\+vector $\ast$, double, double, double, gsl\+\_\+vector $\ast$, double, double)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_a95c2309685025eb654eb2046be0f1b81}{additive\+Wiener\+Field} (double, gsl\+\_\+vector $\ast$)
+\item 
+gsl\+\_\+vector $\ast$ \hyperlink{_s_d_e_solvers_8hpp~_a7e7c3a128f095036928a2716505d1ede}{linear\+Wiener\+Field} (gsl\+\_\+vector $\ast$, double, gsl\+\_\+vector $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP@{S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}}
+\index{S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP@{S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}{SDESOLVERS_HPP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+E\+S\+O\+L\+V\+E\+R\+S\+\_\+\+H\+PP}\hypertarget{_s_d_e_solvers_8hpp~_a058d7f187039fc6da1541512eb1ae567}{}\label{_s_d_e_solvers_8hpp~_a058d7f187039fc6da1541512eb1ae567}
+
+
+\subsection{Function Documentation}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!additive\+Wiener\+Field@{additive\+Wiener\+Field}}
+\index{additive\+Wiener\+Field@{additive\+Wiener\+Field}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{additive\+Wiener\+Field(double, gsl\+\_\+vector $\ast$)}{additiveWienerField(double, gsl_vector *)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ additive\+Wiener\+Field (
+\begin{DoxyParamCaption}
+\item[{double}]{Q, }
+\item[{gsl\+\_\+vector $\ast$}]{noise\+Sample}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_a95c2309685025eb654eb2046be0f1b81}{}\label{_s_d_e_solvers_8hpp~_a95c2309685025eb654eb2046be0f1b81}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!cusp\+Additive\+Wiener\+EM@{cusp\+Additive\+Wiener\+EM}}
+\index{cusp\+Additive\+Wiener\+EM@{cusp\+Additive\+Wiener\+EM}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{cusp\+Additive\+Wiener\+E\+M(gsl\+\_\+vector $\ast$, double, double, gsl\+\_\+vector $\ast$, double, double)}{cuspAdditiveWienerEM(gsl_vector *, double, double, gsl_vector *, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ cusp\+Additive\+Wiener\+EM (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{r, }
+\item[{double}]{h, }
+\item[{gsl\+\_\+vector $\ast$}]{noise\+Sample, }
+\item[{double}]{Q, }
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_a379664d48a40edc2167f14e1fca77a0c}{}\label{_s_d_e_solvers_8hpp~_a379664d48a40edc2167f14e1fca77a0c}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!generate\+Cusp\+Additive\+Wiener\+EM@{generate\+Cusp\+Additive\+Wiener\+EM}}
+\index{generate\+Cusp\+Additive\+Wiener\+EM@{generate\+Cusp\+Additive\+Wiener\+EM}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{generate\+Cusp\+Additive\+Wiener\+E\+M(gsl\+\_\+vector $\ast$, double, double, gsl\+\_\+matrix $\ast$, double, double, double, int, double)}{generateCuspAdditiveWienerEM(gsl_vector *, double, double, gsl_matrix *, double, double, double, int, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix$\ast$ generate\+Cusp\+Additive\+Wiener\+EM (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{r, }
+\item[{double}]{h, }
+\item[{gsl\+\_\+matrix $\ast$}]{noise\+Samples, }
+\item[{double}]{Q, }
+\item[{double}]{length, }
+\item[{double}]{dt, }
+\item[{int}]{sampling, }
+\item[{double}]{spinup}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_af35dd474194c55b4e7231dda1f337948}{}\label{_s_d_e_solvers_8hpp~_af35dd474194c55b4e7231dda1f337948}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!generate\+Lorenz\+Linear\+Wiener\+EM@{generate\+Lorenz\+Linear\+Wiener\+EM}}
+\index{generate\+Lorenz\+Linear\+Wiener\+EM@{generate\+Lorenz\+Linear\+Wiener\+EM}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{generate\+Lorenz\+Linear\+Wiener\+E\+M(gsl\+\_\+vector $\ast$, double, double, double, gsl\+\_\+matrix $\ast$, double, double, double, int, double)}{generateLorenzLinearWienerEM(gsl_vector *, double, double, double, gsl_matrix *, double, double, double, int, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+matrix$\ast$ generate\+Lorenz\+Linear\+Wiener\+EM (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{gsl\+\_\+matrix $\ast$}]{noise\+Samples, }
+\item[{double}]{Q, }
+\item[{double}]{length, }
+\item[{double}]{dt, }
+\item[{int}]{sampling, }
+\item[{double}]{spinup}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_a0599474c6877e2197ebbc0061c228e6f}{}\label{_s_d_e_solvers_8hpp~_a0599474c6877e2197ebbc0061c228e6f}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!linear\+Wiener\+Field@{linear\+Wiener\+Field}}
+\index{linear\+Wiener\+Field@{linear\+Wiener\+Field}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{linear\+Wiener\+Field(gsl\+\_\+vector $\ast$, double, gsl\+\_\+vector $\ast$)}{linearWienerField(gsl_vector *, double, gsl_vector *)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ linear\+Wiener\+Field (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{Q, }
+\item[{gsl\+\_\+vector $\ast$}]{noise\+Sample}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_a7e7c3a128f095036928a2716505d1ede}{}\label{_s_d_e_solvers_8hpp~_a7e7c3a128f095036928a2716505d1ede}
+\index{S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}!lorenz\+Linear\+Wiener\+EM@{lorenz\+Linear\+Wiener\+EM}}
+\index{lorenz\+Linear\+Wiener\+EM@{lorenz\+Linear\+Wiener\+EM}!S\+D\+E\+Solvers.\+hpp````~@{S\+D\+E\+Solvers.\+hpp$\sim$}}
+\subsubsection[{\texorpdfstring{lorenz\+Linear\+Wiener\+E\+M(gsl\+\_\+vector $\ast$, double, double, double, gsl\+\_\+vector $\ast$, double, double)}{lorenzLinearWienerEM(gsl_vector *, double, double, double, gsl_vector *, double, double)}}]{\setlength{\rightskip}{0pt plus 5cm}gsl\+\_\+vector$\ast$ lorenz\+Linear\+Wiener\+EM (
+\begin{DoxyParamCaption}
+\item[{gsl\+\_\+vector $\ast$}]{state, }
+\item[{double}]{rho, }
+\item[{double}]{sigma, }
+\item[{double}]{beta, }
+\item[{gsl\+\_\+vector $\ast$}]{noise\+Sample, }
+\item[{double}]{Q, }
+\item[{double}]{dt}
+\end{DoxyParamCaption}
+)}\hypertarget{_s_d_e_solvers_8hpp~_a40d94d98ad681fc3197efdfb17e496c4}{}\label{_s_d_e_solvers_8hpp~_a40d94d98ad681fc3197efdfb17e496c4}
