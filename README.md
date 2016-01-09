@@ -1,4 +1,4 @@
-Introduction    {#introduction}
+Introduction               {#introduction}
 ============
 
 ATSuite C++ is a collection of scientific routines in C++
@@ -8,7 +8,7 @@ Visit Alexis' home page [UU] for contact.
 The full documentation can be found at [ATSuite_cpp_doc].
 
 
-Installation    {#installation}
+Installation               {#installation}
 ============
 
 Getting the code
@@ -24,12 +24,12 @@ To do so:
 
         git clone https://github.com/atantet/ATSuite_cpp
      
-Dependencies
+Dependencies                    {#dependencies}
 ------------
 
-- [GSL]: used as the main C scientific library.
-- [Eigen]: a C++ template library for linear algebra, mainly used for sparse matrices manipulation.
-- [Arpackpp]: an object-oriented version of the ARPACK package, mainly used to find the leading part of the spectrum of sparse matrices.
+- [GSL] is used as the main C scientific library.
+- [Eigen] is a C++ template library for linear algebra, mainly used for sparse matrices manipulation.
+- [ARPACK++] is an object-oriented version of the ARPACK package, mainly used to find the leading part of the spectrum of sparse matrices.
 
 Installing the code
 -------------------
@@ -62,7 +62,7 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Disclaimer    {#disclaimer}
+Disclaimer            {#disclaimer}
 ==========
 
 These codes are developed for _research purpose_.
@@ -73,4 +73,4 @@ _No warranty_ is given regarding their robustess.
 [ATSuite_cpp_doc]: http://atantet.github.io/ATSuite_cpp/ "ATSuite C++ documentation"
 [GSL]: http://www.gnu.org/software/gsl/ "GSL - GNU Scientific Library"
 [Eigen]: http://eigen.tuxfamily.org/ "Eigen"
-[Arpackpp]: http://www.caam.rice.edu/software/ARPACK/arpack++.html "ARPACK++"
+[ARPACK++]: http://www.caam.rice.edu/software/ARPACK/arpack++.html "ARPACK++"
