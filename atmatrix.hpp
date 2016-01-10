@@ -8,8 +8,6 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
-using namespace Eigen;
-
 /** \file atmatrix.hpp
  *  \brief Matrix manipulation.
  *   
@@ -18,13 +16,13 @@ using namespace Eigen;
 
 // Typedef definitions
 /** \brief Eigen CSR matrix of double type. */
-typedef SparseMatrix<double, RowMajor> SpMatCSR;
+typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatCSR;
 /** \brief Eigen CSR matrix of integer type. */
-typedef SparseMatrix<int, RowMajor> SpMatIntCSR;
+typedef Eigen::SparseMatrix<int, Eigen::RowMajor> SpMatIntCSR;
 /** \brief Eigen CSC matrix of double type. */
-typedef SparseMatrix<double, ColMajor> SpMatCSC;
+typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatCSC;
 /** \brief Eigen CSC matrix of boolean type. */
-typedef SparseMatrix<bool, ColMajor> SpMatCSCBool;
+typedef Eigen::SparseMatrix<bool, Eigen::ColMajor> SpMatCSCBool;
 
 // Declarations
 gsl_vector* getRowSum(SpMatCSR *);
@@ -42,8 +40,8 @@ SpMatCSCBool * cwiseLT(SpMatCSC *, double);
 bool any(SpMatCSCBool *);
 double max(SpMatCSC *);
 double min(SpMatCSC *);
-vector<int> * argmax(SpMatCSC *);
-vector<int> * argmin(SpMatCSC *);
+std::vector<int> * argmax(SpMatCSC *);
+std::vector<int> * argmin(SpMatCSC *);
 
 
 // Definitions
@@ -52,7 +50,8 @@ vector<int> * argmin(SpMatCSC *);
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return GSL vector of the sum of the rows of the sparse matrix.
  */
-gsl_vector* getRowSum(SpMatCSR *T)
+gsl_vector*
+getRowSum(SpMatCSR *T)
 {
   int N = T->rows();
   gsl_vector *rowSum = gsl_vector_calloc(N);
@@ -70,7 +69,8 @@ gsl_vector* getRowSum(SpMatCSR *T)
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \param[out] rowSum    GSL vector of the sum of rows of the sparse matrix.
  */
-void getRowSum(SpMatCSR *T, gsl_vector *rowSum)
+void
+getRowSum(SpMatCSR *T, gsl_vector *rowSum)
 {
   int N = T->rows();
 
@@ -88,7 +88,8 @@ void getRowSum(SpMatCSR *T, gsl_vector *rowSum)
  * \param[in] T    Eigen CSR matrix of integer type on which to sum.
  * \return Integer GSL vector of the sum of rows of the sparse matrix.
  */
-gsl_vector_int* getRowSum(SpMatIntCSR *T)
+gsl_vector_int *
+getRowSum(SpMatIntCSR *T)
 {
   int N = T->rows();
   gsl_vector_int *rowSum = gsl_vector_int_calloc(N);
@@ -105,7 +106,8 @@ gsl_vector_int* getRowSum(SpMatIntCSR *T)
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return GSL vector of the sum of columns of the sparse matrix.
  */
-gsl_vector* getColSum(SpMatCSR *T)
+gsl_vector *
+getColSum(SpMatCSR *T)
 {
   int N = T->rows();
   gsl_vector *colSum = gsl_vector_calloc(N);
@@ -124,7 +126,8 @@ gsl_vector* getColSum(SpMatCSR *T)
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \param[out] GSL vector of the sum of columns of the sparse matrix.
  */
-void getColSum(SpMatCSR *T, gsl_vector *colSum)
+void
+getColSum(SpMatCSR *T, gsl_vector *colSum)
 {
   int N = T->rows();
 
@@ -143,7 +146,8 @@ void getColSum(SpMatCSR *T, gsl_vector *colSum)
  * \param[in] T    Eigen CSC matrix on which to sum.
  * \return GSL vector of the sum of columns of the sparse matrix.
  */
-gsl_vector* getColSum(SpMatCSC *T)
+gsl_vector *
+getColSum(SpMatCSC *T)
 {
   int N = T->rows();
   gsl_vector *colSum = gsl_vector_calloc(N);
@@ -160,7 +164,8 @@ gsl_vector* getColSum(SpMatCSC *T)
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return Sum over all the elements of the sparse matrix.
  */
-double getSum(SpMatCSR *T)
+double
+getSum(SpMatCSR *T)
 {
   int N = T->rows();
   double sum = 0.;
@@ -178,7 +183,8 @@ double getSum(SpMatCSR *T)
  * \param[in] v    GSL vector over which to sum.
  * \return Sum over all the elements of the vector.
  */
-double sumVectorElements(gsl_vector *v)
+double
+sumVectorElements(gsl_vector *v)
 {
   double sum = 0.;
   
@@ -192,7 +198,8 @@ double sumVectorElements(gsl_vector *v)
  * Normalize a GSL vector by the sum of its elements.
  * \param[in] v    GSL vector to normalize.
  */
-void normalizeVector(gsl_vector *v)
+void
+normalizeVector(gsl_vector *v)
 {
   double sum;
 
@@ -207,7 +214,8 @@ void normalizeVector(gsl_vector *v)
  * \param[in] T    Eigen CSR matrix to normalize.
  * \param[in] rowSum    GSL vector used to normalize the rows of the sparse matrix.
  */
-void normalizeRows(SpMatCSR *T, gsl_vector *rowSum)
+void
+normalizeRows(SpMatCSR *T, gsl_vector *rowSum)
 {
   double rowSumi;
   for (int i = 0; i < T->rows(); i++){
@@ -225,7 +233,8 @@ void normalizeRows(SpMatCSR *T, gsl_vector *rowSum)
  * \param[in] ref    Scalar against which to compare.
  * \return    Eigen CSC matrix of boolean type resulting from the test.
  */
-SpMatCSCBool * cwiseGT(SpMatCSC *T, double ref)
+SpMatCSCBool *
+cwiseGT(SpMatCSC *T, double ref)
 {
   int j;
   SpMatCSCBool *cmpT = new SpMatCSCBool(T->rows(), T->cols());
@@ -242,7 +251,8 @@ SpMatCSCBool * cwiseGT(SpMatCSC *T, double ref)
  * \param[in] ref    Scalar against which to compare.
  * \return    Eigen CSC matrix of boolean type resulting from the test.
  */
-SpMatCSCBool * cwiseLT(SpMatCSC *T, double ref)
+SpMatCSCBool *
+cwiseLT(SpMatCSC *T, double ref)
 {
   int j;
   SpMatCSCBool *cmpT = new SpMatCSCBool(T->rows(), T->cols());
@@ -258,7 +268,8 @@ SpMatCSCBool * cwiseLT(SpMatCSC *T, double ref)
  * \param[in] T    Eigen CSC matrix of boolean type on which to any.
  * \return    True if any, False otherwise.
  */
-bool any(SpMatCSCBool *T)
+bool
+any(SpMatCSCBool *T)
 {
   int j;
   for (j = 0; j < T->cols(); j++)
@@ -274,7 +285,8 @@ bool any(SpMatCSCBool *T)
  * \param[in] T    Eigen CSC matrix from which to find the maximum.
  * \return    Value of the maximum.
  */
-double max(SpMatCSC *T)
+double
+max(SpMatCSC *T)
 {
   int j;
   SpMatCSC::InnerIterator it(*T, 0);
@@ -293,7 +305,8 @@ double max(SpMatCSC *T)
  * \param[in] T    Eigen CSC matrix from which to find the minimum.
  * \return    Value of the minimum.
  */
-double min(SpMatCSC *T)
+double
+min(SpMatCSC *T)
 {
   int j;
   SpMatCSC::InnerIterator it(*T, 0);
@@ -312,10 +325,11 @@ double min(SpMatCSC *T)
  * \param[in] T    Eigen CSC matrix from which to find the maximum.
  * \return    Vector of the indices of the maximum of the matrix.
  */
-vector<int> * argmax(SpMatCSC *T)
+std::vector<int> *
+argmax(SpMatCSC *T)
 {
   int j;
-  vector<int> *argmax = new vector<int>(2);
+  std::vector<int> *argmax = new std::vector<int>(2);
   SpMatCSC::InnerIterator it(*T, 0);
   double maxValue = it.value();
   for (j = 0; j < T->cols(); j++){
@@ -336,10 +350,11 @@ vector<int> * argmax(SpMatCSC *T)
  * \param[in] T    Eigen CSC matrix from which to find the minimum.
  * \return    Vector of the indices of the minimum of the matrix.
  */
-vector<int> * argmin(SpMatCSC *T)
+std::vector<int> *
+argmin(SpMatCSC *T)
 {
   int j;
-  vector<int> *argmin = new vector<int>(2);
+  std::vector<int> *argmin = new std::vector<int>(2);
   SpMatCSC::InnerIterator it(*T, 0);
   double minValue = it.value();
   for (j = 0; j < T->cols(); j++){

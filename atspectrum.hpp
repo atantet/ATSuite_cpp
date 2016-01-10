@@ -1,13 +1,12 @@
 #ifndef ATSPECTRUM_HPP
 #define ATSPECTRUM_HPP
 
+#include <cstdlib>
+#include <cstdio>
 #include <vector>
-#include <Eigen/Dense>
 #include <Eigen/Sparse>
-#include "arlnsmat.h"
-#include "arlssym.h"
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_matrix.h>
+#include <arpack++/arlnsmat.h>
+#include <arpack++/arlssym.h>
 #include <ATSuite/atio.hpp>
 
 /** \file atspectrum.hpp
@@ -23,15 +22,44 @@ typedef SparseMatrix<double, RowMajor> SpMatCSR;
 /** \brief Eigen sparse CSC matrix of double type. */
 typedef SparseMatrix<double, ColMajor> SpMatCSC;
 
-// Declarations
+// Class declarations
+/**
+ * Utility class used to give configuration options to ARPACK++.
+ *
+ */
+class configAR {
+public:
+  std::string which_; // Which eigenvalues to look for. 'LM' for Largest Magnitude
+  int ncv_ = 0; 
+  double tol_ = 0.; // Precision at which the eigenvalues are found (0 for machine precision)
+  int maxit_ = 0; // Maximum number of iterations (0 for unlimited)
+  double *resid_ = NULL;
+  bool AutoShift_ = true;
+  configAR(const std::string&, int, double, int, double *, bool);
+};
+
+// Function declarations 
 ARluNonSymMatrix<double, double> * pajek2AR(FILE *);
 ARluNonSymMatrix<double, double> * Eigen2AR(SpMatCSC *);
 ARluNonSymMatrix<double, double> * Eigen2AR(SpMatCSR *);
 ARluSymMatrix<double> * Eigen2ARSym(SpMatCSC *);
 ARluSymMatrix<double> * Eigen2ARSym(SpMatCSR *);
 ARluNonSymMatrix<double, double> * Compressed2AR(FILE *);
+int getSpectrum(ARluNonSymMatrix<double, double> *, int, configAR, double *, double *, double *);
+void writeSpectrum(FILE *, FILE *, double *, double *, double *, int, size_t);
 
 // Definitions
+configAR::configAR(const std::string& which="LM", int ncv=0, double tol=0.,
+		   int maxit=0, double *resid=NULL, bool AutoShift=true)
+{
+  which_ = which;
+  ncv_ = ncv;
+  tol_ = tol;
+  maxit_ = maxit;
+  resid_ = resid;
+  AutoShift_ = AutoShift;
+}
+
 /**
  * Scans an Arpack++ LU nonsymmetric CSC matrix
  * (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>)
@@ -252,4 +280,81 @@ ARluSymMatrix<double>* Eigen2ARSym(SpMatCSR *TEigenCSR)
   return T;
 }
 
+/**
+ * \brief Get spectrum of a nonsymmetric matrix using ARPACK++.
+ * Get spectrum of a nonsymmetric matrix using ARPACK++.
+ * \param[in] P ARPACK++ CSC sparse matrix from which to calculate the spectrum.
+ * \param[in] nev Number of eigenvalues and eigenvectors to find.
+ * \param[in] cfgAR Configuration options passed as a configAR object.
+ * \param[out] EigValReal Real part of found eigenvalues.
+ * \param[out] EigValImag Imaginary  part of found eigenvalues.
+ * \param[out] EigVec Found eigenvectors.
+ * \return Number of eigenvalues and eigenvectors found.
+ */
+int
+getSpectrum(ARluNonSymMatrix<double, double> *P, int nev, configAR cfgAR,
+	    double *EigValReal, double *EigValImag, double *EigVec)
+{
+  ARluNonSymStdEig<double> EigProb;
+  int nconv;
+
+  // Define eigen problem
+  EigProb = ARluNonSymStdEig<double>(nev, *P, cfgAR.which_, cfgAR.ncv_, cfgAR.tol_,
+				     cfgAR.maxit_, cfgAR.resid_, cfgAR.AutoShift_);
+  
+  // Find eigenvalues and left eigenvectors
+  EigProb.EigenValVectors(EigVec, EigValReal, EigValImag);
+  nconv = EigProb.ConvergedEigenvalues();
+
+
+  return nconv;
+}
+
+/**
+ * Write complex eigenvalues and eigenvectors obtained as arrays from ARPACK++.
+ * \param[in] fEigVal File descriptor for eigenvalues.
+ * \param[in] fEigVec File descriptor for eigenvectors.
+ * \param[in] EigValReal Array of eigenvalues real parts.
+ * \param[in] EigValImag Array of eigenvalues imaginary parts.
+ * \param[in] EigVec Array of eigenvectors.
+ * \param[in] nev Number of eigenvalues and eigenvectors.
+ * \param[in] Length of the eigenvectors.
+ */
+void writeSpectrum(FILE *fEigVal, FILE *fEigVec,
+		   double *EigValReal, double *EigValImag,
+		   double *EigVec, int nev, size_t N)
+{
+  size_t vecCount = 0;
+  int ev =0;
+  // Write real and imaginary parts of each eigenvalue on each line
+  // Write on each pair of line the real part of an eigenvector then its imaginary part
+  while (ev < nev) {
+    // Always write the eigenvalue
+    fprintf(fEigVal, "%lf %lf\n", EigValReal[ev], EigValImag[ev]);
+    // Always write the real part of the eigenvector ev
+    for (size_t i = 0; i < N; i++){
+      fprintf(fEigVec, "%lf ", EigVec[vecCount*N+i]);
+    }
+    fprintf(fEigVec, "\n");
+    vecCount++;
+    
+    // Write its imaginary part or the zero vector
+    if (EigValImag[ev] != 0.){
+      for (size_t i = 0; i < N; i++)
+	fprintf(fEigVec, "%lf ", EigVec[vecCount*N+i]);
+      vecCount++;
+      // Skip the conjugate
+      ev += 2;
+    }
+    else{
+      for (size_t i = 0; i < N; i++)
+	fprintf(fEigVec, "%lf ", 0.);
+      ev += 1;
+    }
+    fprintf(fEigVec, "\n");
+  }
+
+  return;
+}
+	
 #endif

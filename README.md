@@ -1,4 +1,4 @@
-Introduction               {#introduction}
+Introduction
 ============
 
 ATSuite C++ is a collection of scientific routines in C++
@@ -8,7 +8,7 @@ Visit Alexis' home page [UU] for contact.
 The full documentation can be found at [ATSuite_cpp_doc].
 
 
-Installation               {#installation}
+Installation
 ============
 
 Getting the code
@@ -24,12 +24,16 @@ To do so:
 
         git clone https://github.com/atantet/ATSuite_cpp
      
-Dependencies                    {#dependencies}
+Dependencies
 ------------
 
+Mandatory libraries:
 - [GSL] is used as the main C scientific library.
 - [Eigen] is a C++ template library for linear algebra, mainly used for sparse matrices manipulation.
-- [ARPACK++] is an object-oriented version of the ARPACK package, mainly used to find the leading part of the spectrum of sparse matrices.
+
+Specific libraries:
+- [ARPACK++] is an object-oriented version of the ARPACK package used to calculate the spectrum of sparse matrices in atspectrum.hpp.
+- [OMP] is used for multi-threading by transferOperator.hpp.
 
 Installing the code
 -------------------
@@ -62,7 +66,7 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Disclaimer            {#disclaimer}
+Disclaimer 
 ==========
 
 These codes are developed for _research purpose_.
@@ -74,3 +78,4 @@ _No warranty_ is given regarding their robustess.
 [GSL]: http://www.gnu.org/software/gsl/ "GSL - GNU Scientific Library"
 [Eigen]: http://eigen.tuxfamily.org/ "Eigen"
 [ARPACK++]: http://www.caam.rice.edu/software/ARPACK/arpack++.html "ARPACK++"
+[OMP]: http://openmp.com/ "Open MP"
