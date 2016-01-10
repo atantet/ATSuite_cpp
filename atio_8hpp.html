@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -101,14 +102,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a52cdeb3bea4ddb67758b9954c6794675"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52cdeb3bea4ddb67758b9954c6794675"></a>
-typedef SparseMatrix&lt; double, RowMajor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a52cdeb3bea4ddb67758b9954c6794675">SpMatCSR</a></td></tr>
-<tr class="memdesc:a52cdeb3bea4ddb67758b9954c6794675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen sparse CSR matrix of double type. <br /></td></tr>
-<tr class="separator:a52cdeb3bea4ddb67758b9954c6794675"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89be524d0ff23d2e1daf262a423b0668"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89be524d0ff23d2e1daf262a423b0668"></a>
-typedef SparseMatrix&lt; double, ColMajor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a></td></tr>
-<tr class="memdesc:a89be524d0ff23d2e1daf262a423b0668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen sparse CSC matrix of double type. <br /></td></tr>
-<tr class="separator:a89be524d0ff23d2e1daf262a423b0668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ed0d254391fead9871fed96447cd51a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ed0d254391fead9871fed96447cd51a"></a>
+typedef Eigen::SparseMatrix&lt; double, Eigen::RowMajor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a></td></tr>
+<tr class="memdesc:a2ed0d254391fead9871fed96447cd51a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen sparse CSR matrix of double type. <br /></td></tr>
+<tr class="separator:a2ed0d254391fead9871fed96447cd51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace75979355a5e6ee01cad82e4cdbc8f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace75979355a5e6ee01cad82e4cdbc8f3"></a>
+typedef Eigen::SparseMatrix&lt; double, Eigen::ColMajor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a></td></tr>
+<tr class="memdesc:ace75979355a5e6ee01cad82e4cdbc8f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen sparse CSC matrix of double type. <br /></td></tr>
+<tr class="separator:ace75979355a5e6ee01cad82e4cdbc8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a687d3949a180c7b0e48230fb63ff4b63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a687d3949a180c7b0e48230fb63ff4b63"></a>
 typedef Eigen::Triplet&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a></td></tr>
 <tr class="memdesc:a687d3949a180c7b0e48230fb63ff4b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen triplet of double. <br /></td></tr>
@@ -118,11 +119,11 @@ typedef Eigen::Triplet&lt; double &gt;&#160;</td><td class="memItemRight" valign
 Functions</h2></td></tr>
 <tr class="memitem:a50b72292e978156fbbc6ed43ec2fede2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a50b72292e978156fbbc6ed43ec2fede2">Eigen2Pajek</a> (FILE *, <a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
 <tr class="separator:a50b72292e978156fbbc6ed43ec2fede2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50a95389aa589e3207d94fd89b4c0b99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a50a95389aa589e3207d94fd89b4c0b99">Eigen2Compressed</a> (FILE *, <a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *)</td></tr>
+<tr class="memitem:a50a95389aa589e3207d94fd89b4c0b99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a50a95389aa589e3207d94fd89b4c0b99">Eigen2Compressed</a> (FILE *, <a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
 <tr class="separator:a50a95389aa589e3207d94fd89b4c0b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14021b1f98dc55a75731c9e68cadfd1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a14021b1f98dc55a75731c9e68cadfd1c">Eigen2Compressed</a> (FILE *, <a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
 <tr class="separator:a14021b1f98dc55a75731c9e68cadfd1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85a55835a495f6bcf8ecb5de3cb1c7c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a85a55835a495f6bcf8ecb5de3cb1c7c2">pajek2Eigen</a> (FILE *)</td></tr>
+<tr class="memitem:a85a55835a495f6bcf8ecb5de3cb1c7c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a85a55835a495f6bcf8ecb5de3cb1c7c2">pajek2Eigen</a> (FILE *)</td></tr>
 <tr class="separator:a85a55835a495f6bcf8ecb5de3cb1c7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a082aa8766f89b42de75a552d7c8b1b58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a082aa8766f89b42de75a552d7c8b1b58">Compressed2Eigen</a> (FILE *)</td></tr>
 <tr class="separator:a082aa8766f89b42de75a552d7c8b1b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,14 +131,14 @@ Functions</h2></td></tr>
 <tr class="separator:ae8ae8bf489dd611a785ecca3ba75d689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81b66b0717997e6f96dbc8f62d4ac72e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a81b66b0717997e6f96dbc8f62d4ac72e">Compressed2EdgeList</a> (FILE *, FILE *)</td></tr>
 <tr class="separator:a81b66b0717997e6f96dbc8f62d4ac72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a770e15449725d8be9e607890d733c172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a770e15449725d8be9e607890d733c172">CSC2CSR</a> (<a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *T)</td></tr>
+<tr class="memitem:a770e15449725d8be9e607890d733c172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a770e15449725d8be9e607890d733c172">CSC2CSR</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *T)</td></tr>
 <tr class="separator:a770e15449725d8be9e607890d733c172"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c528072f3b76534e823a465b6ed5898"><td class="memItemLeft" align="right" valign="top"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a8c528072f3b76534e823a465b6ed5898">CSR2CSC</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T)</td></tr>
+<tr class="memitem:a8c528072f3b76534e823a465b6ed5898"><td class="memItemLeft" align="right" valign="top"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a8c528072f3b76534e823a465b6ed5898">CSR2CSC</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T)</td></tr>
 <tr class="separator:a8c528072f3b76534e823a465b6ed5898"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff4e0a50d8d558d3c478e5a80beab86a"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#aff4e0a50d8d558d3c478e5a80beab86a">Eigen2Triplet</a> (<a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *)</td></tr>
-<tr class="separator:aff4e0a50d8d558d3c478e5a80beab86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a2e3940f2d1f7ef4d1c93a38b7e61ff"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a6a2e3940f2d1f7ef4d1c93a38b7e61ff">Eigen2Triplet</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:a6a2e3940f2d1f7ef4d1c93a38b7e61ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864f51f48dd2134e0031eb53075b41bb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a864f51f48dd2134e0031eb53075b41bb">Eigen2Triplet</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
+<tr class="separator:a864f51f48dd2134e0031eb53075b41bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b555eccbaac2468081adb747c2310d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a53b555eccbaac2468081adb747c2310d">Eigen2Triplet</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
+<tr class="separator:a53b555eccbaac2468081adb747c2310d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607035fb0ba3875a5388c7f6284035c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a607035fb0ba3875a5388c7f6284035c8">fprintfEigen</a> (FILE *, <a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *, const char *)</td></tr>
 <tr class="separator:a607035fb0ba3875a5388c7f6284035c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a815f702fe2acf04a2e7dd8e35cf27d12"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atio_8hpp.html#a815f702fe2acf04a2e7dd8e35cf27d12">lineCount</a> (FILE *)</td></tr>
@@ -167,23 +168,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get an edge list as a GSL matrix from a compressed format matrix file with:</p><ol type="1">
-<li>a header with the matrix type ("CSR" or "CSC"), inner size, outer size and number of nonzero elements,</li>
-<li>the data vector,</li>
-<li>the indices vector,</li>
-<li>the pointer vector. <dl class="params"><dt>Parameters</dt><dd>
+<p>Get an edge list as a GSL matrix from a matrix file in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>Descriptor of the file to which to scan. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Edge list as a GSL matrix </dd></dl>
-</li>
-</ol>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00245">245</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00236">236</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atio_8hpp_source.html#l00309">Compressed2EdgeList()</a>.</p>
+<p>Referenced by <a class="el" href="atio_8hpp_source.html#l00295">Compressed2EdgeList()</a>.</p>
 
 </div>
 </div>
@@ -210,23 +205,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Print an edge list from a compressed format matrix file with:</p><ol type="1">
-<li>a header with the matrix type ("CSR" or "CSC"), inner size, outer size and number of nonzero elements,</li>
-<li>the data vector,</li>
-<li>the indices vector,</li>
-<li>the pointer vector. <dl class="params"><dt>Parameters</dt><dd>
+<p>Print an edge list matrix file in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Descriptor of the file to which to scan in compressed matrix format. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">dst</td><td>Descriptor of the file to which to print in edge list format. </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ol>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00309">309</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00295">295</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00245">Compressed2EdgeList()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00236">Compressed2EdgeList()</a>.</p>
 
 </div>
 </div>
@@ -243,21 +232,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Scans an Eigen CSR matrix from a compressed format matrix file with:</p><ol type="1">
-<li>a header with the matrix type ("CSR" or "CSC"), inner size, outer size and number of nonzero elements,</li>
-<li>the data vector,</li>
-<li>the indices vector,</li>
-<li>the pointer vector. <dl class="params"><dt>Parameters</dt><dd>
+<p>Scans an Eigen CSR matrix from a matrix file in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>Descriptor of the file to which to scan. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Scanned Eigen matrix. </dd></dl>
-</li>
-</ol>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00188">188</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00183">183</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -268,7 +251,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> * CSC2CSR </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *&#160;</td>
           <td class="paramname"><em>T</em></td><td>)</td>
           <td></td>
         </tr>
@@ -282,9 +265,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00329">329</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00316">316</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00369">Eigen2Triplet()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00358">Eigen2Triplet()</a>.</p>
 
 </div>
 </div>
@@ -293,7 +276,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> * CSR2CSC </td>
+          <td class="memname"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> * CSR2CSC </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *&#160;</td>
           <td class="paramname"><em>T</em></td><td>)</td>
@@ -309,11 +292,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00349">349</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00337">337</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00369">Eigen2Triplet()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00358">Eigen2Triplet()</a>.</p>
 
-<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00161">Eigen2AR()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00241">Eigen2ARSym()</a>.</p>
+<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00189">Eigen2AR()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00269">Eigen2ARSym()</a>.</p>
 
 </div>
 </div>
@@ -330,7 +313,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *&#160;</td>
           <td class="paramname"><em>P</em>&#160;</td>
         </tr>
         <tr>
@@ -348,7 +331,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00120">120</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00123">123</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,21 +358,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Print an Eigen CSR matrix in compressed format with:</p><ol type="1">
-<li>a header with the matrix type ("CSR" or "CSC"), inner size, outer size and number of nonzero elements,</li>
-<li>the data vector,</li>
-<li>the indices vector,</li>
-<li>the pointer vector. <dl class="params"><dt>Parameters</dt><dd>
+<p>Print an Eigen CSR matrix in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>Descriptor of the file to which to print. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">P</td><td>Eigen matrix to print. </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ol>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00154">154</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00153">153</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -424,18 +401,18 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00054">54</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00055">55</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aff4e0a50d8d558d3c478e5a80beab86a"></a>
+<a class="anchor" id="a864f51f48dd2134e0031eb53075b41bb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt; Eigen2Triplet </td>
+          <td class="memname">std::vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt; Eigen2Triplet </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *&#160;</td>
           <td class="paramname"><em>T</em></td><td>)</td>
           <td></td>
         </tr>
@@ -449,18 +426,18 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>vector of Eigen triplet converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00369">369</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00358">358</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atio_8hpp_source.html#l00329">CSC2CSR()</a>, and <a class="el" href="atio_8hpp_source.html#l00349">CSR2CSC()</a>.</p>
+<p>Referenced by <a class="el" href="atio_8hpp_source.html#l00316">CSC2CSR()</a>, and <a class="el" href="atio_8hpp_source.html#l00337">CSR2CSC()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6a2e3940f2d1f7ef4d1c93a38b7e61ff"></a>
+<a class="anchor" id="a53b555eccbaac2468081adb747c2310d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt; Eigen2Triplet </td>
+          <td class="memname">std::vector&lt; <a class="el" href="atio_8hpp.html#a687d3949a180c7b0e48230fb63ff4b63">Tri</a> &gt; Eigen2Triplet </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *&#160;</td>
           <td class="paramname"><em>T</em></td><td>)</td>
@@ -476,7 +453,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>vector of Eigen triplet converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00388">388</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00378">378</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -518,7 +495,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00408">408</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00399">399</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -543,7 +520,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of lines in file. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00436">436</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00428">428</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
@@ -552,7 +529,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="atio_8hpp.html#a89be524d0ff23d2e1daf262a423b0668">SpMatCSC</a> * pajek2Eigen </td>
+          <td class="memname"><a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> * pajek2Eigen </td>
           <td>(</td>
           <td class="paramtype">FILE *&#160;</td>
           <td class="paramname"><em>fp</em></td><td>)</td>
@@ -568,7 +545,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen matrix scanned. </dd></dl>
 
-<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00078">78</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atio_8hpp_source.html#l00080">80</a> of file <a class="el" href="atio_8hpp_source.html">atio.hpp</a>.</p>
 
 </div>
 </div>
