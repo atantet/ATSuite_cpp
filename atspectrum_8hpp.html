@@ -173,7 +173,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetric matrix scanned. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00124">124</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00129">129</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>
@@ -198,9 +198,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00163">163</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00168">168</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00198">Eigen2AR()</a>.</p>
+<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00203">Eigen2AR()</a>.</p>
 
 </div>
 </div>
@@ -219,15 +219,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Converts an Eigen CSR matrix to an ARPACK++ LU nonsymmetric CSC matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TEigenCSR</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00198">198</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00203">203</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00163">Eigen2AR()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00168">Eigen2AR()</a>.</p>
 
 </div>
 </div>
@@ -252,9 +252,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU symmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00219">219</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00224">224</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00282">Eigen2ARSym()</a>.</p>
+<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00287">Eigen2ARSym()</a>.</p>
 
 </div>
 </div>
@@ -273,15 +273,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Converts an Eigen CSR matrix to ARPACK++ LU symmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TEigenCSR</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU symmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00282">282</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00287">287</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00219">Eigen2ARSym()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00224">Eigen2ARSym()</a>.</p>
 
 </div>
 </div>
@@ -345,7 +345,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of eigenvalues and eigenvectors found. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00309">309</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00314">314</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+
+<p>References <a class="el" href="atspectrum_8hpp_source.html#l00038">configAR::AutoShift_</a>, <a class="el" href="atspectrum_8hpp_source.html#l00036">configAR::maxit_</a>, <a class="el" href="atspectrum_8hpp_source.html#l00034">configAR::ncv_</a>, <a class="el" href="atspectrum_8hpp_source.html#l00037">configAR::resid_</a>, <a class="el" href="atspectrum_8hpp_source.html#l00035">configAR::tol_</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00033">configAR::which_</a>.</p>
 
 </div>
 </div>
@@ -370,7 +372,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetric matrix scanned. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00074">74</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00079">79</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>
@@ -435,12 +437,12 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">EigValImag</td><td>Array of eigenvalues imaginary parts. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">EigVec</td><td>Array of eigenvectors. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">nev</td><td>Number of eigenvalues and eigenvectors. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Length</td><td>of the eigenvectors. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>Length of the eigenvectors. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00339">339</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00344">344</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>

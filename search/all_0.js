@@ -8,5 +8,6 @@ var searchData=
   ['atmarkov_2ehpp',['atmarkov.hpp',['../atmarkov_8hpp.html',1,'']]],
   ['atmath_2ehpp',['atmath.hpp',['../atmath_8hpp.html',1,'']]],
   ['atmatrix_2ehpp',['atmatrix.hpp',['../atmatrix_8hpp.html',1,'']]],
-  ['atspectrum_2ehpp',['atspectrum.hpp',['../atspectrum_8hpp.html',1,'']]]
+  ['atspectrum_2ehpp',['atspectrum.hpp',['../atspectrum_8hpp.html',1,'']]],
+  ['autoshift_5f',['AutoShift_',['../classconfig_a_r.html#aa8e53301b71d28596e379bd5025884c9',1,'configAR']]]
 ];

@@ -116,7 +116,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Copy the source files to your favorite include directory $INCLUDE: <pre class="fragment"> cp *.hpp $INCLUDE/ATSuite
 </pre></li>
 </ol>
-<h1>Disclaimer </h1>
+<h1>Compiling </h1>
+<p>If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/ then either it should be added to CPLUS_INCLUDE_PATH or at compilation using -I$INCLUDE. E.g. </p><pre class="fragment"> g++ -c -I$INCLUDE source.cpp
+</pre><p>When linking, GSL should be linked by added -lgsl. If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should be added. E.g. </p><pre class="fragment"> g++ -L$GSLDIR source.o -lgsl
+</pre><h2>Compiling with <a href="http://www.openmp.org/" title="OpenMP">OMP</a> </h2>
+<p>If OpenMP is to be used, then WITH_OMP should be set to 1, -fopenmp -DWITH_OMP= used when compiling and -lgomp when linking. </p><pre class="fragment"> g++ -c -fopenmp -DWITH_OMP=$(WITH_OMP) -I$INCLUDE source.cpp
+ g++ -L$GSLDIR source.o -lgsl -lgomp
+</pre><h1>Disclaimer </h1>
 <p>These codes are developed for <em>research purpose</em>. <em>No warranty</em> is given regarding their robustess. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
