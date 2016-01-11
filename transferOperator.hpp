@@ -481,7 +481,6 @@ std::vector<gsl_vector *> *getGridRect(size_t dim, size_t nx,
  * \brief Get a uniform rectangular grid.
  * 
  * Get a uniform rectangular grid with specific bounds for each dimension.
- * \param[in] dim        Number of dimensions.
  * \param[in] nx         GSL vector giving the number of boxes for each dimension.
  * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
  * \param[in] xmax       GSL vector giving the maximum box limit for each dimension.

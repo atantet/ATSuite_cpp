@@ -67,6 +67,29 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
+Compiling
+=========
+
+If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
+then either it should be added to CPLUS_INCLUDE_PATH or at compilation using -I$INCLUDE. E.g.
+
+     g++ -c -I$INCLUDE source.cpp
+
+When linking, GSL should be linked by added -lgsl.
+If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should be added. E.g.
+
+     g++ -L$GSLDIR source.o -lgsl
+     
+Compiling with [OMP]
+--------------------
+
+If OpenMP is to be used, then WITH_OMP should be set to 1,
+-fopenmp -DWITH_OMP=$(WITH_OMP) used when compiling
+and -lgomp when linking.
+
+     g++ -c -fopenmp -DWITH_OMP=$(WITH_OMP) -I$INCLUDE source.cpp
+     g++ -L$GSLDIR source.o -lgsl -lgomp
+
 Disclaimer 
 ==========
 

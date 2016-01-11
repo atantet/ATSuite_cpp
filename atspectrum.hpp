@@ -30,12 +30,12 @@ typedef SparseMatrix<double, ColMajor> SpMatCSC;
  */
 class configAR {
 public:
-  std::string which_; // Which eigenvalues to look for. 'LM' for Largest Magnitude
-  int ncv_ = 0; 
-  double tol_ = 0.; // Precision at which the eigenvalues are found (0 for machine precision)
-  int maxit_ = 0; // Maximum number of iterations (0 for unlimited)
-  double *resid_ = NULL;
-  bool AutoShift_ = true;
+  std::string which_;       //!< Which eigenvalues to look for. 'LM' for Largest Magnitude
+  int ncv_ = 0;             //!< The number of Arnoldi vectors generated at each iteration of ARPACK
+  double tol_ = 0.;         //!< The relative accuracy to which eigenvalues are to be determined
+  int maxit_ = 0;           //!< The maximum number of iterations allowed
+  double *resid_ = NULL;    //!< A starting vector for the Arnoldi process
+  bool AutoShift_ = true;   //!< Shifts for the implicit restarting of the Arnoldi method
   configAR(const std::string&, int, double, int, double *, bool);
 };
 
@@ -50,6 +50,11 @@ int getSpectrum(ARluNonSymMatrix<double, double> *, int, configAR, double *, dou
 void writeSpectrum(FILE *, FILE *, double *, double *, double *, int, size_t);
 
 // Definitions
+/**
+ * \brief Main constructor.
+ * 
+ * Main constructor with default parameters.
+ */
 configAR::configAR(const std::string& which="LM", int ncv=0, double tol=0.,
 		   int maxit=0, double *resid=NULL, bool AutoShift=true)
 {
@@ -192,7 +197,7 @@ ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSC *TEigen)
  * \brief Converts an Eigen CSR matrix to an ARPACK++ nonsymmetric CSC matrix.
  *
  * Converts an Eigen CSR matrix to an ARPACK++ LU nonsymmetric CSC matrix.
- * \param[in] TEigen    Eigen matrix from which to convert.
+ * \param[in] TEigenCSR    Eigen matrix from which to convert.
  * \return ARPACK++ LU nonsymmetrix CSC matrix converted.
  */
 ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSR *TEigenCSR)
@@ -276,7 +281,7 @@ ARluSymMatrix<double>* Eigen2ARSym(SpMatCSC *TEigen)
  * \brief Converts an Eigen CSR matrix to an ARPACK++ symmetric CSC matrix.
  *
  * Converts an Eigen CSR matrix to ARPACK++ LU symmetric matrix.
- * \param[in] TEigen    Eigen matrix from which to convert.
+ * \param[in] TEigenCSR    Eigen matrix from which to convert.
  * \return ARPACK++ LU symmetrix CSC matrix converted.
  */
 ARluSymMatrix<double>* Eigen2ARSym(SpMatCSR *TEigenCSR)
@@ -334,7 +339,7 @@ getSpectrum(ARluNonSymMatrix<double, double> *P, int nev, configAR cfgAR,
  * \param[in] EigValImag Array of eigenvalues imaginary parts.
  * \param[in] EigVec Array of eigenvectors.
  * \param[in] nev Number of eigenvalues and eigenvectors.
- * \param[in] Length of the eigenvectors.
+ * \param[in] N Length of the eigenvectors.
  */
 void writeSpectrum(FILE *fEigVal, FILE *fEigVec,
 		   double *EigValReal, double *EigValImag,

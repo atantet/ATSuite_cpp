@@ -188,13 +188,13 @@ generateCuspAdditiveWienerEM(gsl_vector *state,
  *
  * Integrate one step forward the cusp normal form (see Strogatz, 1994)
  * with an additive Wiener process, with an Euler-Maruyama scheme.
- * \param[in] state    Present state.
- * \param[in] r        Parameter r.
- * \param[in] h        Parameter h.
- * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
+ * \param[in] state        Present state.
+ * \param[in] r            Parameter r.
+ * \param[in] h            Parameter h.
+ * \param[in] noiseSample  GSL matrix of noise realizations for each time step.
  * \param[in] Q            Noise intensity.
- * \param[in] dt       Time step.
- * \return             GSL vector of the future state.
+ * \param[in] dt           Time step.
+ * \return                 GSL vector of the future state.
  */
 gsl_vector *
 cuspAdditiveWienerEM(gsl_vector *state,
@@ -226,17 +226,17 @@ cuspAdditiveWienerEM(gsl_vector *state,
  *
  * Integrate the Lorenz, 1963 with multiplicative linear Wiener process,
  * with an Euler-Maruyama Scheme.
- * \param[in] state    Initial state.
- * \param[in] rho      Parameter \f$\rho\f$.
- * \param[in] sigma    Parameter \f$\sigma\f$.
- * \param[in] beta     Parameter \f$\beta\f$.
+ * \param[in] state        Initial state.
+ * \param[in] rho          Parameter \f$\rho\f$.
+ * \param[in] sigma        Parameter \f$\sigma\f$.
+ * \param[in] beta         Parameter \f$\beta\f$.
  * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
  * \param[in] Q            Noise intensity.
- * \param[in] length   Length of integration.
- * \param[in] dt       Time step.
- * \param[in] sampling Step between each sampled state.
- * \param[in] spinup   Lenght of initial spinup period to discard.
- * \return             GSL matrix recording the integration.
+ * \param[in] length       Length of integration.
+ * \param[in] dt           Time step.
+ * \param[in] sampling     Step between each sampled state.
+ * \param[in] spinup       Lenght of initial spinup period to discard.
+ * \return                 GSL matrix recording the integration.
  */
 gsl_matrix *
 generateLorenzLinearWienerEM(gsl_vector *state, double rho,
@@ -299,14 +299,14 @@ generateLorenzLinearWienerEM(gsl_vector *state, double rho,
  *
  * Integrate one step the Lorenz, 1963 with multiplicative linear Wiener process,
  * with an Euler-Maruyama Scheme.
- * \param[in] state    Initial state.
- * \param[in] rho      Parameter \f$\rho\f$.
- * \param[in] sigma    Parameter \f$\sigma\f$.
- * \param[in] beta     Parameter \f$\beta\f$.
- * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
+ * \param[in] state        Initial state.
+ * \param[in] rho          Parameter \f$\rho\f$.
+ * \param[in] sigma        Parameter \f$\sigma\f$.
+ * \param[in] beta         Parameter \f$\beta\f$.
+ * \param[in] noiseSample  GSL matrix of noise realizations for each time step.
  * \param[in] Q            Noise intensity.
- * \param[in] dt       Time step.
- * \return             GSL matrix recording the integration.
+ * \param[in] dt           Time step.
+ * \return                 GSL matrix recording the integration.
  */
 gsl_vector * lorenzLinearWienerEM(gsl_vector *state,
 				  double rho, double sigma, double beta,
@@ -337,7 +337,7 @@ gsl_vector * lorenzLinearWienerEM(gsl_vector *state,
  *
  * Get the field of the additive Wiener process.
  * \param[in] Q            Noise intensity.
- * \param[in] noiseSamples GSL vector of noise realization for this time step.
+ * \param[in] noiseSample  GSL vector of noise realization for this time step.
  * \return                 GSL vector of the field at the state.
  */
 gsl_vector * additiveWienerField(double Q, gsl_vector *noiseSample)
@@ -357,7 +357,7 @@ gsl_vector * additiveWienerField(double Q, gsl_vector *noiseSample)
  * Get the field of the multiplicative linear Wiener process.
  * \param[in] state        Present state.
  * \param[in] Q            Noise intensity.
- * \param[in] noiseSamples GSL vector of noise realization for this time step.
+ * \param[in] noiseSample  GSL vector of noise realization for this time step.
  * \return                 GSL vector of the field at the state.
  */
 gsl_vector * linearWienerField(gsl_vector *state, double Q, gsl_vector *noiseSample)

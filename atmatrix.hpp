@@ -136,7 +136,7 @@ getColSum(SpMatCSR *T)
  * Get the sum of each column of an Eigen CSR matrix as a GSL vector
  * (alternate version with output in argument).
  * \param[in] T    Eigen CSR matrix on which to sum.
- * \param[out] GSL vector of the sum of columns of the sparse matrix.
+ * \param[out] colSum GSL vector of the sum of columns of the sparse matrix.
  */
 void
 getColSum(SpMatCSR *T, gsl_vector *colSum)
