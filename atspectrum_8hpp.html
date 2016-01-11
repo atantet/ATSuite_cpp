@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Get spectrum of sparse matrices using Arpack++.  
+<p>Get spectrum of sparse matrices using ARPACK++.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
@@ -106,6 +106,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classconfig_a_r.html">configAR</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class used to give configuration options to ARPACK++.  <a href="classconfig_a_r.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -121,30 +122,37 @@ typedef SparseMatrix&lt; double, ColMajor &gt;&#160;</td><td class="memItemRight
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acb885c538d2f26970451d5612ffa965d"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#acb885c538d2f26970451d5612ffa965d">pajek2AR</a> (FILE *)</td></tr>
-<tr class="separator:acb885c538d2f26970451d5612ffa965d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a9d88c087d554a6fbed1da7933338be"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a6a9d88c087d554a6fbed1da7933338be">Eigen2AR</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
-<tr class="separator:a6a9d88c087d554a6fbed1da7933338be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dad39fa30db2fc3344140252ef357d3"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a8dad39fa30db2fc3344140252ef357d3">Eigen2AR</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:a8dad39fa30db2fc3344140252ef357d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6dade397aa0fbded7dfd82c73808229"><td class="memItemLeft" align="right" valign="top">ARluSymMatrix&lt; double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#ae6dade397aa0fbded7dfd82c73808229">Eigen2ARSym</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
-<tr class="separator:ae6dade397aa0fbded7dfd82c73808229"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe6022ca6ed34b8f7b2c1cf6cb22d074"><td class="memItemLeft" align="right" valign="top">ARluSymMatrix&lt; double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#abe6022ca6ed34b8f7b2c1cf6cb22d074">Eigen2ARSym</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:abe6022ca6ed34b8f7b2c1cf6cb22d074"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ee3f8b2c70a0cd2fbae9a5610174a7b"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a1ee3f8b2c70a0cd2fbae9a5610174a7b">Compressed2AR</a> (FILE *)</td></tr>
-<tr class="separator:a1ee3f8b2c70a0cd2fbae9a5610174a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bbb21fe813aad72e863a0f17407d905"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a9bbb21fe813aad72e863a0f17407d905">pajek2AR</a> (FILE *fp)</td></tr>
+<tr class="memdesc:a9bbb21fe813aad72e863a0f17407d905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans an ARPACK++ nonsymmetric matrix from a Pajek file.  <a href="#a9bbb21fe813aad72e863a0f17407d905">More...</a><br /></td></tr>
+<tr class="separator:a9bbb21fe813aad72e863a0f17407d905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a52d6b83af3062c6a99587e0f745123"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a3a52d6b83af3062c6a99587e0f745123">Eigen2AR</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *TEigen)</td></tr>
+<tr class="memdesc:a3a52d6b83af3062c6a99587e0f745123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen CSC matrix to an ARPACK++ nonsymmetric CSC matrix.  <a href="#a3a52d6b83af3062c6a99587e0f745123">More...</a><br /></td></tr>
+<tr class="separator:a3a52d6b83af3062c6a99587e0f745123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7cb2bc5a25e32a4c75129aab6c0d007"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#af7cb2bc5a25e32a4c75129aab6c0d007">Eigen2AR</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *TEigenCSR)</td></tr>
+<tr class="memdesc:af7cb2bc5a25e32a4c75129aab6c0d007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen CSR matrix to an ARPACK++ nonsymmetric CSC matrix.  <a href="#af7cb2bc5a25e32a4c75129aab6c0d007">More...</a><br /></td></tr>
+<tr class="separator:af7cb2bc5a25e32a4c75129aab6c0d007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af34c3d99f118b682b634c6e25309f895"><td class="memItemLeft" align="right" valign="top">ARluSymMatrix&lt; double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#af34c3d99f118b682b634c6e25309f895">Eigen2ARSym</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *TEigen)</td></tr>
+<tr class="memdesc:af34c3d99f118b682b634c6e25309f895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen CSC matrix to an ARPACK++ symmetric CSC matrix.  <a href="#af34c3d99f118b682b634c6e25309f895">More...</a><br /></td></tr>
+<tr class="separator:af34c3d99f118b682b634c6e25309f895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f7653296051a9b7e648f24ba6cb417"><td class="memItemLeft" align="right" valign="top">ARluSymMatrix&lt; double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a04f7653296051a9b7e648f24ba6cb417">Eigen2ARSym</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *TEigenCSR)</td></tr>
+<tr class="memdesc:a04f7653296051a9b7e648f24ba6cb417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen CSR matrix to an ARPACK++ symmetric CSC matrix.  <a href="#a04f7653296051a9b7e648f24ba6cb417">More...</a><br /></td></tr>
+<tr class="separator:a04f7653296051a9b7e648f24ba6cb417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c37247247c8fa691d4a8640751ff75d"><td class="memItemLeft" align="right" valign="top">ARluNonSymMatrix&lt; double, double &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a2c37247247c8fa691d4a8640751ff75d">Compressed2AR</a> (FILE *fp)</td></tr>
+<tr class="memdesc:a2c37247247c8fa691d4a8640751ff75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans an ARPACK++ nonsymmetric matrix from a file in compressed format.  <a href="#a2c37247247c8fa691d4a8640751ff75d">More...</a><br /></td></tr>
+<tr class="separator:a2c37247247c8fa691d4a8640751ff75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c864f14328d313f97862d0ce2ed3125"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a3c864f14328d313f97862d0ce2ed3125">getSpectrum</a> (ARluNonSymMatrix&lt; double, double &gt; *P, int nev, <a class="el" href="classconfig_a_r.html">configAR</a> cfgAR, double *EigValReal, double *EigValImag, double *EigVec)</td></tr>
-<tr class="memdesc:a3c864f14328d313f97862d0ce2ed3125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get spectrum of a nonsymmetric matrix using ARPACK++. Get spectrum of a nonsymmetric matrix using ARPACK++.  <a href="#a3c864f14328d313f97862d0ce2ed3125">More...</a><br /></td></tr>
+<tr class="memdesc:a3c864f14328d313f97862d0ce2ed3125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get spectrum of a nonsymmetric matrix using ARPACK++.  <a href="#a3c864f14328d313f97862d0ce2ed3125">More...</a><br /></td></tr>
 <tr class="separator:a3c864f14328d313f97862d0ce2ed3125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa882d2462832764b3e05ca4472ab9bb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#aa882d2462832764b3e05ca4472ab9bb5">writeSpectrum</a> (FILE *, FILE *, double *, double *, double *, int, size_t)</td></tr>
-<tr class="separator:aa882d2462832764b3e05ca4472ab9bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c2fa2b7da9854628ad629eec85940bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atspectrum_8hpp.html#a7c2fa2b7da9854628ad629eec85940bd">writeSpectrum</a> (FILE *fEigVal, FILE *fEigVec, double *EigValReal, double *EigValImag, double *EigVec, int nev, size_t N)</td></tr>
+<tr class="memdesc:a7c2fa2b7da9854628ad629eec85940bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write complex eigenvalues and eigenvectors from ARPACK++.  <a href="#a7c2fa2b7da9854628ad629eec85940bd">More...</a><br /></td></tr>
+<tr class="separator:a7c2fa2b7da9854628ad629eec85940bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>ATSuite functions to get spectrum of sparse matrices using Arpack++. Also includes reading and conversion routines to Arpack++ CSC matrices. </p>
+<div class="textblock"><p>ATSuite functions to get spectrum of sparse matrices using ARPACK++. Also includes reading and conversion routines to ARPACK++ CSC matrices. </p>
 
 <p>Definition in file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a1ee3f8b2c70a0cd2fbae9a5610174a7b"></a>
+<a class="anchor" id="a2c37247247c8fa691d4a8640751ff75d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -157,19 +165,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Scans an Arpack++ LU nonsymmetric CSC matrix (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>) from a matrix file in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Scans an ARPACK++ LU nonsymmetric CSC matrix (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>) from a matrix file in compressed format (see <a class="el" href="atio_8hpp.html" title="Input, output and conversion routines. ">atio.hpp</a> documentation). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>Descriptor of the file to which to scan. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU nonsymmetric matrix scanned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetric matrix scanned. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00119">119</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00124">124</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6a9d88c087d554a6fbed1da7933338be"></a>
+<a class="anchor" id="a3a52d6b83af3062c6a99587e0f745123"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -182,21 +190,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts an Eigen CSC matrix to Arpack++ LU nonsymmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts an Eigen CSC matrix to ARPACK++ LU nonsymmetric CSC matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU nonsymmetrix CSC matrix converted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00156">156</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00163">163</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00189">Eigen2AR()</a>.</p>
+<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00198">Eigen2AR()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8dad39fa30db2fc3344140252ef357d3"></a>
+<a class="anchor" id="af7cb2bc5a25e32a4c75129aab6c0d007"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -209,21 +217,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts an Eigen CSR matrix to Arpack++ LU nonsymmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts an Eigen CSR matrix to an ARPACK++ LU nonsymmetric CSC matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU nonsymmetrix CSC matrix converted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00189">189</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00198">198</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00337">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00156">Eigen2AR()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00163">Eigen2AR()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae6dade397aa0fbded7dfd82c73808229"></a>
+<a class="anchor" id="af34c3d99f118b682b634c6e25309f895"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -236,21 +244,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts an Eigen CSC matrix to Arpack++ LU symmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts an Eigen CSC matrix to ARPACK++ LU symmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU symmetrix CSC matrix converted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU symmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00208">208</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00219">219</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00269">Eigen2ARSym()</a>.</p>
+<p>Referenced by <a class="el" href="atspectrum_8hpp_source.html#l00282">Eigen2ARSym()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="abe6022ca6ed34b8f7b2c1cf6cb22d074"></a>
+<a class="anchor" id="a04f7653296051a9b7e648f24ba6cb417"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -263,17 +271,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts an Eigen CSR matrix to Arpack++ LU symmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Converts an Eigen CSR matrix to ARPACK++ LU symmetric matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TEigen</td><td>Eigen matrix from which to convert. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU symmetrix CSC matrix converted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU symmetrix CSC matrix converted. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00269">269</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00282">282</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
-<p>References <a class="el" href="atio_8hpp_source.html#l00337">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00208">Eigen2ARSym()</a>.</p>
+<p>References <a class="el" href="atio_8hpp_source.html#l00355">CSR2CSC()</a>, and <a class="el" href="atspectrum_8hpp_source.html#l00219">Eigen2ARSym()</a>.</p>
 
 </div>
 </div>
@@ -324,11 +332,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Get spectrum of a nonsymmetric matrix using ARPACK++. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">P</td><td>ARPACK++ CSC sparse matrix from which to calculate the spectrum. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">nev</td><td>Number of eigenvalues and eigenvectors to find. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cfgAR</td><td>Configuration options passed as a <a class="el" href="classconfig_a_r.html">configAR</a> object. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfgAR</td><td>Configuration options passed as a <a class="el" href="classconfig_a_r.html" title="Utility class used to give configuration options to ARPACK++. ">configAR</a> object. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">EigValReal</td><td>Real part of found eigenvalues. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">EigValImag</td><td>Imaginary part of found eigenvalues. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">EigVec</td><td>Found eigenvectors. </td></tr>
@@ -337,11 +345,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of eigenvalues and eigenvectors found. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00295">295</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00309">309</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="acb885c538d2f26970451d5612ffa965d"></a>
+<a class="anchor" id="a9bbb21fe813aad72e863a0f17407d905"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -354,19 +362,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Scans an Arpack++ LU nonsymmetric CSC matrix (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>) from a Pajek file (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Scans an ARPACK++ LU nonsymmetric CSC matrix (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>) from a Pajek file (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>Descriptor of the file to which to scan. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Arpack++ LU nonsymmetric matrix scanned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ARPACK++ LU nonsymmetric matrix scanned. </dd></dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00071">71</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00074">74</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa882d2462832764b3e05ca4472ab9bb5"></a>
+<a class="anchor" id="a7c2fa2b7da9854628ad629eec85940bd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -432,7 +440,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00323">323</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atspectrum_8hpp_source.html#l00339">339</a> of file <a class="el" href="atspectrum_8hpp_source.html">atspectrum.hpp</a>.</p>
 
 </div>
 </div>

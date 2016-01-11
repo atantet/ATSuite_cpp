@@ -131,25 +131,31 @@ typedef SparseMatrix&lt; bool, ColMajor &gt;&#160;</td><td class="memItemRight" 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7bf63708570ff166e501d6afd481391b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#a7bf63708570ff166e501d6afd481391b">toRightStochastic</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
-<tr class="separator:a7bf63708570ff166e501d6afd481391b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec3d9c7a486de7413e0c2b15ed3d83e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#aec3d9c7a486de7413e0c2b15ed3d83e6">toRightStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:aec3d9c7a486de7413e0c2b15ed3d83e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc3f679387140fc258feb3887b3afdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#a4cc3f679387140fc258feb3887b3afdf">toLeftStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:a4cc3f679387140fc258feb3887b3afdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af752e2b171a86a128e53243c4e002cc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#af752e2b171a86a128e53243c4e002cc6">toAndStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *)</td></tr>
-<tr class="separator:af752e2b171a86a128e53243c4e002cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af77b0bde07f13ec5a5f49eed01274c52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#af77b0bde07f13ec5a5f49eed01274c52">toAndStochastic</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *)</td></tr>
-<tr class="separator:af77b0bde07f13ec5a5f49eed01274c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceb1314136487cbb559b707a755a605d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#aceb1314136487cbb559b707a755a605d">filterTransitionMatrix</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *, gsl_vector *, gsl_vector *, double, int)</td></tr>
-<tr class="separator:aceb1314136487cbb559b707a755a605d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43dd15407b79cbd8085429a18697bd2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#a43dd15407b79cbd8085429a18697bd2b">toRightStochastic</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *T)</td></tr>
+<tr class="memdesc:a43dd15407b79cbd8085429a18697bd2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an Eigen CSC matrix right stochastic.  <a href="#a43dd15407b79cbd8085429a18697bd2b">More...</a><br /></td></tr>
+<tr class="separator:a43dd15407b79cbd8085429a18697bd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a23849808d435fab8ace6bc09b1bf01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#a7a23849808d435fab8ace6bc09b1bf01">toRightStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T)</td></tr>
+<tr class="memdesc:a7a23849808d435fab8ace6bc09b1bf01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an Eigen CSR matrix right stochastic.  <a href="#a7a23849808d435fab8ace6bc09b1bf01">More...</a><br /></td></tr>
+<tr class="separator:a7a23849808d435fab8ace6bc09b1bf01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6315226c530b09f901c3a537068f3f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#ac6315226c530b09f901c3a537068f3f3">toLeftStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T)</td></tr>
+<tr class="memdesc:ac6315226c530b09f901c3a537068f3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an Eigen CSR matrix left stochastic.  <a href="#ac6315226c530b09f901c3a537068f3f3">More...</a><br /></td></tr>
+<tr class="separator:ac6315226c530b09f901c3a537068f3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b5710817dd25e56443aa3d4afbfdb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#ad4b5710817dd25e56443aa3d4afbfdb0">toAndStochastic</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T)</td></tr>
+<tr class="memdesc:ad4b5710817dd25e56443aa3d4afbfdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an Eigen CSR matrix and stochastic.  <a href="#ad4b5710817dd25e56443aa3d4afbfdb0">More...</a><br /></td></tr>
+<tr class="separator:ad4b5710817dd25e56443aa3d4afbfdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0255af01d12344c88671d39d72d99b6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#a0255af01d12344c88671d39d72d99b6a">toAndStochastic</a> (<a class="el" href="atio_8hpp.html#ace75979355a5e6ee01cad82e4cdbc8f3">SpMatCSC</a> *T)</td></tr>
+<tr class="memdesc:a0255af01d12344c88671d39d72d99b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an Eigen CSC matrix and stochastic.  <a href="#a0255af01d12344c88671d39d72d99b6a">More...</a><br /></td></tr>
+<tr class="separator:a0255af01d12344c88671d39d72d99b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad21d2b848bdc054b1f61bb4096c6d34d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="atmarkov_8hpp.html#ad21d2b848bdc054b1f61bb4096c6d34d">filterTransitionMatrix</a> (<a class="el" href="transfer_operator_8hpp.html#a2ed0d254391fead9871fed96447cd51a">SpMatCSR</a> *T, gsl_vector *rowCut, gsl_vector *colCut, double tol, int norm)</td></tr>
+<tr class="memdesc:ad21d2b848bdc054b1f61bb4096c6d34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove weak nodes from a transition matrix.  <a href="#ad21d2b848bdc054b1f61bb4096c6d34d">More...</a><br /></td></tr>
+<tr class="separator:ad21d2b848bdc054b1f61bb4096c6d34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ATSuite Markov transition matrix manipulation routines. </p>
 
 <p>Definition in file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aceb1314136487cbb559b707a755a605d"></a>
+<a class="anchor" id="ad21d2b848bdc054b1f61bb4096c6d34d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -207,13 +213,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00161">161</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00173">173</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
-<p>References <a class="el" href="atmatrix_8hpp_source.html#l00202">normalizeVector()</a>, <a class="el" href="atmarkov_8hpp_source.html#l00118">toAndStochastic()</a>, <a class="el" href="atmarkov_8hpp_source.html#l00095">toLeftStochastic()</a>, and <a class="el" href="atmarkov_8hpp_source.html#l00053">toRightStochastic()</a>.</p>
+<p>References <a class="el" href="atmatrix_8hpp_source.html#l00222">normalizeVector()</a>, <a class="el" href="atmarkov_8hpp_source.html#l00126">toAndStochastic()</a>, <a class="el" href="atmarkov_8hpp_source.html#l00101">toLeftStochastic()</a>, and <a class="el" href="atmarkov_8hpp_source.html#l00055">toRightStochastic()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af752e2b171a86a128e53243c4e002cc6"></a>
+<a class="anchor" id="ad4b5710817dd25e56443aa3d4afbfdb0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -233,15 +239,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00118">118</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00126">126</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
-<p>References <a class="el" href="atmatrix_8hpp_source.html#l00168">getSum()</a>.</p>
+<p>References <a class="el" href="atmatrix_8hpp_source.html#l00184">getSum()</a>.</p>
 
-<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00161">filterTransitionMatrix()</a>.</p>
+<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00173">filterTransitionMatrix()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af77b0bde07f13ec5a5f49eed01274c52"></a>
+<a class="anchor" id="a0255af01d12344c88671d39d72d99b6a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -261,11 +267,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00133">133</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00143">143</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4cc3f679387140fc258feb3887b3afdf"></a>
+<a class="anchor" id="ac6315226c530b09f901c3a537068f3f3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -285,13 +291,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00095">95</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00101">101</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00161">filterTransitionMatrix()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00073">getTransitionMatrix()</a>.</p>
+<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00173">filterTransitionMatrix()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00076">getTransitionMatrix()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a7bf63708570ff166e501d6afd481391b"></a>
+<a class="anchor" id="a43dd15407b79cbd8085429a18697bd2b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -311,13 +317,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00053">53</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00055">55</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00161">filterTransitionMatrix()</a>.</p>
+<p>Referenced by <a class="el" href="atmarkov_8hpp_source.html#l00173">filterTransitionMatrix()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aec3d9c7a486de7413e0c2b15ed3d83e6"></a>
+<a class="anchor" id="a7a23849808d435fab8ace6bc09b1bf01"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -337,9 +343,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00076">76</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
+<p>Definition at line <a class="el" href="atmarkov_8hpp_source.html#l00080">80</a> of file <a class="el" href="atmarkov_8hpp_source.html">atmarkov.hpp</a>.</p>
 
-<p>References <a class="el" href="atmatrix_8hpp_source.html#l00054">getRowSum()</a>, and <a class="el" href="atmatrix_8hpp_source.html#l00218">normalizeRows()</a>.</p>
+<p>References <a class="el" href="atmatrix_8hpp_source.html#l00056">getRowSum()</a>, and <a class="el" href="atmatrix_8hpp_source.html#l00240">normalizeRows()</a>.</p>
 
 </div>
 </div>

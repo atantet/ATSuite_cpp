@@ -98,25 +98,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a63c147bda9a92f1538cffdab74f2565e"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a63c147bda9a92f1538cffdab74f2565e">generateCuspEuler</a> (gsl_vector *, double, double, double, double, int, double)</td></tr>
-<tr class="separator:a63c147bda9a92f1538cffdab74f2565e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a931afde553fbf43c441e92e6d1cd04bb"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a931afde553fbf43c441e92e6d1cd04bb">cuspEuler</a> (gsl_vector *, double, double, double)</td></tr>
-<tr class="separator:a931afde553fbf43c441e92e6d1cd04bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1e95bb99a13e279a77951223a9b66e7"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#ac1e95bb99a13e279a77951223a9b66e7">cuspField</a> (gsl_vector *, double, double)</td></tr>
-<tr class="separator:ac1e95bb99a13e279a77951223a9b66e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43f2f5f3119e84c17dde5c7039c5c83b"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a43f2f5f3119e84c17dde5c7039c5c83b">generateLorenzRK4</a> (gsl_vector *, double, double, double, double, double, int, double)</td></tr>
-<tr class="separator:a43f2f5f3119e84c17dde5c7039c5c83b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b5c3558df3650a6aa75fe6c54159066"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a0b5c3558df3650a6aa75fe6c54159066">lorenzRK4</a> (gsl_vector *, double, double, double, double)</td></tr>
-<tr class="separator:a0b5c3558df3650a6aa75fe6c54159066"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c1f7faa704bae7260dc4d4ef1e6b1ae"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a2c1f7faa704bae7260dc4d4ef1e6b1ae">lorenzField</a> (gsl_vector *, double, double, double)</td></tr>
-<tr class="separator:a2c1f7faa704bae7260dc4d4ef1e6b1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2460623875f81af733a1ef8d1eca8a55"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a2460623875f81af733a1ef8d1eca8a55">generateCuspEuler</a> (gsl_vector *state, double r, double h, double length, double dt, int sampling, double spinup)</td></tr>
+<tr class="memdesc:a2460623875f81af733a1ef8d1eca8a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the cusp normal form with an Euler scheme.  <a href="#a2460623875f81af733a1ef8d1eca8a55">More...</a><br /></td></tr>
+<tr class="separator:a2460623875f81af733a1ef8d1eca8a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81325d7bcf5149a9f141808dea0d495f"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a81325d7bcf5149a9f141808dea0d495f">cuspEuler</a> (gsl_vector *state, double r, double h, double dt)</td></tr>
+<tr class="memdesc:a81325d7bcf5149a9f141808dea0d495f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate one step forward the cusp normal form with an Euler scheme.  <a href="#a81325d7bcf5149a9f141808dea0d495f">More...</a><br /></td></tr>
+<tr class="separator:a81325d7bcf5149a9f141808dea0d495f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a831b8e0d2ccd07fb7a5c60fe164c25"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a7a831b8e0d2ccd07fb7a5c60fe164c25">cuspField</a> (gsl_vector *state, double r, double h)</td></tr>
+<tr class="memdesc:a7a831b8e0d2ccd07fb7a5c60fe164c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the field of the normal form of the cusp at a given state.  <a href="#a7a831b8e0d2ccd07fb7a5c60fe164c25">More...</a><br /></td></tr>
+<tr class="separator:a7a831b8e0d2ccd07fb7a5c60fe164c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a139b86973a4935c193e090a52b4b0b6f"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a139b86973a4935c193e090a52b4b0b6f">generateLorenzRK4</a> (gsl_vector *state, double rho, double sigma, double beta, double length, double dt, int sampling, double spinup)</td></tr>
+<tr class="memdesc:a139b86973a4935c193e090a52b4b0b6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the Lorenz, 1963 with an RK 4 scheme.  <a href="#a139b86973a4935c193e090a52b4b0b6f">More...</a><br /></td></tr>
+<tr class="separator:a139b86973a4935c193e090a52b4b0b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a986b9469132dc0ba27c25d1b887769"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a1a986b9469132dc0ba27c25d1b887769">lorenzRK4</a> (gsl_vector *state, double rho, double sigma, double beta, double dt)</td></tr>
+<tr class="memdesc:a1a986b9469132dc0ba27c25d1b887769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate one step forward the Lorenz, 1963 with an RK4 scheme.  <a href="#a1a986b9469132dc0ba27c25d1b887769">More...</a><br /></td></tr>
+<tr class="separator:a1a986b9469132dc0ba27c25d1b887769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1502a5c4513abf97721ab7a79eaa99ce"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_o_d_e_solvers_8hpp.html#a1502a5c4513abf97721ab7a79eaa99ce">lorenzField</a> (gsl_vector *state, double rho, double sigma, double beta)</td></tr>
+<tr class="memdesc:a1502a5c4513abf97721ab7a79eaa99ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the field of the Lorenz, 1963 at a given state.  <a href="#a1502a5c4513abf97721ab7a79eaa99ce">More...</a><br /></td></tr>
+<tr class="separator:a1502a5c4513abf97721ab7a79eaa99ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ATSuite ordinary differential equation solvers. </p>
 
 <p>Definition in file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a931afde553fbf43c441e92e6d1cd04bb"></a>
+<a class="anchor" id="a81325d7bcf5149a9f141808dea0d495f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -162,15 +168,15 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the future state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00074">74</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00078">78</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00095">cuspField()</a>.</p>
+<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00101">cuspField()</a>.</p>
 
-<p>Referenced by <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00036">generateCuspEuler()</a>.</p>
+<p>Referenced by <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00038">generateCuspEuler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac1e95bb99a13e279a77951223a9b66e7"></a>
+<a class="anchor" id="a7a831b8e0d2ccd07fb7a5c60fe164c25"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -209,13 +215,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the field at the state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00095">95</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00101">101</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00194">cuspAdditiveWienerEM()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00074">cuspEuler()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00200">cuspAdditiveWienerEM()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00078">cuspEuler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a63c147bda9a92f1538cffdab74f2565e"></a>
+<a class="anchor" id="a2460623875f81af733a1ef8d1eca8a55"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -282,13 +288,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00036">36</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00038">38</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00074">cuspEuler()</a>.</p>
+<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00078">cuspEuler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a43f2f5f3119e84c17dde5c7039c5c83b"></a>
+<a class="anchor" id="a139b86973a4935c193e090a52b4b0b6f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -362,13 +368,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00120">120</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00128">128</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00161">lorenzRK4()</a>.</p>
+<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00171">lorenzRK4()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2c1f7faa704bae7260dc4d4ef1e6b1ae"></a>
+<a class="anchor" id="a1502a5c4513abf97721ab7a79eaa99ce"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -414,13 +420,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the field at the state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00214">214</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00226">226</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00299">lorenzLinearWienerEM()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00161">lorenzRK4()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00311">lorenzLinearWienerEM()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00171">lorenzRK4()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0b5c3558df3650a6aa75fe6c54159066"></a>
+<a class="anchor" id="a1a986b9469132dc0ba27c25d1b887769"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -473,11 +479,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the future state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00161">161</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00171">171</a> of file <a class="el" href="_o_d_e_solvers_8hpp_source.html">ODESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00214">lorenzField()</a>.</p>
+<p>References <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00226">lorenzField()</a>.</p>
 
-<p>Referenced by <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00120">generateLorenzRK4()</a>.</p>
+<p>Referenced by <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00128">generateLorenzRK4()</a>.</p>
 
 </div>
 </div>

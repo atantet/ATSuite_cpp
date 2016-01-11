@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">SDESolvers.hpp File Reference</div>  </div>
@@ -100,27 +101,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a06bb4b826fe26999b5935a6608a8539c"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a06bb4b826fe26999b5935a6608a8539c">generateCuspAdditiveWienerEM</a> (gsl_vector *, double, double, gsl_matrix *, double, double, double, int, double)</td></tr>
-<tr class="separator:a06bb4b826fe26999b5935a6608a8539c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23f36d86037751885107604cf7f11f70"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a23f36d86037751885107604cf7f11f70">generateCuspAdditiveWienerEM</a> (gsl_vector *, double, gsl_vector *, gsl_matrix *, double, double, double, int, double)</td></tr>
-<tr class="separator:a23f36d86037751885107604cf7f11f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98128a6f0d038c972fccd2fe13ae2682"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a98128a6f0d038c972fccd2fe13ae2682">cuspAdditiveWienerEM</a> (gsl_vector *, double, double, gsl_vector *, double, double)</td></tr>
-<tr class="separator:a98128a6f0d038c972fccd2fe13ae2682"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6344cbcf774e2000acac8504a9c1db"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a3b6344cbcf774e2000acac8504a9c1db">generateLorenzLinearWienerEM</a> (gsl_vector *, double, double, double, gsl_matrix *, double, double, double, int, double)</td></tr>
-<tr class="separator:a3b6344cbcf774e2000acac8504a9c1db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48f4c73022dd7e8b89b2768eb6918b63"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a48f4c73022dd7e8b89b2768eb6918b63">lorenzLinearWienerEM</a> (gsl_vector *, double, double, double, gsl_vector *, double, double)</td></tr>
-<tr class="separator:a48f4c73022dd7e8b89b2768eb6918b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8dc9aa09e8dd892856cba45a01d903b"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#af8dc9aa09e8dd892856cba45a01d903b">additiveWienerField</a> (double, gsl_vector *)</td></tr>
-<tr class="separator:af8dc9aa09e8dd892856cba45a01d903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2f567af15d9a9f58aabfe637d34feea"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#af2f567af15d9a9f58aabfe637d34feea">linearWienerField</a> (gsl_vector *, double, gsl_vector *)</td></tr>
-<tr class="separator:af2f567af15d9a9f58aabfe637d34feea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf245d02e3e22de122b6b2ee30d50adc"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#acf245d02e3e22de122b6b2ee30d50adc">generateCuspAdditiveWienerEM</a> (gsl_vector *state, double r, double h, gsl_matrix *noiseSamples, double Q, double length, double dt, int sampling, double spinup)</td></tr>
+<tr class="memdesc:acf245d02e3e22de122b6b2ee30d50adc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the cusp normal form with additive Wiener and EM scheme.  <a href="#acf245d02e3e22de122b6b2ee30d50adc">More...</a><br /></td></tr>
+<tr class="separator:acf245d02e3e22de122b6b2ee30d50adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a858d7c892137fcf82a6dcd74bf7a0332"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a858d7c892137fcf82a6dcd74bf7a0332">generateCuspAdditiveWienerEM</a> (gsl_vector *state, double r, gsl_vector *hTransient, gsl_matrix *noiseSamples, double Q, double length, double dt, int sampling, double spinup)</td></tr>
+<tr class="memdesc:a858d7c892137fcf82a6dcd74bf7a0332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transient int. of the cusp normal form with additive Wiener and EM scheme.  <a href="#a858d7c892137fcf82a6dcd74bf7a0332">More...</a><br /></td></tr>
+<tr class="separator:a858d7c892137fcf82a6dcd74bf7a0332"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a874707f6dea2794ba823a6c2b2d9a5ca"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a874707f6dea2794ba823a6c2b2d9a5ca">cuspAdditiveWienerEM</a> (gsl_vector *state, double r, double h, gsl_vector *noiseSample, double Q, double dt)</td></tr>
+<tr class="memdesc:a874707f6dea2794ba823a6c2b2d9a5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate one step the cusp normal form with an additive Wiener and EM scheme.  <a href="#a874707f6dea2794ba823a6c2b2d9a5ca">More...</a><br /></td></tr>
+<tr class="separator:a874707f6dea2794ba823a6c2b2d9a5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a320aa740e1423d406abfaf04be37f22a"><td class="memItemLeft" align="right" valign="top">gsl_matrix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a320aa740e1423d406abfaf04be37f22a">generateLorenzLinearWienerEM</a> (gsl_vector *state, double rho, double sigma, double beta, gsl_matrix *noiseSamples, double Q, double length, double dt, int sampling, double spinup)</td></tr>
+<tr class="memdesc:a320aa740e1423d406abfaf04be37f22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate the Lorenz, 1963 with multiplicative linear Wiener and EM scheme.  <a href="#a320aa740e1423d406abfaf04be37f22a">More...</a><br /></td></tr>
+<tr class="separator:a320aa740e1423d406abfaf04be37f22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8252333fb52d58718d9b1fe594b5988"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#ab8252333fb52d58718d9b1fe594b5988">lorenzLinearWienerEM</a> (gsl_vector *state, double rho, double sigma, double beta, gsl_vector *noiseSample, double Q, double dt)</td></tr>
+<tr class="memdesc:ab8252333fb52d58718d9b1fe594b5988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrate one step the Lorenz, 1963 with multiplicative linear Wiener, and EM Scheme.  <a href="#ab8252333fb52d58718d9b1fe594b5988">More...</a><br /></td></tr>
+<tr class="separator:ab8252333fb52d58718d9b1fe594b5988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983a8acbde489aa5d76d51651f0582c1"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a983a8acbde489aa5d76d51651f0582c1">additiveWienerField</a> (double Q, gsl_vector *noiseSample)</td></tr>
+<tr class="memdesc:a983a8acbde489aa5d76d51651f0582c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the field of the additive Wiener.  <a href="#a983a8acbde489aa5d76d51651f0582c1">More...</a><br /></td></tr>
+<tr class="separator:a983a8acbde489aa5d76d51651f0582c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a244bca9917aa1346dc9412dfbed5f791"><td class="memItemLeft" align="right" valign="top">gsl_vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_d_e_solvers_8hpp.html#a244bca9917aa1346dc9412dfbed5f791">linearWienerField</a> (gsl_vector *state, double Q, gsl_vector *noiseSample)</td></tr>
+<tr class="memdesc:a244bca9917aa1346dc9412dfbed5f791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the field of the multiplicative linear Wiener.  <a href="#a244bca9917aa1346dc9412dfbed5f791">More...</a><br /></td></tr>
+<tr class="separator:a244bca9917aa1346dc9412dfbed5f791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ATSuite stochastic differential equation solvers. </p>
 
 <p>Definition in file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af8dc9aa09e8dd892856cba45a01d903b"></a>
+<a class="anchor" id="a983a8acbde489aa5d76d51651f0582c1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -152,13 +160,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the field at the state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00329">329</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00343">343</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00194">cuspAdditiveWienerEM()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00200">cuspAdditiveWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a98128a6f0d038c972fccd2fe13ae2682"></a>
+<a class="anchor" id="a874707f6dea2794ba823a6c2b2d9a5ca"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -205,7 +213,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integrate one step forward the cusp normal form (see Strogatz, 1994) with an additive Wiener process with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Integrate one step forward the cusp normal form (see Strogatz, 1994) with an additive Wiener process, with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>Present state. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>Parameter r. </td></tr>
@@ -218,15 +226,15 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the future state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00194">194</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00200">200</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00329">additiveWienerField()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00095">cuspField()</a>.</p>
+<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00343">additiveWienerField()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00101">cuspField()</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00051">generateCuspAdditiveWienerEM()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00053">generateCuspAdditiveWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a06bb4b826fe26999b5935a6608a8539c"></a>
+<a class="anchor" id="acf245d02e3e22de122b6b2ee30d50adc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -291,7 +299,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integrate the cusp normal form (see Strogatz, 1994) with additive white noise, with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Integrate the cusp normal form (see Strogatz, 1994) with additive Wiener process, with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>Initial state. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>Parameter <img class="formulaInl" alt="$r$" src="form_0.png"/>. </td></tr>
@@ -307,13 +315,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00051">51</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00053">53</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00194">cuspAdditiveWienerEM()</a>.</p>
+<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00200">cuspAdditiveWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a23f36d86037751885107604cf7f11f70"></a>
+<a class="anchor" id="a858d7c892137fcf82a6dcd74bf7a0332"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -378,7 +386,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Transient integration of the cusp normal form (see Strogatz, 1994) with additive white noise, with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Transient integration of the cusp normal form (see Strogatz, 1994) with additive Wiener process, with an Euler-Maruyama scheme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>Initial state. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>Parameter <img class="formulaInl" alt="$r$" src="form_0.png"/>. </td></tr>
@@ -394,13 +402,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00120">120</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00124">124</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00194">cuspAdditiveWienerEM()</a>.</p>
+<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00200">cuspAdditiveWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3b6344cbcf774e2000acac8504a9c1db"></a>
+<a class="anchor" id="a320aa740e1423d406abfaf04be37f22a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -471,7 +479,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integrate the Lorenz, 1963 with multiplicative linear Wiener, with an Euler-Maruyama Schemme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Integrate the Lorenz, 1963 with multiplicative linear Wiener process, with an Euler-Maruyama Scheme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>Initial state. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rho</td><td>Parameter <img class="formulaInl" alt="$\rho$" src="form_2.png"/>. </td></tr>
@@ -488,13 +496,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00233">233</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00242">242</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00299">lorenzLinearWienerEM()</a>.</p>
+<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00311">lorenzLinearWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af2f567af15d9a9f58aabfe637d34feea"></a>
+<a class="anchor" id="a244bca9917aa1346dc9412dfbed5f791"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -533,13 +541,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL vector of the field at the state. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00347">347</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00363">363</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00299">lorenzLinearWienerEM()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00311">lorenzLinearWienerEM()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a48f4c73022dd7e8b89b2768eb6918b63"></a>
+<a class="anchor" id="ab8252333fb52d58718d9b1fe594b5988"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -592,7 +600,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Integrate one step the Lorenz, 1963 with multiplicative linear Wiener, with an Euler-Maruyama Schemme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Integrate one step the Lorenz, 1963 with multiplicative linear Wiener process, with an Euler-Maruyama Scheme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>Initial state. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rho</td><td>Parameter <img class="formulaInl" alt="$\rho$" src="form_2.png"/>. </td></tr>
@@ -606,11 +614,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL matrix recording the integration. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00299">299</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00311">311</a> of file <a class="el" href="_s_d_e_solvers_8hpp_source.html">SDESolvers.hpp</a>.</p>
 
-<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00347">linearWienerField()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00214">lorenzField()</a>.</p>
+<p>References <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00363">linearWienerField()</a>, and <a class="el" href="_o_d_e_solvers_8hpp_source.html#l00226">lorenzField()</a>.</p>
 
-<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00233">generateLorenzLinearWienerEM()</a>.</p>
+<p>Referenced by <a class="el" href="_s_d_e_solvers_8hpp_source.html#l00242">generateLorenzLinearWienerEM()</a>.</p>
 
 </div>
 </div>
