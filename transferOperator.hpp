@@ -35,73 +35,112 @@ typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatCSC;
 /** \brief Eigen CSR matrix of double type. */
 typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatCSR;
 
+// Class declarations
+/** \brief Transfer operator class.
+ * 
+ * Transfer operator class including
+ * the forward and backward transition matrices
+ * and the initial and final distributions calculated from data.
+ * The constructors are based on membership matrices 
+ * with the first column giving the box to which belong the initial state of trajectories
+ * and the second column the box to which belong the final state of trajectories.
+ * The initial and final states can also be directly given as to matrices
+ * with each row giving a state.
+ * Finally, transferOperator can also be constructed 
+ * from a single long trajectory and a given lag.
+ * Then, a membership vector is first calculated,
+ * assigning each realization to a box,
+ * from which the membership matrix can be calculated
+ * for the lag given.
+ */
+class transferOperator {
+  /** \brief Allocate memory. */
+  void allocate(size_t);
+/** \brief Get the transition matrices from a grid membership matrix. */
+  void buildFromMembership(const gsl_matrix_uint *);
+    
+public:
+  size_t N;              //!< Size of the grid
+  SpMatCSR *P;           //!< Forward transition matrix
+  SpMatCSR *Q;           //!< Backward transition matrix
+  gsl_vector *initDist;  //!< Initial distribution
+  gsl_vector *finalDist; //!< Final distribution
 
-// Decalrations
-void getTransitionMatrix(const gsl_matrix_uint *, const size_t,
-			 SpMatCSR *, SpMatCSR *, gsl_vector *, gsl_vector *);
-void getTransitionMatrix(const gsl_matrix *, const gsl_matrix *,
-			 const std::vector<gsl_vector *> *,
-			 SpMatCSR *, SpMatCSR *, gsl_vector *, gsl_vector *);
-void getTransitionMatrix(const gsl_matrix *, const std::vector<gsl_vector *> *,
-			 const size_t tauStep,
-			 SpMatCSR *, SpMatCSR *, gsl_vector *, gsl_vector *);
+  /** \brief Default constructor */
+  transferOperator(){}
+  /** \brief Empty constructor allocating for grid size*/
+  transferOperator(size_t gridSize){ allocate(gridSize); }
+  /** \brief Constructor from the membership matrix. */
+  transferOperator(const gsl_matrix_uint *, size_t);
+  /** \brief Constructor from membership matrix and lag */
+  transferOperator(const gsl_vector_uint *, size_t); 
+  /** \brief Constructor from initial and final states for a given grid */
+  transferOperator(const gsl_matrix *, const gsl_matrix *, const std::vector<gsl_vector *> *);
+  /** \brief Constructor from a long trajectory for a given grid and lag */
+  transferOperator(const gsl_matrix *, const std::vector<gsl_vector *> *, size_t);
+  /** \brief Destructor */
+  ~transferOperator();
+};
+
+// Functions declarations
+
+/** \brief Get membership matrix from initial and final states for a grid. */
 gsl_matrix_uint *getGridMembership(const gsl_matrix *, const gsl_matrix *,
-				  const std::vector<gsl_vector *> *);
+				   const std::vector<gsl_vector *> *);
+/** \brief Get the grid membership vector from a single long trajectory. */
 gsl_matrix_uint *getGridMembership(const gsl_matrix *,
-				  const std::vector<gsl_vector *> *,
-				  const size_t);
-gsl_vector_uint *getGridMembership(const gsl_matrix *,
-				  const std::vector<gsl_vector *> *);
-gsl_matrix_uint *getGridMembership(gsl_vector_uint *, const size_t);
-int getBoxMembership(gsl_vector *, const std::vector<gsl_vector *> *);
+				   const std::vector<gsl_vector *> *, const size_t);
+/** \brief Get the grid membership matrix from a single long trajectory. */
+gsl_vector_uint *getGridMembership(const gsl_matrix *, const std::vector<gsl_vector *> *);
+/** \brief Get the grid membership matrix from the membership vector for a given lag. */
+gsl_matrix_uint *memVector2memMatrix(const gsl_vector_uint *, const size_t);
+/** \brief Get membership to a grid box of a single realization. */
+int getBoxMembership(const gsl_vector *, const std::vector<gsl_vector *> *);
+/** \brief Get triplet vector from membership matrix. */
+tripletUIntVector *getTransitionCountTriplet(const gsl_matrix_uint *, size_t);
+/** \brief Get a uniform rectangular grid. */
 std::vector<gsl_vector *> *getGridRect(size_t, size_t, double, double);
-std::vector<gsl_vector *> *getGridRect(gsl_vector_uint *,
-				       gsl_vector *, gsl_vector *);
-void writeGridRect(FILE *, std::vector<gsl_vector *> *, bool);
+/** \brief Get a uniform rectangular grid. */
+std::vector<gsl_vector *> *getGridRect(const gsl_vector_uint *,
+				       const gsl_vector *, const gsl_vector *);
+/** \brief Print a uniform rectangular grid to file. */
+void writeGridRect(FILE *, const std::vector<gsl_vector *> *, bool);
 
 
 // Definitions
 /**
- * \brief Get the transition matrices from the membership matrix.
- *
- * Get the forward and backward transition matrices and distributions from the membership matrix.
- * \param[in] gridMem        GSL grid membership matrix.
- * \param[in] N              Number of grid boxes.
- * \param[out] P             Eigen CSR forward transition matrix.
- * \param[out] Q             Eigen CSR backward transition matrix.
- * \param[out] initDist      GSL vector of initial distribution.
- * \param[out] finalDist     GSL vector of final distribution.
+ * Allocate memory for the transition matrices and distributions.
  */
 void
-getTransitionMatrix(const gsl_matrix_uint *gridMem, const size_t N,
-		    SpMatCSR *P, SpMatCSR *Q,
-		    gsl_vector *initDist, gsl_vector *finalDist)
+transferOperator::allocate(size_t gridSize)
 {
-  size_t nOut = 0;
-  const size_t nTraj = gridMem->size1;
-  size_t box0, boxf;
-  tripletUIntVector T;
-  T.reserve(nTraj);
-
-  // Get transition count triplets
-  for (size_t traj = 0; traj < nTraj; traj++) {
-    box0 = gsl_matrix_uint_get(gridMem, traj, 0);
-    boxf = gsl_matrix_uint_get(gridMem, traj, 1);
-    
-    // Add transition triplet
-    if ((box0 < N) && (boxf < N))
-      T.push_back(tripletUInt(box0, boxf, 1));
-    else
-      nOut++;
-  }
-  std::cout <<  nOut * 100. / nTraj
-	    << "% of the trajectories ended up out of the domain." << std::endl;
+  N = gridSize;
+  P = new SpMatCSR(N, N);
+  Q = new SpMatCSR(N, N);
+  initDist = gsl_vector_alloc(N);
+  finalDist = gsl_vector_alloc(N);
   
-  // Get correlation matrix
-  P->setFromTriplets(T.begin(), T.end());
+  return;
+}
+
+/**
+ * Method called from the constructor to get the transition matrices
+ * from a grid membership matrix.
+ * \param[in] gridMem Grid membership matrix.
+ */
+void
+transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
+{
+  // Get transition count triplets
+  tripletUIntVector *T = getTransitionCountTriplet(gridMem, N);
+  
+  // Convert to CSR matrix
+  P->setFromTriplets(T->begin(), T->end());
+  
   // Get initial and final distribution
   getRowSum(P, initDist);
   getColSum(P, finalDist);
+  
   // Get forward and backward transition matrices
   *Q = SpMatCSR(P->transpose());
   toLeftStochastic(P);
@@ -109,81 +148,114 @@ getTransitionMatrix(const gsl_matrix_uint *gridMem, const size_t N,
   normalizeVector(initDist);
   normalizeVector(finalDist);
 
+  // Free
+  delete T;
+
+  return;
+}
+
+
+/**
+ * Construct transferOperator by calculating
+ * the forward and backward transition matrices and distributions 
+ * from the grid membership matrix.
+ * \param[in] gridMem        GSL grid membership matrix.
+ * \param[in] gridSize       Number of grid boxes.
+ */
+transferOperator::transferOperator(const gsl_matrix_uint *gridMem, size_t gridSize)
+  {
+  // Allocate
+  allocate(gridSize);
+
+  // Get transition matrices and distributions from grid membership matrix
+  buildFromMembership(gridMem);
+
   return;
 }
 
 /**
- * \brief Get the transition matrices from the initial and final states of trajectories.
- *
- * Get the forward and backward transition matrices and distributions
+ * Construct transferOperator by calculating
+ * the forward and backward transition matrices and distributions 
  * from the initial and final states of trajectories.
  * \param[in] initStates     GSL matrix of initial states.
  * \param[in] finalStates    GSL matrix of final states.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
- * \param[out] P             Eigen CSR forward transition matrix.
- * \param[out] Q             Eigen CSR backward transition matrix.
- * \param[out] initDist      GSL vector of initial distribution.
- * \param[out] finalDist     GSL vector of final distribution.
  */
-void
-getTransitionMatrix(const gsl_matrix *initStates,
-		    const gsl_matrix *finalStates,
-		    const std::vector<gsl_vector *> *gridBounds,
-		    SpMatCSR *P, SpMatCSR *Q,
-		    gsl_vector *initDist, gsl_vector *finalDist)
+transferOperator::transferOperator(const gsl_matrix *initStates,
+				   const gsl_matrix *finalStates,
+				   const std::vector<gsl_vector *> *gridBounds)
 {
-  const size_t nTraj = initStates->size1;
-  const size_t dim = initStates->size2;
-  size_t N = 1;
-  size_t nOut = 0;
-  size_t box0, boxf;
   gsl_vector *bounds;
   gsl_matrix_uint *gridMem;
-  tripletUIntVector T;
 
   // Get grid dimensions
-  for (size_t dir = 0; dir < dim; dir++){
+  N = 1;
+  for (size_t dir = 0; dir < initStates->size2; dir++){
     bounds = gridBounds->at(dir);
     N *= bounds->size - 1;
   }
-  T.reserve(nTraj);
-  P = new SpMatCSR(N, N);
-  Q = new SpMatCSR(N, N);
 
-  // Get grid membership
+  // Allocate
+  allocate(N);
+
+  // Get grid membership matrix
   gridMem = getGridMembership(initStates, finalStates, gridBounds);
+
+  // Get transition matrices and distributions from grid membership matrix
+  buildFromMembership(gridMem);
+
+  // Free
+  gsl_matrix_uint_free(gridMem);
   
-  for (size_t traj = 0; traj < nTraj; traj++) {
-    box0 = gsl_matrix_uint_get(gridMem, traj, 0);
-    boxf = gsl_matrix_uint_get(gridMem, traj, 1);
-    
-    // Add transition to matrix
-    if ((box0 < N) && (boxf < N))
-      T.push_back(tripletUInt(box0, boxf, 1));
-    else
-      nOut++;
-  }
-  std::cout <<  nOut * 100. / nTraj
-	    << " of the trajectories ended up out of the domain." << std::endl;
-  
-  // Get correlation matrix
-  P->setFromTriplets(T.begin(), T.end());
-  // Get initial and final distribution
-  initDist = getRowSum(P);
-  finalDist = getColSum(P);
-  // Get forward and backward transition matrices
-  *Q = SpMatCSR(P->transpose());
-  toLeftStochastic(P);
-  toLeftStochastic(Q);
-  normalizeVector(initDist);
-  normalizeVector(finalDist);
-   
   return;
 }
 
 /**
- * \brief Get membership matrix from initial and final states for a grid.
- *
+ * Construct transferOperator calculating the forward and backward transition matrices
+ * and distributions from a single long trajectory, for a given grid and lag.
+ * \param[in] states         GSL matrix of states for each time step.
+ * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] tauStep        Lag used to calculate the transitions.
+ */
+transferOperator::transferOperator(const gsl_matrix *states,
+				   const std::vector<gsl_vector *> *gridBounds,
+				   const size_t tauStep)
+{
+  gsl_vector *bounds;
+  gsl_matrix_uint *gridMem;
+
+  // Get grid dimensions
+  N = 1;
+  for (size_t dir = 0; dir < states->size2; dir++){
+    bounds = gridBounds->at(dir);
+    N *= bounds->size - 1;
+  }
+
+  // Allocate
+  allocate(N);
+
+  // Get grid membership matrix from a single long trajectory
+  gridMem = getGridMembership(states, gridBounds, tauStep);
+
+  // Get transition matrices and distributions from grid membership matrix
+  buildFromMembership(gridMem);
+
+  // Free
+  gsl_matrix_uint_free(gridMem);
+  
+  return;
+}
+
+/** Destructor of transferOperator: desallocate all pointers. */
+transferOperator::~transferOperator()
+{
+  delete P;
+  delete Q;
+  gsl_vector_free(initDist);
+  gsl_vector_free(finalDist);
+}
+
+/**
  * Get membership matrix from initial and final states for a grid.
  * \param[in] initStates     GSL matrix of initial states.
  * \param[in] finalStates    GSL matrix of final states.
@@ -230,113 +302,6 @@ getGridMembership(const gsl_matrix *initStates,
 }
 
 /**
- * \brief Get the transition matrices from a single long trajectory.
- *
- * Get the forward and backward transition matrices and distributions
- * from a single long trajectory.
- * \param[in] states         GSL matrix of states for each time step.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
- * \param[in] tauStep        Lag used to calculate the transitions.
- * \param[out] P             Eigen CSR forward transition matrix.
- * \param[out] Q             Eigen CSR backward transition matrix.
- * \param[out] initDist      GSL vector of initial distribution.
- * \param[out] finalDist     GSL vector of final distribution.
- */
-void
-getTransitionMatrix(const gsl_matrix *states,
-		    const std::vector<gsl_vector *> *gridBounds,
-		    const size_t tauStep,
-		    SpMatCSR *P, SpMatCSR *Q,
-		    gsl_vector *initDist, gsl_vector *finalDist)
-{
-  size_t nTraj;
-  const size_t dim = states->size2;
-  size_t N = 1;
-  size_t nOut = 0;
-  size_t box0, boxf;
-  gsl_vector *bounds;
-  gsl_matrix_uint *gridMem;
-  tripletUIntVector T;
-  P = new SpMatCSR(N, N);
-  Q = new SpMatCSR(N, N);
-
-  // Get grid dimensions
-  for (size_t dir = 0; dir < dim; dir++){
-    bounds = gridBounds->at(dir);
-    N *= bounds->size - 1;
-  }
-
-  // Get grid membership
-  gridMem = getGridMembership(states, gridBounds, tauStep);
-  nTraj = gridMem->size1;
-  T.reserve(nTraj);
-  
-  for (size_t traj = 0; traj < nTraj; traj++) {
-    box0 = gsl_matrix_uint_get(gridMem, traj, 0);
-    boxf = gsl_matrix_uint_get(gridMem, traj, 1);
-    
-    // Add transition to matrix
-    if ((box0 < N) && (boxf < N))
-      T.push_back(tripletUInt(box0, boxf, 1));
-    else
-      nOut++;
-  }
-  std::cout <<  nOut * 100. / nTraj
-	    << " of the trajectories ended up out of the domain." << std::endl;
-  
-  // Get correlation matrix
-  P->setFromTriplets(T.begin(), T.end());
-  // Get initial and final distribution
-  initDist = getRowSum(P);
-  finalDist = getColSum(P);
-  // Get forward and backward transition matrices
-  *Q = SpMatCSR(P->transpose());
-  toLeftStochastic(P);
-  toLeftStochastic(Q);
-  normalizeVector(initDist);
-  normalizeVector(finalDist);
-   
-  return;
-}
-
-/**
- * \brief Get the grid membership matrix from a single long trajectory.
- *
- * Get the grid membership matrix from a single long trajectory.
- * \param[in] states         GSL matrix of states for each time step.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
- * \param[in] tauStep        Lag used to calculate the transitions.
- * \return                   GSL grid membership matrix.
- */
-gsl_matrix_uint *
-getGridMembership(const gsl_matrix *states,
-		  const std::vector<gsl_vector *> *gridBounds,
-		  const size_t tauStep)
-{
-  const size_t nStates = states->size1;
-  gsl_vector_uint *gridMemVect;
-  gsl_matrix_uint *gridMem = gsl_matrix_uint_alloc(nStates - tauStep, 2);
-
-  // Get membership vector
-  gridMemVect = getGridMembership(states, gridBounds);
-
-  // Get membership matrix from vector
-  for (size_t traj = 0; traj < (nStates - tauStep); traj++) {
-    gsl_matrix_uint_set(gridMem, traj, 0,
-		       gsl_vector_uint_get(gridMemVect, traj));
-    gsl_matrix_uint_set(gridMem, traj, 1,
-		       gsl_vector_uint_get(gridMemVect, traj + tauStep));
-  }
-
-  // Free
-  gsl_vector_uint_free(gridMemVect);
-  
-  return gridMem;
-}
-
-/**
- * \brief Get the grid membership vector from a single long trajectory.
- *
  * Get the grid membership vector from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
@@ -371,16 +336,13 @@ getGridMembership(const gsl_matrix *states,
 }
 
 /**
- * \brief Get the grid membership matrix from the membership vector for a given lag.
- *
  * Get the grid membership matrix from the membership vector for a given lag.
  * \param[in] gridMemVect    Grid membership vector of a long trajectory for a grid.
  * \param[in] tauStep        Lag used to calculate the transitions.
  * \return                   GSL grid membership matrix.
  */
 gsl_matrix_uint *
-getGridMembership(gsl_vector_uint *gridMemVect,
-		  const size_t tauStep)
+memVector2memMatrix(gsl_vector_uint *gridMemVect, const size_t tauStep)
 {
   const size_t nStates = gridMemVect->size;
   gsl_matrix_uint *gridMem = gsl_matrix_uint_alloc(nStates - tauStep, 2);
@@ -396,17 +358,40 @@ getGridMembership(gsl_vector_uint *gridMemVect,
   return gridMem;
 }
 
+/**
+ * Get the grid membership matrix from a single long trajectory.
+ * \param[in] states         GSL matrix of states for each time step.
+ * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] tauStep        Lag used to calculate the transitions.
+ * \return                   GSL grid membership matrix.
+ */
+gsl_matrix_uint *
+getGridMembership(const gsl_matrix *states,
+		  const std::vector<gsl_vector *> *gridBounds,
+		  const size_t tauStep)
+{
+  gsl_vector_uint *gridMemVect;
+
+  // Get membership vector
+  gridMemVect = getGridMembership(states, gridBounds);
+
+  // Get membership matrix from vector
+  gridMem = memVector2memMatrix(gridMemVect, tauStep);
+
+  // Free
+  gsl_vector_uint_free(gridMemVect);
+  
+  return gridMem;
+}
 
 /**
- * \brief Get membership to a grid box of a single realization.
- *
  * Get membership to a grid box of a single realization.
  * \param[in] state          GSL vector of a single state.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
  * \return                   Box index to which the state belongs.
  */
 int
-getBoxMembership(gsl_vector *state, const std::vector<gsl_vector *> *gridBounds)
+getBoxMembership(const gsl_vector *state, const std::vector<gsl_vector *> *gridBounds)
 {
   const size_t dim = state->size;
   size_t inBox, nBoxDir;
@@ -446,9 +431,39 @@ getBoxMembership(gsl_vector *state, const std::vector<gsl_vector *> *gridBounds)
   return foundBox;
 }
 
+/** 
+ * Get the triplet vector counting the transitions
+ * from pairs of grid boxes from the grid membership matrix.
+ * \param[in] gridMem Grid membership matrix.
+ * \param[in] N       Size of the grid.
+ * \return            Triplet vector counting the transitions.
+ */
+tripletUIntVector *
+getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
+{
+  const size_t nTraj = gridMem->size1;
+  size_t box0, boxf;
+  size_t nOut = 0;
+  tripletUIntVector *T = new tripletUintVector;
+  T->reserve(nTraj);
+
+  for (size_t traj = 0; traj < nTraj; traj++) {
+    box0 = gsl_matrix_uint_get(gridMem, traj, 0);
+    boxf = gsl_matrix_uint_get(gridMem, traj, 1);
+    
+    // Add transition triplet
+    if ((box0 < N) && (boxf < N))
+      T->push_back(tripletUInt(box0, boxf, 1));
+    else
+      nOut++;
+  }
+  std::cout <<  nOut * 100. / nTraj
+	    << "% of the trajectories ended up out of the domain." << std::endl;
+
+  return T;
+}
+
 /**
- * \brief Get a uniform rectangular grid.
- *
  * Get a uniform rectangular grid identically for each dimension.
  * \param[in] dim        Number of dimensions.
  * \param[in] nx         Number of boxes, identically for each dimension.
@@ -478,8 +493,6 @@ std::vector<gsl_vector *> *getGridRect(size_t dim, size_t nx,
 }
 
 /**
- * \brief Get a uniform rectangular grid.
- * 
  * Get a uniform rectangular grid with specific bounds for each dimension.
  * \param[in] nx         GSL vector giving the number of boxes for each dimension.
  * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
@@ -487,7 +500,9 @@ std::vector<gsl_vector *> *getGridRect(size_t dim, size_t nx,
  * \return               STD vector of gsl_vectors of grid box bounds for each dimension.
  */
 std::vector<gsl_vector *> *
-getGridRect(gsl_vector_uint *nx, gsl_vector *xmin, gsl_vector *xmax)
+getGridRect(const gsl_vector_uint *nx,
+	    const gsl_vector *xmin,
+	    const gsl_vector *xmax)
 {
   const size_t dim = nx->size;
   double delta;
@@ -510,15 +525,13 @@ getGridRect(gsl_vector_uint *nx, gsl_vector *xmin, gsl_vector *xmax)
 }
 
 /**
- * \brief Print a uniform rectangular grid to file.
- *
  * Print a uniform rectangular grid to file.
  * \param[in] fp            File descriptor of the file to which to print the grid.
  * \param[in] gridBounds    STD vector of gsl_vector of grid box bounds for each dimension.
  * \param[in] verbose       If true, also print to the standard output.  
  */
 void
-writeGridRect(FILE *fp, std::vector<gsl_vector *> *gridBounds,
+writeGridRect(FILE *fp, const std::vector<gsl_vector *> *gridBounds,
 	      bool verbose=false)
 {
   gsl_vector *bounds;
@@ -543,6 +556,5 @@ writeGridRect(FILE *fp, std::vector<gsl_vector *> *gridBounds,
 
   return;
 }
-
 
 #endif
