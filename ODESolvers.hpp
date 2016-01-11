@@ -23,6 +23,8 @@ gsl_vector * lorenzField(gsl_vector *, double, double, double);
 
 // Definitions
 /**
+ * \brief Integrate the cusp normal form with an Euler scheme.
+ *
  * Integrate the cusp normal form (see Strogatz, 1994) with an Euler scheme.
  * \param[in] state    Initial state.
  * \param[in] r        Parameter \f$r\f$.
@@ -64,6 +66,8 @@ gsl_matrix * generateCuspEuler(gsl_vector *state, double r, double h,
 }
 
 /**
+ * \brief Integrate one step forward the cusp normal form with an Euler scheme.
+ *
  * Integrate one step forward the cusp normal form (see Strogatz, 1994) with an Euler scheme.
  * \param[in] state    Present state.
  * \param[in] r        Parameter r.
@@ -86,6 +90,8 @@ gsl_vector * cuspEuler(gsl_vector *state,
 }
 
 /**
+ * \brief Get the field of the normal form of the cusp at a given state.
+ *
  * Get the field of the normal form of the cusp at a given state.
  * \param[in] state    State.
  * \param[in] r        Parameter r.
@@ -106,6 +112,8 @@ gsl_vector * cuspField(gsl_vector *state,
 }
 
 /**
+ * \brief Integrate the Lorenz, 1963 with an RK 4 scheme.
+ *
  * Integrate the Lorenz, 1963 with an Runge-Kutta 4 scheme.
  * \param[in] state    Initial state.
  * \param[in] rho      Parameter \f$\rho\f$.
@@ -150,6 +158,8 @@ gsl_matrix * generateLorenzRK4(gsl_vector *state,
 }
 
 /**
+ * \brief Integrate one step forward the Lorenz, 1963 with an RK4 scheme.
+ *
  * Integrate one step forward the Lorenz, 1963 with an Runge-Kutta 4 scheme.
  * \param[in] state    Present state.
  * \param[in] rho      Parameter \f$\rho\f$.
@@ -204,6 +214,8 @@ gsl_vector * lorenzRK4(gsl_vector *state,
 }
 
 /**
+ * \brief Get the field of the Lorenz, 1963 at a given state.
+ *
  * Get the field of the Lorenz, 1963 at a given state.
  * \param[in] state    State.
  * \param[in] rho      Parameter \f$\rho\f$.

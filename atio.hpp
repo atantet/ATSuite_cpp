@@ -46,6 +46,8 @@ size_t lineCount(FILE *);
 
 // Definitions
 /**
+ * \brief Print an Eigen CSR matrix in Pajek format.
+ *
  * Print an Eigen CSR matrix in Pajek format
  * (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>).
  * \param[in] fp    Descriptor of the file to which to print.
@@ -71,6 +73,8 @@ Eigen2Pajek(FILE *fp, SpMatCSR *P){
 }
 
 /**
+ * \brief Scans an Eigen CSC matrix from a Pajek file.
+ *
  * Scans an Eigen CSC matrix from a Pajek file
  * (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>).
  * \param[in] fp    Descriptor of the file to which to scan.
@@ -115,6 +119,8 @@ pajek2Eigen(FILE *fp){
 }
 
 /**
+ * \brief Print an Eigen CSC matrix to file in compressed format.
+ *
  * Print an Eigen CSC matrix in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to print.
  * \param[in] P    Eigen matrix to print.
@@ -145,6 +151,8 @@ Eigen2Compressed(FILE *fp, SpMatCSC *P){
 }
 
 /**
+ * \brief Print an Eigen CSR matrix to file in compressed format.
+ *
  * Print an Eigen CSR matrix in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to print.
  * \param[in] P    Eigen matrix to print.
@@ -175,7 +183,9 @@ Eigen2Compressed(FILE *fp, SpMatCSR *P){
 }
 
 /**
- * Scans an Eigen CSR matrix from a matrix file in compressed format (see atio.hpp documentation).
+ * \brief Scan an Eigen CSR matrix from a file in compressed format.
+ *
+ * Scan an Eigen CSR matrix from a matrix file in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to scan.
  * \return Scanned Eigen matrix.
  */
@@ -227,7 +237,9 @@ Compressed2Eigen(FILE *fp)
 }
 
 /**
- * Get an edge list as a GSL matrix from a matrix file in compressed format
+ * \brief Scan an edge list from a file in compressed format.
+ *
+ * Scan an edge list as a GSL matrix from a matrix file in compressed format
  * (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to scan.
  * \return    Edge list as a GSL matrix
@@ -287,7 +299,9 @@ Compressed2EdgeList(FILE *fp)
 }
 
 /**
- * Print an edge list matrix file in compressed format (see atio.hpp documentation).
+ * \brief Print and edge list to a file in compressed format.
+ *
+ * Print an edge list to a matrix file in compressed format (see atio.hpp documentation).
  * \param[in] src    Descriptor of the file to which to scan in compressed matrix format.
  * \param[in] dst    Descriptor of the file to which to print in edge list format.
  */
@@ -308,7 +322,9 @@ Compressed2EdgeList(FILE *src, FILE *dst)
 }
 
 /**
- * Converts an Eigen CSC matrix to an Eigen CSR matrix.
+ * \brief Convert an Eigen CSC matrix to an Eigen CSR matrix.
+ *
+ * Convert an Eigen CSC matrix to an Eigen CSR matrix.
  * \param[in] T    Eigen matrix from which to convert.
  * \return Eigen matrix converted.
  */
@@ -329,6 +345,8 @@ CSC2CSR(SpMatCSC *T){
 }
 
 /**
+ * \brief Convert an Eigen CSR matrix to an Eigen CSC matrix.
+ *
  * Converts an Eigen CSR matrix to an Eigen CSC matrix.
  * \param[in] T    Eigen matrix from which to convert.
  * \return Eigen matrix converted.
@@ -350,7 +368,9 @@ CSR2CSC(SpMatCSR *T){
 }
 
 /**
- * Converts an Eigen CSC matrix to a vector of Eigen triplet.
+ * \brief Convert an Eigen CSC matrix to a vector of Eigen triplet.
+ *
+ * Convert an Eigen CSC matrix to a vector of Eigen triplet.
  * \param[in] T    Eigen matrix from which to convert.
  * \return vector of Eigen triplet converted.
  */
@@ -370,7 +390,9 @@ Eigen2Triplet(SpMatCSC *T)
 }
 
 /**
- * Converts an Eigen CSR matrix to a vector of Eigen triplet.
+ * \brief Convert an Eigen CSR matrix to a vector of Eigen triplet.
+ *
+ * Convert an Eigen CSR matrix to a vector of Eigen triplet.
  * \param[in] T    Eigen matrix from which to convert.
  * \return vector of Eigen triplet converted.
  */
@@ -390,6 +412,8 @@ Eigen2Triplet(SpMatCSR *T)
 }
 
 /**
+ * \brief Print an Eigen CSR matrix as a dense matrix.
+ *
  * Print an Eigen CSR matrix as a dense matrix with zero elements marked as "---".
  * \param[in] fp File to which to print.
  * \param[in] T Eigen matrix to print.
@@ -420,6 +444,8 @@ fprintfEigen(FILE *fp, SpMatCSR *T, const char *format)
 }
 
 /**
+ * \brief Count the number of lines in a file.
+ *
  * Count the number of lines in a file.
  * \param[in] fp File from which to count lines.
  * \return Number of lines in file.

@@ -10,10 +10,10 @@
 #include <ATSuite/atio.hpp>
 
 /** \file atspectrum.hpp
- *  \brief Get spectrum of sparse matrices using Arpack++.
+ *  \brief Get spectrum of sparse matrices using ARPACK++.
  *   
- *  ATSuite functions to get spectrum of sparse matrices using Arpack++.
- *  Also includes reading and conversion routines to Arpack++ CSC matrices.
+ *  ATSuite functions to get spectrum of sparse matrices using ARPACK++.
+ *  Also includes reading and conversion routines to ARPACK++ CSC matrices.
  */
 
 // Typedef declaration
@@ -24,8 +24,9 @@ typedef SparseMatrix<double, ColMajor> SpMatCSC;
 
 // Class declarations
 /**
+ * \brief Utility class used to give configuration options to ARPACK++.
+ * 
  * Utility class used to give configuration options to ARPACK++.
- *
  */
 class configAR {
 public:
@@ -61,12 +62,14 @@ configAR::configAR(const std::string& which="LM", int ncv=0, double tol=0.,
 }
 
 /**
- * Scans an Arpack++ LU nonsymmetric CSC matrix
+ * \brief Scans an ARPACK++ nonsymmetric matrix from a Pajek file.
+ *
+ * Scans an ARPACK++ LU nonsymmetric CSC matrix
  * (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>)
  * from a Pajek file
  * (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>).
  * \param[in] fp    Descriptor of the file to which to scan.
- * \return    Arpack++ LU nonsymmetric matrix scanned.
+ * \return    ARPACK++ LU nonsymmetric matrix scanned.
  */
 ARluNonSymMatrix<double, double> *pajek2AR(FILE *fp)
 {
@@ -110,11 +113,13 @@ ARluNonSymMatrix<double, double> *pajek2AR(FILE *fp)
 }
 
 /**
- * Scans an Arpack++ LU nonsymmetric CSC matrix
+ * \brief Scans an ARPACK++ nonsymmetric matrix from a file in compressed format.
+ *
+ * Scans an ARPACK++ LU nonsymmetric CSC matrix
  * (see <a href="http://www.caam.rice.edu/software/ARPACK/arpack++.html">ARPACK++ documentation</a>)
  * from a matrix file in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to scan.
- * \return    Arpack++ LU nonsymmetric matrix scanned.
+ * \return    ARPACK++ LU nonsymmetric matrix scanned.
  */
 ARluNonSymMatrix<double, double> * Compressed2AR(FILE *fp)
 {
@@ -149,9 +154,11 @@ ARluNonSymMatrix<double, double> * Compressed2AR(FILE *fp)
 }
 
 /**
- * Converts an Eigen CSC matrix to Arpack++ LU nonsymmetric matrix.
+ * \brief Converts an Eigen CSC matrix to an ARPACK++ nonsymmetric CSC matrix.
+ *
+ * Converts an Eigen CSC matrix to ARPACK++ LU nonsymmetric CSC matrix.
  * \param[in] TEigen    Eigen matrix from which to convert.
- * \return Arpack++ LU nonsymmetrix CSC matrix converted.
+ * \return ARPACK++ LU nonsymmetrix CSC matrix converted.
  */
 ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSC *TEigen)
 {
@@ -182,9 +189,11 @@ ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSC *TEigen)
 }
 
 /**
- * Converts an Eigen CSR matrix to Arpack++ LU nonsymmetric matrix.
+ * \brief Converts an Eigen CSR matrix to an ARPACK++ nonsymmetric CSC matrix.
+ *
+ * Converts an Eigen CSR matrix to an ARPACK++ LU nonsymmetric CSC matrix.
  * \param[in] TEigen    Eigen matrix from which to convert.
- * \return Arpack++ LU nonsymmetrix CSC matrix converted.
+ * \return ARPACK++ LU nonsymmetrix CSC matrix converted.
  */
 ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSR *TEigenCSR)
 {
@@ -201,9 +210,11 @@ ARluNonSymMatrix<double, double>* Eigen2AR(SpMatCSR *TEigenCSR)
 }
 
 /**
- * Converts an Eigen CSC matrix to Arpack++ LU symmetric matrix.
+ * \brief Converts an Eigen CSC matrix to an ARPACK++ symmetric CSC matrix.
+ *
+ * Converts an Eigen CSC matrix to ARPACK++ LU symmetric matrix.
  * \param[in] TEigen    Eigen matrix from which to convert.
- * \return Arpack++ LU symmetrix CSC matrix converted.
+ * \return ARPACK++ LU symmetrix CSC matrix converted.
  */
 ARluSymMatrix<double>* Eigen2ARSym(SpMatCSC *TEigen)
 {
@@ -262,9 +273,11 @@ ARluSymMatrix<double>* Eigen2ARSym(SpMatCSC *TEigen)
 }
 
 /**
- * Converts an Eigen CSR matrix to Arpack++ LU symmetric matrix.
+ * \brief Converts an Eigen CSR matrix to an ARPACK++ symmetric CSC matrix.
+ *
+ * Converts an Eigen CSR matrix to ARPACK++ LU symmetric matrix.
  * \param[in] TEigen    Eigen matrix from which to convert.
- * \return Arpack++ LU symmetrix CSC matrix converted.
+ * \return ARPACK++ LU symmetrix CSC matrix converted.
  */
 ARluSymMatrix<double>* Eigen2ARSym(SpMatCSR *TEigenCSR)
 {
@@ -282,6 +295,7 @@ ARluSymMatrix<double>* Eigen2ARSym(SpMatCSR *TEigenCSR)
 
 /**
  * \brief Get spectrum of a nonsymmetric matrix using ARPACK++.
+ *
  * Get spectrum of a nonsymmetric matrix using ARPACK++.
  * \param[in] P ARPACK++ CSC sparse matrix from which to calculate the spectrum.
  * \param[in] nev Number of eigenvalues and eigenvectors to find.
@@ -311,6 +325,8 @@ getSpectrum(ARluNonSymMatrix<double, double> *P, int nev, configAR cfgAR,
 }
 
 /**
+ * \brief Write complex eigenvalues and eigenvectors from ARPACK++.
+ * 
  * Write complex eigenvalues and eigenvectors obtained as arrays from ARPACK++.
  * \param[in] fEigVal File descriptor for eigenvalues.
  * \param[in] fEigVec File descriptor for eigenvectors.

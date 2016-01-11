@@ -1,4 +1,4 @@
-#ifndef SDESOLVERS_HPP
+#Ifndef SDESOLVERS_HPP
 #define SDESOLVERS_HPP
 
 #include <cmath>
@@ -34,8 +34,10 @@ gsl_vector * linearWienerField(gsl_vector *, double, gsl_vector *);
 // Definitions
 
 /**
+ * \brief Integrate the cusp normal form with additive Wiener and EM scheme.
+ *
  * Integrate the cusp normal form (see Strogatz, 1994)
- * with additive white noise, with an Euler-Maruyama scheme.
+ * with additive Wiener process, with an Euler-Maruyama scheme.
  * \param[in] state        Initial state.
  * \param[in] r            Parameter \f$r\f$.
  * \param[in] h            Parameter \f$h\f$.
@@ -103,8 +105,10 @@ generateCuspAdditiveWienerEM(gsl_vector *state,
 }
 
 /**
+ * \brief Transient int. of the cusp normal form with additive Wiener and EM scheme.
+ *
  * Transient integration of the cusp normal form (see Strogatz, 1994)
- * with additive white noise, with an Euler-Maruyama scheme.
+ * with additive Wiener process, with an Euler-Maruyama scheme.
  * \param[in] state        Initial state.
  * \param[in] r            Parameter \f$r\f$.
  * \param[in] hTransient   GSL vector of the variable parameter \f$h(t)\f$ for each time step.
@@ -180,8 +184,10 @@ generateCuspAdditiveWienerEM(gsl_vector *state,
 
 
 /**
+ * \brief Integrate one step the cusp normal form with an additive Wiener and EM scheme.
+ *
  * Integrate one step forward the cusp normal form (see Strogatz, 1994)
- * with an additive Wiener process with an Euler-Maruyama scheme.
+ * with an additive Wiener process, with an Euler-Maruyama scheme.
  * \param[in] state    Present state.
  * \param[in] r        Parameter r.
  * \param[in] h        Parameter h.
@@ -216,7 +222,10 @@ cuspAdditiveWienerEM(gsl_vector *state,
 }
 
 /**
- * Integrate the Lorenz, 1963 with multiplicative linear Wiener, with an Euler-Maruyama Schemme.
+ * \brief Integrate the Lorenz, 1963 with multiplicative linear Wiener and EM scheme.
+ *
+ * Integrate the Lorenz, 1963 with multiplicative linear Wiener process,
+ * with an Euler-Maruyama Scheme.
  * \param[in] state    Initial state.
  * \param[in] rho      Parameter \f$\rho\f$.
  * \param[in] sigma    Parameter \f$\sigma\f$.
@@ -285,8 +294,11 @@ generateLorenzLinearWienerEM(gsl_vector *state, double rho,
 }
 
 /**
- * Integrate one step the Lorenz, 1963 with multiplicative linear Wiener,
- * with an Euler-Maruyama Schemme.
+ * \brief Integrate one step the Lorenz, 1963 with multiplicative linear Wiener,
+ * and EM Scheme.
+ *
+ * Integrate one step the Lorenz, 1963 with multiplicative linear Wiener process,
+ * with an Euler-Maruyama Scheme.
  * \param[in] state    Initial state.
  * \param[in] rho      Parameter \f$\rho\f$.
  * \param[in] sigma    Parameter \f$\sigma\f$.
@@ -321,6 +333,8 @@ gsl_vector * lorenzLinearWienerEM(gsl_vector *state,
 }
 
 /**
+ * \brief Get the field of the additive Wiener.
+ *
  * Get the field of the additive Wiener process.
  * \param[in] Q            Noise intensity.
  * \param[in] noiseSamples GSL vector of noise realization for this time step.
@@ -338,6 +352,8 @@ gsl_vector * additiveWienerField(double Q, gsl_vector *noiseSample)
 }
 
 /**
+ * \brief Get the field of the multiplicative linear Wiener.
+
  * Get the field of the multiplicative linear Wiener process.
  * \param[in] state        Present state.
  * \param[in] Q            Noise intensity.

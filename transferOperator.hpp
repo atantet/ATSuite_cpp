@@ -9,10 +9,11 @@
 #include <gsl/gsl_matrix_uint.h>
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
-#include <omp.h>
 #include <ATSuite/atmatrix.hpp>
 #include <ATSuite/atmarkov.hpp>
-
+#if defined (WITH_OMP) && WITH_OMP == 1
+#include <omp.h>
+#endif
 /** \file transferOperator.hpp
  * \brief Calculate discretized approximation of transfer operators from time series.
  *   
@@ -61,6 +62,8 @@ void writeGridRect(FILE *, std::vector<gsl_vector *> *, bool);
 
 // Definitions
 /**
+ * \brief Get the transition matrices from the membership matrix.
+ *
  * Get the forward and backward transition matrices and distributions from the membership matrix.
  * \param[in] gridMem        GSL grid membership matrix.
  * \param[in] N              Number of grid boxes.
@@ -110,6 +113,8 @@ getTransitionMatrix(const gsl_matrix_uint *gridMem, const size_t N,
 }
 
 /**
+ * \brief Get the transition matrices from the initial and final states of trajectories.
+ *
  * Get the forward and backward transition matrices and distributions
  * from the initial and final states of trajectories.
  * \param[in] initStates     GSL matrix of initial states.
@@ -177,6 +182,8 @@ getTransitionMatrix(const gsl_matrix *initStates,
 }
 
 /**
+ * \brief Get membership matrix from initial and final states for a grid.
+ *
  * Get membership matrix from initial and final states for a grid.
  * \param[in] initStates     GSL matrix of initial states.
  * \param[in] finalStates    GSL matrix of final states.
@@ -223,6 +230,8 @@ getGridMembership(const gsl_matrix *initStates,
 }
 
 /**
+ * \brief Get the transition matrices from a single long trajectory.
+ *
  * Get the forward and backward transition matrices and distributions
  * from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
@@ -291,8 +300,9 @@ getTransitionMatrix(const gsl_matrix *states,
 }
 
 /**
- * Get the grid membership matrix 
- * from a single long trajectory.
+ * \brief Get the grid membership matrix from a single long trajectory.
+ *
+ * Get the grid membership matrix from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
  * \param[in] tauStep        Lag used to calculate the transitions.
@@ -325,7 +335,9 @@ getGridMembership(const gsl_matrix *states,
 }
 
 /**
- * Get the grid membership vector frm a single long trajectory.
+ * \brief Get the grid membership vector from a single long trajectory.
+ *
+ * Get the grid membership vector from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
  * \return                   GSL grid membership vector.
@@ -359,6 +371,8 @@ getGridMembership(const gsl_matrix *states,
 }
 
 /**
+ * \brief Get the grid membership matrix from the membership vector for a given lag.
+ *
  * Get the grid membership matrix from the membership vector for a given lag.
  * \param[in] gridMemVect    Grid membership vector of a long trajectory for a grid.
  * \param[in] tauStep        Lag used to calculate the transitions.
@@ -384,7 +398,9 @@ getGridMembership(gsl_vector_uint *gridMemVect,
 
 
 /**
- * Get membership to a grid box of a single realization
+ * \brief Get membership to a grid box of a single realization.
+ *
+ * Get membership to a grid box of a single realization.
  * \param[in] state          GSL vector of a single state.
  * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
  * \return                   Box index to which the state belongs.
@@ -431,7 +447,9 @@ getBoxMembership(gsl_vector *state, const std::vector<gsl_vector *> *gridBounds)
 }
 
 /**
- * Get a uniform rectangular rectangular grid.
+ * \brief Get a uniform rectangular grid.
+ *
+ * Get a uniform rectangular grid identically for each dimension.
  * \param[in] dim        Number of dimensions.
  * \param[in] nx         Number of boxes, identically for each dimension.
  * \param[in] xmin       Minimum box limit, identically for each dimension.
@@ -460,7 +478,9 @@ std::vector<gsl_vector *> *getGridRect(size_t dim, size_t nx,
 }
 
 /**
- * Get a uniform rectangular rectangular grid.
+ * \brief Get a uniform rectangular grid.
+ * 
+ * Get a uniform rectangular grid with specific bounds for each dimension.
  * \param[in] dim        Number of dimensions.
  * \param[in] nx         GSL vector giving the number of boxes for each dimension.
  * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
@@ -491,7 +511,9 @@ getGridRect(gsl_vector_uint *nx, gsl_vector *xmin, gsl_vector *xmax)
 }
 
 /**
- * Print a uniform rectangular grid to filel
+ * \brief Print a uniform rectangular grid to file.
+ *
+ * Print a uniform rectangular grid to file.
  * \param[in] fp            File descriptor of the file to which to print the grid.
  * \param[in] gridBounds    STD vector of gsl_vector of grid box bounds for each dimension.
  * \param[in] verbose       If true, also print to the standard output.  

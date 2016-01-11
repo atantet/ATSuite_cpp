@@ -33,7 +33,8 @@ Mandatory libraries:
 
 Specific libraries:
 - [ARPACK++] is an object-oriented version of the ARPACK package used to calculate the spectrum of sparse matrices in atspectrum.hpp.
-- [OMP] is used for multi-threading by transferOperator.hpp.
+- [OMP] is used for multi-threading by transferOperator.hpp
+when WITH_OMP is set to 1 when compiling.
 
 Installing the code
 -------------------
@@ -78,4 +79,4 @@ _No warranty_ is given regarding their robustess.
 [GSL]: http://www.gnu.org/software/gsl/ "GSL - GNU Scientific Library"
 [Eigen]: http://eigen.tuxfamily.org/ "Eigen"
 [ARPACK++]: http://www.caam.rice.edu/software/ARPACK/arpack++.html "ARPACK++"
-[OMP]: http://openmp.com/ "Open MP"
+[OMP]: http://www.openmp.org/ "OpenMP"

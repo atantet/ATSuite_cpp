@@ -46,6 +46,8 @@ void filterTransitionMatrix(SpMatCSR *, gsl_vector *, gsl_vector *, double, int)
 
 // Definitions
 /**
+ * \brief Make an Eigen CSC matrix right stochastic.
+ *
  * Make an Eigen CSC matrix right stochastic
  * by normalizing each row by the sum of its elements.
  * \param[in] T    Eigen CSC matrix to make stochastic.
@@ -69,6 +71,8 @@ void toRightStochastic(SpMatCSC *T)
 }
   
 /**
+ * \brief Make an Eigen CSR matrix right stochastic.
+ *
  * Make an Eigen CSR matrix right stochastic
  * by normalizing each row by the sum of its elements.
  * \param[in] T    Eigen CSR matrix to make stochastic.
@@ -88,6 +92,8 @@ void toRightStochastic(SpMatCSR *T)
 }
   
 /**
+ * \brief Make an Eigen CSR matrix left stochastic.
+ *
  * Make an Eigen CSR matrix left stochastic
  * by normalizing each column by the sum of its elements.
  * \param[in] T    Eigen CSR matrix to make stochastic.
@@ -111,6 +117,8 @@ void toLeftStochastic(SpMatCSR *T)
 }
 
 /**
+ * \brief Make an Eigen CSR matrix and stochastic.
+ * 
  * Make an Eigen CSR matrix and stochastic
  * by normalizing it by the sum of its elements.
  * \param[in] T    Eigen CSR matrix to make stochastic.
@@ -126,6 +134,8 @@ void toAndStochastic(SpMatCSR *T)
 }
 
 /**
+ * \brief Make an Eigen CSC matrix and stochastic.
+ *
  * Make an Eigen CSC matrix and stochastic
  * by normalizing it by the sum of its elements.
  * \param[in] T    Eigen CSC matrix to make stochastic.
@@ -145,6 +155,8 @@ void toAndStochastic(SpMatCSC *T)
 }
 
 /**
+ * \brief Remove weak nodes from a transition matrix.
+ *
  * Remove weak nodes from a transition matrix
  * based on initial and final probability of each Markov state.
  * \param[inout] T    The Eigen CSR transition matrix to filter.

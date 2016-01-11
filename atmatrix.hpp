@@ -46,6 +46,8 @@ std::vector<int> * argmin(SpMatCSC *);
 
 // Definitions
 /**
+ * \brief Get the sum of each row of an Eigen CSR matrix.
+ *
  * Get the sum of each row of an Eigen CSR matrix as a GSL vector.
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return GSL vector of the sum of the rows of the sparse matrix.
@@ -65,7 +67,10 @@ getRowSum(SpMatCSR *T)
 }
 
 /** 
- * Returns a GSL vector of the sum of each row of an Eigen CSR matrix.
+ * \brief Get the sum of each row of an Eigen CSR matrix.
+ *
+ * Get the sum of each row of an Eigen CSR matrix as a GSL vector
+ * (alternate version with output as argument).
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \param[out] rowSum    GSL vector of the sum of rows of the sparse matrix.
  */
@@ -84,7 +89,9 @@ getRowSum(SpMatCSR *T, gsl_vector *rowSum)
 }
 
 /** 
- * Returns a GSL vector of the sum of each row of an Eigen CSR matrix of integer type.
+ * \brief Get the sum of each row of an Eigen CSR matrix of integer type.
+ *
+ * Get the sum of each row of an Eigen CSR matrix of integer type as a GSL vector.
  * \param[in] T    Eigen CSR matrix of integer type on which to sum.
  * \return Integer GSL vector of the sum of rows of the sparse matrix.
  */
@@ -102,7 +109,9 @@ getRowSum(SpMatIntCSR *T)
 }
 
 /** 
- * Returns a GSL vector of the sum of each column of an Eigen CSR matrix.
+ * \brief Get the sum of each column of an Eigen CSR matrix.
+ *
+ * Get the sum of each column of an Eigen CSR matrix as a GSL vector.
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return GSL vector of the sum of columns of the sparse matrix.
  */
@@ -122,7 +131,10 @@ getColSum(SpMatCSR *T)
 }
 
 /** 
- * Returns a GSL vector of the sum of each column of an Eigen CSR matrix.
+ * \brief Get the sum of each column of an Eigen CSR matrix.
+ *
+ * Get the sum of each column of an Eigen CSR matrix as a GSL vector
+ * (alternate version with output in argument).
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \param[out] GSL vector of the sum of columns of the sparse matrix.
  */
@@ -142,7 +154,9 @@ getColSum(SpMatCSR *T, gsl_vector *colSum)
 }
 
 /** 
- * Returns a GSL vector of the sum of each column of an Eigen CSC matrix.
+ * \brief Get the sum of each column of an Eigen CSC matrix.
+ *
+ * Get the sum of each column of an Eigen CSC matrix as a GSL vector.
  * \param[in] T    Eigen CSC matrix on which to sum.
  * \return GSL vector of the sum of columns of the sparse matrix.
  */
@@ -160,6 +174,8 @@ getColSum(SpMatCSC *T)
 }
 
 /** 
+ * \brief Returns a the sum of the elements of an Eigen CSR matrix.
+ *
  * Returns a the sum over all the elements of an Eigen CSR matrix.
  * \param[in] T    Eigen CSR matrix on which to sum.
  * \return Sum over all the elements of the sparse matrix.
@@ -179,6 +195,8 @@ getSum(SpMatCSR *T)
 
 
 /** 
+ * \brief Returns a the sum of the elements of an GSL vector.
+ *
  * Returns a the sum over all the elements of an GSL vector.
  * \param[in] v    GSL vector over which to sum.
  * \return Sum over all the elements of the vector.
@@ -195,6 +213,8 @@ sumVectorElements(gsl_vector *v)
 }
 
 /** 
+ * \brief Normalize a GSL vector by the sum of its elements.
+ *
  * Normalize a GSL vector by the sum of its elements.
  * \param[in] v    GSL vector to normalize.
  */
@@ -210,6 +230,8 @@ normalizeVector(gsl_vector *v)
 }
 
 /** 
+ * \brief Normalize each row of an Eigen CSR matrix by a GSL vector.
+ *
  * Normalize each row of an Eigen CSR matrix by each element of a GSL vector.
  * \param[in] T    Eigen CSR matrix to normalize.
  * \param[in] rowSum    GSL vector used to normalize the rows of the sparse matrix.
@@ -228,6 +250,8 @@ normalizeRows(SpMatCSR *T, gsl_vector *rowSum)
 }
 
 /** 
+ * \brief Perform an element-wise greater than test on an Eigen CSC matrix.
+ *
  * Perform an element-wise greater than test on an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix to test.
  * \param[in] ref    Scalar against which to compare.
@@ -246,6 +270,8 @@ cwiseGT(SpMatCSC *T, double ref)
 }
   
 /** 
+ * \brief Perform an element-wise lower than test on an Eigen CSC matrix.
+ * 
  * Perform an element-wise lower than test on an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix to test.
  * \param[in] ref    Scalar against which to compare.
@@ -264,6 +290,8 @@ cwiseLT(SpMatCSC *T, double ref)
 }
 
 /** 
+ * \brief Perform an any operation on an Eigen CSC matrix of boolean type.
+ *
  * Perform an any operation on an Eigen CSC matrix of boolean type.
  * \param[in] T    Eigen CSC matrix of boolean type on which to any.
  * \return    True if any, False otherwise.
@@ -281,6 +309,8 @@ any(SpMatCSCBool *T)
 }
 
 /** 
+ * \brief Finds the maximum element of an Eigen CSC matrix.
+ *
  * Finds the maximum element of an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix from which to find the maximum.
  * \return    Value of the maximum.
@@ -301,6 +331,8 @@ max(SpMatCSC *T)
 
 
 /** 
+ * \brief Finds the minimum element of an Eigen CSC matrix.
+ *
  * Finds the minimum element of an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix from which to find the minimum.
  * \return    Value of the minimum.
@@ -321,6 +353,8 @@ min(SpMatCSC *T)
 
 
 /** 
+ * \brief Finds the position of the maximum element of an Eigen CSC matrix.
+ *
  * Finds the position of the maximum element of an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix from which to find the maximum.
  * \return    Vector of the indices of the maximum of the matrix.
@@ -346,6 +380,8 @@ argmax(SpMatCSC *T)
 }
 
 /** 
+ * \brief Finds the position of the minimum element of an Eigen CSC matrix.
+ *
  * Finds the position of the minimum element of an Eigen CSC matrix.
  * \param[in] T    Eigen CSC matrix from which to find the minimum.
  * \return    Vector of the indices of the minimum of the matrix.
