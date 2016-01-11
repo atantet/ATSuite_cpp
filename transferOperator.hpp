@@ -11,9 +11,11 @@
 #include <Eigen/Sparse>
 #include <ATSuite/atmatrix.hpp>
 #include <ATSuite/atmarkov.hpp>
+#include <ATSuite/atio.hpp>
 #if defined (WITH_OMP) && WITH_OMP == 1
 #include <omp.h>
 #endif
+
 /** \file transferOperator.hpp
  * \brief Calculate discretized approximation of transfer operators from time series.
  *   
@@ -21,7 +23,11 @@
  * The result is given as forward and backward Markov transition matrices and their distributions.
  */
 
-// Typedef declaration
+
+/* 
+ * Typedef declaration
+ */
+
 /** \brief Eigen triplet of double. */
 typedef Eigen::Triplet<double> triplet;
 /** \brief STD vector of Eigen triplet of double. */
@@ -35,7 +41,11 @@ typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatCSC;
 /** \brief Eigen CSR matrix of double type. */
 typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatCSR;
 
-// Class declarations
+
+/*
+ * Class declarations
+ */
+
 /** \brief Transfer operator class.
  * 
  * Transfer operator class including
@@ -80,9 +90,22 @@ public:
   transferOperator(const gsl_matrix *, const std::vector<gsl_vector *> *, size_t);
   /** \brief Destructor */
   ~transferOperator();
+
+  // Output methods
+  /** \brief Print forward transition matrix to file in compressed matrix format.*/
+  int printForwardTransition(const char *, const char *);
+  /** \brief Print backward transition matrix to file in compressed matrix format.*/
+  int printBackwardTransition(const char *, const char *);
+  /** \brief Print initial distribution to file.*/
+  int printInitDist(const char *, const char *);
+  /** \brief Print final distribution to file.*/
+  int printFinalDist(const char *, const char *);
 };
 
-// Functions declarations
+
+/*
+ *  Functions declarations
+ */
 
 /** \brief Get membership matrix from initial and final states for a grid. */
 gsl_matrix_uint *getGridMembership(const gsl_matrix *, const gsl_matrix *,
@@ -107,53 +130,9 @@ std::vector<gsl_vector *> *getGridRect(const gsl_vector_uint *,
 void writeGridRect(FILE *, const std::vector<gsl_vector *> *, bool);
 
 
-// Definitions
-/**
- * Allocate memory for the transition matrices and distributions.
+/*
+ * Class constructors and destructors
  */
-void
-transferOperator::allocate(size_t gridSize)
-{
-  N = gridSize;
-  P = new SpMatCSR(N, N);
-  Q = new SpMatCSR(N, N);
-  initDist = gsl_vector_alloc(N);
-  finalDist = gsl_vector_alloc(N);
-  
-  return;
-}
-
-/**
- * Method called from the constructor to get the transition matrices
- * from a grid membership matrix.
- * \param[in] gridMem Grid membership matrix.
- */
-void
-transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
-{
-  // Get transition count triplets
-  tripletUIntVector *T = getTransitionCountTriplet(gridMem, N);
-  
-  // Convert to CSR matrix
-  P->setFromTriplets(T->begin(), T->end());
-  
-  // Get initial and final distribution
-  getRowSum(P, initDist);
-  getColSum(P, finalDist);
-  
-  // Get forward and backward transition matrices
-  *Q = SpMatCSR(P->transpose());
-  toLeftStochastic(P);
-  toLeftStochastic(Q);
-  normalizeVector(initDist);
-  normalizeVector(finalDist);
-
-  // Free
-  delete T;
-
-  return;
-}
-
 
 /**
  * Construct transferOperator by calculating
@@ -254,6 +233,154 @@ transferOperator::~transferOperator()
   gsl_vector_free(initDist);
   gsl_vector_free(finalDist);
 }
+
+
+/*
+ * Class methods
+ */
+
+/**
+ * Allocate memory for the transition matrices and distributions.
+ */
+void
+transferOperator::allocate(size_t gridSize)
+{
+  N = gridSize;
+  P = new SpMatCSR(N, N);
+  Q = new SpMatCSR(N, N);
+  initDist = gsl_vector_alloc(N);
+  finalDist = gsl_vector_alloc(N);
+  
+  return;
+}
+
+/**
+ * Method called from the constructor to get the transition matrices
+ * from a grid membership matrix.
+ * \param[in] gridMem Grid membership matrix.
+ */
+void
+transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
+{
+  // Get transition count triplets
+  tripletUIntVector *T = getTransitionCountTriplet(gridMem, N);
+  
+  // Convert to CSR matrix
+  P->setFromTriplets(T->begin(), T->end());
+  
+  // Get initial and final distribution
+  getRowSum(P, initDist);
+  getColSum(P, finalDist);
+  
+  // Get forward and backward transition matrices
+  *Q = SpMatCSR(P->transpose());
+  toLeftStochastic(P);
+  toLeftStochastic(Q);
+  normalizeVector(initDist);
+  normalizeVector(finalDist);
+
+  // Free
+  delete T;
+
+  return;
+}
+
+/**
+ * Print forward transition matrix to file in compressed matrix format.
+ */
+int
+transferOperator::printForwardTransition(const char * path, const char *dataFormat="%lf")
+{
+  FILE *fp;
+
+  // Open file
+  if ((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "Can't open %s for writing the forward transition matrix!\n", path);
+    return(EXIT_FAILURE);
+  }
+
+  // Print
+  Eigen2Compressed(fp, P, dataFormat);
+
+  // Close
+  fclose(fp);
+
+  return 0;
+}
+
+/**
+ * Print backward transition matrix to file in compressed matrix format.
+ */
+int
+transferOperator::printBackwardTransition(const char * path, const char *dataFormat="%lf")
+{
+  FILE *fp;
+
+  // Open file
+  if ((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "Can't open %s for writing the backward transition matrix!\n", path);
+    return(EXIT_FAILURE);
+  }
+
+  // Print
+  Eigen2Compressed(fp, Q, dataFormat);
+
+  // Close
+  fclose(fp);
+
+  return 0;
+}
+
+/**
+ * Print initial distribution to file.
+ */
+int
+transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
+{
+  FILE *fp;
+
+  // Open file
+  if ((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "Can't open %s for writing the initial distribution!\n", path);
+    return(EXIT_FAILURE);
+  }
+
+  // Print
+  gsl_vector_fprintf(fp, initDist, dataFormat);
+
+  // Close
+  fclose(fp);
+
+  return 0;
+}
+
+/**
+ * Print final distribution to file.
+ */
+int
+transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
+{
+  FILE *fp;
+
+  // Open file
+  if ((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "Can't open %s for writing the final distribution!\n", path);
+    return(EXIT_FAILURE);
+  }
+
+  // Print
+  gsl_vector_fprintf(fp, finalDist, dataFormat);
+
+  // Close
+  fclose(fp);
+
+  return 0;
+}
+
+
+/*
+ * Function definitions
+ */
 
 /**
  * Get membership matrix from initial and final states for a grid.
@@ -370,13 +497,11 @@ getGridMembership(const gsl_matrix *states,
 		  const std::vector<gsl_vector *> *gridBounds,
 		  const size_t tauStep)
 {
-  gsl_vector_uint *gridMemVect;
-
   // Get membership vector
-  gridMemVect = getGridMembership(states, gridBounds);
+  gsl_vector_uint *gridMemVect = getGridMembership(states, gridBounds);
 
   // Get membership matrix from vector
-  gridMem = memVector2memMatrix(gridMemVect, tauStep);
+  gsl_matrix_uint *gridMem = memVector2memMatrix(gridMemVect, tauStep);
 
   // Free
   gsl_vector_uint_free(gridMemVect);
@@ -444,7 +569,7 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
   const size_t nTraj = gridMem->size1;
   size_t box0, boxf;
   size_t nOut = 0;
-  tripletUIntVector *T = new tripletUintVector;
+  tripletUIntVector *T = new tripletUIntVector;
   T->reserve(nTraj);
 
   for (size_t traj = 0; traj < nTraj; traj++) {

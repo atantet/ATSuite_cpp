@@ -30,18 +30,18 @@ typedef Eigen::Triplet<double> Tri;
 
 
 // Declarations
-void Eigen2Pajek(FILE *, SpMatCSR *);
-void Eigen2Compressed(FILE *, SpMatCSC *);
-void Eigen2Compressed(FILE *, SpMatCSR *);
-SpMatCSC * pajek2Eigen(FILE *);
-SpMatCSR * Compressed2Eigen(FILE *);
-gsl_matrix * Compressed2EdgeList(FILE *);
-void Compressed2EdgeList(FILE *, FILE *);
-SpMatCSR * CSC2CSR(SpMatCSC *T);
-SpMatCSC * CSR2CSC(SpMatCSR *T);
-std::vector<Tri> Eigen2Triplet(SpMatCSC *);
-std::vector<Tri> Eigen2Triplet(SpMatCSR *);
-void fprintfEigen(FILE *, SpMatCSR *, const char *);
+void Eigen2Pajek(FILE *, const SpMatCSR *, const char *);
+void Eigen2Compressed(FILE *, const SpMatCSC *, const char *);
+void Eigen2Compressed(FILE *, const SpMatCSR *, const char *);
+SpMatCSC * pajek2Eigen(FILE *, const char *);
+SpMatCSR * Compressed2Eigen(FILE *, const char *);
+gsl_matrix * Compressed2EdgeList(FILE *, const char *);
+void Compressed2EdgeList(FILE *, FILE *, const char *);
+SpMatCSR * CSC2CSR(const SpMatCSC *T);
+SpMatCSC * CSR2CSC(const SpMatCSR *T);
+std::vector<Tri> Eigen2Triplet(const SpMatCSC *);
+std::vector<Tri> Eigen2Triplet(const SpMatCSR *);
+void fprintfEigen(FILE *, const SpMatCSR *, const char *);
 size_t lineCount(FILE *);
 
 // Definitions
@@ -52,9 +52,10 @@ size_t lineCount(FILE *);
  * (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>).
  * \param[in] fp    Descriptor of the file to which to print.
  * \param[in] P    Eigen matrix to print.
+ * \param[in] dataFormat Format in which to print each matrix element.
  */
 void
-Eigen2Pajek(FILE *fp, SpMatCSR *P){
+Eigen2Pajek(FILE *fp, const SpMatCSR *P, const char *dataFormat="%lf"){
   int N = P->rows();
   int E = P->nonZeros();
 
@@ -65,9 +66,13 @@ Eigen2Pajek(FILE *fp, SpMatCSR *P){
 
   // Write Edges
   fprintf(fp, "Edges %d\n", E);
-  for (int i = 0; i < P->rows(); i++)
-    for (SpMatCSR::InnerIterator it(*P, i); it; ++it)
-      fprintf(fp, "%d %d %lf\n", i, it.col(), it.value());
+  for (int i = 0; i < P->rows(); i++){
+    for (SpMatCSR::InnerIterator it(*P, i); it; ++it){
+      fprintf(fp, "%d %d ", i, it.col());
+      fprintf(fp, dataFormat, it.value());
+      fprintf(fp, "\n");
+    }
+  }
 
   return;
 }
@@ -78,10 +83,11 @@ Eigen2Pajek(FILE *fp, SpMatCSR *P){
  * Scans an Eigen CSC matrix from a Pajek file
  * (see <a href="http://mrvar.fdv.uni-lj.si/pajek/">Pajek documentation</a>).
  * \param[in] fp    Descriptor of the file to which to scan.
+ * \param[in] dataFormat Format in which to print each matrix element.
  * \return    Eigen matrix scanned.
  */
 SpMatCSC *
-pajek2Eigen(FILE *fp){
+pajek2Eigen(FILE *fp, const char *dataFormat="%lf"){
   char label[20];
   int N, E;
   int i, j, i0;
@@ -108,7 +114,8 @@ pajek2Eigen(FILE *fp){
   tripletList.reserve(E);
 
   for (int k = 0; k < E; k++){
-    fscanf(fp, "%d %d %lf", &i, &j, &x);
+    fscanf(fp, "%d %d", &i, &j);
+    fscanf(fp, dataFormat, &x);
     tripletList.push_back(Tri(i - i0, j - i0, x));
   }
   
@@ -124,17 +131,20 @@ pajek2Eigen(FILE *fp){
  * Print an Eigen CSC matrix in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to print.
  * \param[in] P    Eigen matrix to print.
+ * \param[in] dataFormat Format in which to print each matrix element.
  */
 void
-Eigen2Compressed(FILE *fp, SpMatCSC *P){
+Eigen2Compressed(FILE *fp, const SpMatCSC *P, const char *dataFormat="%lf"){
   char sparseType[] = "CSC";
 
   // Write type, inner size, outer size and number of non-zeros
   fprintf(fp, "%s %d %d %d\n", sparseType, P->innerSize(), P->outerSize(), P->nonZeros());
 
   // Write values
-  for (int nz = 0; nz < P->nonZeros(); nz++)
-    fprintf(fp, "%lf ", (P->valuePtr())[nz]);
+  for (int nz = 0; nz < P->nonZeros(); nz++){
+    fprintf(fp, dataFormat, (P->valuePtr())[nz]);
+    fprintf(fp, " ");
+  }
   fprintf(fp, "\n");
 
   // Write row indices
@@ -156,17 +166,20 @@ Eigen2Compressed(FILE *fp, SpMatCSC *P){
  * Print an Eigen CSR matrix in compressed format (see atio.hpp documentation).
  * \param[in] fp    Descriptor of the file to which to print.
  * \param[in] P    Eigen matrix to print.
+ * \param[in] dataFormat Format in which to print each matrix element.
  */
 void
-Eigen2Compressed(FILE *fp, SpMatCSR *P){
+Eigen2Compressed(FILE *fp, const SpMatCSR *P, const char *dataFormat="%lf"){
   char sparseType[] = "CSR";
 
   // Write type, inner size, outer size and number of non-zeros
   fprintf(fp, "%s %d %d %d\n", sparseType, P->innerSize(), P->outerSize(), P->nonZeros());
 
   // Write values
-  for (int nz = 0; nz < P->nonZeros(); nz++)
-    fprintf(fp, "%lf ", (P->valuePtr())[nz]);
+  for (int nz = 0; nz < P->nonZeros(); nz++){
+    fprintf(fp, dataFormat, (P->valuePtr())[nz]);
+    fprintf(fp, " ");
+  }
   fprintf(fp, "\n");
 
   // Write column indices
@@ -186,11 +199,12 @@ Eigen2Compressed(FILE *fp, SpMatCSR *P){
  * \brief Scan an Eigen CSR matrix from a file in compressed format.
  *
  * Scan an Eigen CSR matrix from a matrix file in compressed format (see atio.hpp documentation).
- * \param[in] fp    Descriptor of the file to which to scan.
- * \return Scanned Eigen matrix.
+ * \param[in] fp         Descriptor of the file to which to scan.
+ * \param[in] dataFormat Format in which to scan each matrix element.
+ * \return               Scanned Eigen matrix.
  */
 SpMatCSR *
-Compressed2Eigen(FILE *fp)
+Compressed2Eigen(FILE *fp, const char *dataFormat="%lf")
 {
   int innerSize, outerSize, nnz;
   char sparseType[4];
@@ -209,7 +223,7 @@ Compressed2Eigen(FILE *fp)
 
   // Read values
   for (int nz = 0; nz < nnz; nz++)
-    fscanf(fp, "%lf ", &nzval[nz]);
+    fscanf(fp, dataFormat, &nzval[nz]);
 
   // Read inner indices (column)
   for (int nz = 0; nz < nnz; nz++)
@@ -241,11 +255,12 @@ Compressed2Eigen(FILE *fp)
  *
  * Scan an edge list as a GSL matrix from a matrix file in compressed format
  * (see atio.hpp documentation).
- * \param[in] fp    Descriptor of the file to which to scan.
- * \return    Edge list as a GSL matrix
+ * \param[in] fp         Descriptor of the file to which to scan.
+ * \param[in] dataFormat Format in which to scan each matrix element.
+ * \return               Edge list as a GSL matrix
  */
 gsl_matrix *
-Compressed2EdgeList(FILE *fp)
+Compressed2EdgeList(FILE *fp, const char *dataFormat="%lf")
 {
   int innerSize, outerSize, nnz;
   char sparseType[4];
@@ -272,7 +287,7 @@ Compressed2EdgeList(FILE *fp)
 
   // Read values
   for (int nz = 0; nz < nnz; nz++)
-    fscanf(fp, "%lf ", &nzval[nz]);
+    fscanf(fp, dataFormat, &nzval[nz]);
 
   // Read row indices
   for (int nz = 0; nz < nnz; nz++)
@@ -302,20 +317,22 @@ Compressed2EdgeList(FILE *fp)
  * \brief Print and edge list to a file in compressed format.
  *
  * Print an edge list to a matrix file in compressed format (see atio.hpp documentation).
- * \param[in] src    Descriptor of the file to which to scan in compressed matrix format.
- * \param[in] dst    Descriptor of the file to which to print in edge list format.
+ * \param[in] src        Descriptor of the file to which to scan in compressed matrix format.
+ * \param[in] dst        Descriptor of the file to which to print in edge list format.
+ * \param[in] dataFormat Format in which to scan and print each matrix element.
  */
 void
-Compressed2EdgeList(FILE *src, FILE *dst)
+Compressed2EdgeList(FILE *src, FILE *dst, const char *dataFormat="%lf")
 {
   gsl_matrix *EdgeList = Compressed2EdgeList(src);
   size_t nnz = EdgeList->size1;
 
-  for (size_t nz = 0; nz < nnz; nz++)
-    fprintf(dst, "%d\t%d\t%lf\n",
-	    (int) gsl_matrix_get(EdgeList, nz, 0),
-	    (int) gsl_matrix_get(EdgeList, nz, 1),
-	    gsl_matrix_get(EdgeList, nz, 2));
+  for (size_t nz = 0; nz < nnz; nz++){
+    fprintf(dst, "%d\t%d\t", (int) gsl_matrix_get(EdgeList, nz, 0),
+	    (int) gsl_matrix_get(EdgeList, nz, 1));
+    fprintf(dst, dataFormat, gsl_matrix_get(EdgeList, nz, 2));
+    fprintf(dst, "\n");
+  }
 
   gsl_matrix_free(EdgeList);
   return;
@@ -329,7 +346,7 @@ Compressed2EdgeList(FILE *src, FILE *dst)
  * \return Eigen matrix converted.
  */
 SpMatCSR *
-CSC2CSR(SpMatCSC *T){
+CSC2CSR(const SpMatCSC *T){
   int N = T->rows();
 
   // Define sparse matrix
@@ -352,7 +369,7 @@ CSC2CSR(SpMatCSC *T){
  * \return Eigen matrix converted.
  */
 SpMatCSC *
-CSR2CSC(SpMatCSR *T){
+CSR2CSC(const SpMatCSR *T){
   int N = T->rows();
 
   // Define sparse matrix
@@ -375,7 +392,7 @@ CSR2CSC(SpMatCSR *T){
  * \return vector of Eigen triplet converted.
  */
 std::vector<Tri>
-Eigen2Triplet(SpMatCSC *T)
+Eigen2Triplet(const SpMatCSC *T)
 {
   // Works for column major only
   int nnz = T->nonZeros();
@@ -397,7 +414,7 @@ Eigen2Triplet(SpMatCSC *T)
  * \return vector of Eigen triplet converted.
  */
 std::vector<Tri>
-Eigen2Triplet(SpMatCSR *T)
+Eigen2Triplet(const SpMatCSR *T)
 {
   // Works for column major only
   int nnz = T->nonZeros();
@@ -417,10 +434,10 @@ Eigen2Triplet(SpMatCSR *T)
  * Print an Eigen CSR matrix as a dense matrix with zero elements marked as "---".
  * \param[in] fp File to which to print.
  * \param[in] T Eigen matrix to print.
- * \param[in] format Format in which to print each matrix element.
+ * \param[in] dataFormat Format in which to print each matrix element.
  */
 void
-fprintfEigen(FILE *fp, SpMatCSR *T, const char *format)
+fprintfEigen(FILE *fp, const SpMatCSR *T, const char *dataFormat)
 {
   int count;
   for (int irow = 0; irow < T->outerSize(); ++irow){
@@ -430,7 +447,7 @@ fprintfEigen(FILE *fp, SpMatCSR *T, const char *format)
 	fprintf(fp, "---\t");
 	count++;
       }
-      fprintf(fp, format, it.value());
+      fprintf(fp, dataFormat, it.value());
       fprintf(fp, "\t");
       count++;
     }
