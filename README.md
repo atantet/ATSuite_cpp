@@ -8,10 +8,18 @@ Visit Alexis' home page [UU] for contact.
 The full documentation can be found at [ATSuite_cpp_doc].
 
 
-Installation
+
+Table of contents
+=================
+
+  * [Installation] (#installation)
+    + [Getting the code] (#getting)
+  * [Compiling]    (#compiling)
+
+Installation               {#installation}
 ============
 
-Getting the code
+Getting the code           {#getting}
 ----------------
 
 First the ATSuite_cpp repository should be cloned using [git].
