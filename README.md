@@ -22,7 +22,7 @@ Table of contents
   * [Disclaimer] (#disclaimer)
   
 
-Installation               
+Installation
 ============
 
 Getting the code                
@@ -38,7 +38,7 @@ To do so:
 
         git clone https://github.com/atantet/ATSuite_cpp
      
-Dependencies          
+Dependencies
 ------------
 
 Mandatory libraries:
@@ -50,7 +50,7 @@ Specific libraries:
 - [OMP] is used for multi-threading by transferOperator.hpp
 when WITH_OMP is set to 1 when compiling.
 
-Installing the code                
+Installing the code
 -------------------
 
 1. Create a directory ATSuite/ in your favorite include directory $INCLUDE:
@@ -68,7 +68,7 @@ add in your C++ file:
         #include <ATSuite/atmatrix.hpp>
     
 
-Updating the code              
+Updating the code            
 -----------------
 
 1. Pull the ATSuite_cpp repository:
@@ -81,10 +81,10 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Compiling                   
+Compiling           
 =========
 
-Without [OMP]               
+Without [OMP]
 -------------
 
 If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
@@ -97,7 +97,7 @@ If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should 
 
      g++ -L$GSLDIR source.o -lgsl
      
-With [OMP]                  
+With [OMP]
 ----------
 
 If OpenMP is to be used, then WITH_OMP should be set to 1,
@@ -107,7 +107,7 @@ and -lgomp when linking.
      g++ -c -fopenmp -DWITH_OMP=$WITH_OMP -I$INCLUDE source.cpp
      g++ -L$GSLDIR source.o -lgsl -lgomp
 
-Disclaimer                  
+Disclaimer
 ==========
 
 These codes are developed for _research purpose_.
