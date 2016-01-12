@@ -14,12 +14,18 @@ Table of contents
 
   * [Installation] (#installation)
     + [Getting the code] (#getting-the-code)
-  * [Compiling]    (#compiling)
+    + [Dependencies] (#dependencies)
+    + [Installing the code] (#installing-the-code)
+    + [Updating the code] (#updating-the-code)
+  * [Compiling] (#compiling)
+    + [Without OMP] (#without-omp)
+    + [With OMP] (#with-omp)
+  * [Disclaimer] (#disclaimer)
 
 Installation               {#installation}
 ============
 
-Getting the code
+Getting the code                {#getting-the-code}
 ----------------
 
 First the ATSuite_cpp repository should be cloned using [git].
@@ -32,7 +38,7 @@ To do so:
 
         git clone https://github.com/atantet/ATSuite_cpp
      
-Dependencies
+Dependencies          {#dependencies}
 ------------
 
 Mandatory libraries:
@@ -44,7 +50,7 @@ Specific libraries:
 - [OMP] is used for multi-threading by transferOperator.hpp
 when WITH_OMP is set to 1 when compiling.
 
-Installing the code
+Installing the code                {#installing-the-code}
 -------------------
 
 1. Create a directory ATSuite/ in your favorite include directory $INCLUDE:
@@ -62,7 +68,7 @@ add in your C++ file:
         #include <ATSuite/atmatrix.hpp>
     
 
-Updating the code
+Updating the code              {#updating-the-code}
 -----------------
 
 1. Pull the ATSuite_cpp repository:
@@ -75,10 +81,10 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Compiling
+Compiling                   {#compiling}
 =========
 
-Without [OMP]
+Without [OMP]               {#without-omp}
 -------------
 
 If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
@@ -91,7 +97,7 @@ If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should 
 
      g++ -L$GSLDIR source.o -lgsl
      
-With [OMP]
+With [OMP]                  {#with-omp}
 ----------
 
 If OpenMP is to be used, then WITH_OMP should be set to 1,
@@ -101,7 +107,7 @@ and -lgomp when linking.
      g++ -c -fopenmp -DWITH_OMP=$WITH_OMP -I$INCLUDE source.cpp
      g++ -L$GSLDIR source.o -lgsl -lgomp
 
-Disclaimer 
+Disclaimer                  {#disclaimer}
 ==========
 
 These codes are developed for _research purpose_.
