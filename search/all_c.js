@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resid_5f',['resid_',['../classconfig_a_r.html#a11189a44817dd1b56d88a4140b90a647',1,'configAR']]]
+  ['q',['Q',['../classtransfer_operator.html#a625e7eed9e64a92e18be560dc8e42eca',1,'transferOperator']]]
 ];

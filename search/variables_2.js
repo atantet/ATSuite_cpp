@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initdist',['initDist',['../classtransfer_operator.html#a86eb7b598f3d7402077a0b51cfb017be',1,'transferOperator']]]
+  ['finaldist',['finalDist',['../classtransfer_operator.html#a9f00f7090bf211ced99e16605df435c7',1,'transferOperator']]]
 ];

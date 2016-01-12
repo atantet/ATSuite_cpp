@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7etransferoperator',['~transferOperator',['../classtransfer_operator.html#ab439c74c7b875253c4dd86c95b88aeda',1,'transferOperator']]]
+  ['which_5f',['which_',['../classconfig_a_r.html#a87d77aa2a5b2092f8b09a11fc27625c1',1,'configAR']]],
+  ['writespectrum',['writeSpectrum',['../atspectrum_8hpp.html#a7c2fa2b7da9854628ad629eec85940bd',1,'atspectrum.hpp']]]
 ];

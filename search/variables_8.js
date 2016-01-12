@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tol_5f',['tol_',['../classconfig_a_r.html#abd806c18bbc1d45f99324fca80b39dd9',1,'configAR']]]
+  ['q',['Q',['../classtransfer_operator.html#a625e7eed9e64a92e18be560dc8e42eca',1,'transferOperator']]]
 ];

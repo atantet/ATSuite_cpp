@@ -109,6 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid.html">Grid</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_grid.html" title="Grid class. ">Grid</a> class.  <a href="class_grid.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtransfer_operator.html">transferOperator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer operator class.  <a href="classtransfer_operator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,43 +145,37 @@ typedef Eigen::SparseMatrix&lt; double, Eigen::RowMajor &gt;&#160;</td><td class
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3f2f77112c5289a4dd7f03f8f3d60339"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a3f2f77112c5289a4dd7f03f8f3d60339">getGridMembership</a> (const gsl_matrix *, const gsl_matrix *, const std::vector&lt; gsl_vector * &gt; *)</td></tr>
-<tr class="memdesc:a3f2f77112c5289a4dd7f03f8f3d60339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get membership matrix from initial and final states for a grid.  <a href="#a3f2f77112c5289a4dd7f03f8f3d60339">More...</a><br /></td></tr>
-<tr class="separator:a3f2f77112c5289a4dd7f03f8f3d60339"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a051e585f52e4f7e0beaab7e3b2446"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a21a051e585f52e4f7e0beaab7e3b2446">getGridMembership</a> (const gsl_matrix *, const std::vector&lt; gsl_vector * &gt; *, const size_t)</td></tr>
-<tr class="memdesc:a21a051e585f52e4f7e0beaab7e3b2446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership vector from a single long trajectory.  <a href="#a21a051e585f52e4f7e0beaab7e3b2446">More...</a><br /></td></tr>
-<tr class="separator:a21a051e585f52e4f7e0beaab7e3b2446"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af29b6e8ba7d3e3f25a9a591369476419"><td class="memItemLeft" align="right" valign="top">gsl_vector_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#af29b6e8ba7d3e3f25a9a591369476419">getGridMembership</a> (const gsl_matrix *, const std::vector&lt; gsl_vector * &gt; *)</td></tr>
-<tr class="memdesc:af29b6e8ba7d3e3f25a9a591369476419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership matrix from a single long trajectory.  <a href="#af29b6e8ba7d3e3f25a9a591369476419">More...</a><br /></td></tr>
-<tr class="separator:af29b6e8ba7d3e3f25a9a591369476419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cbdb7497c1bf38fdfe9b602a97488ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cbdb7497c1bf38fdfe9b602a97488ee"></a>
-gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a0cbdb7497c1bf38fdfe9b602a97488ee">memVector2memMatrix</a> (const gsl_vector_uint *, const size_t)</td></tr>
-<tr class="memdesc:a0cbdb7497c1bf38fdfe9b602a97488ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership matrix from the membership vector for a given lag. <br /></td></tr>
-<tr class="separator:a0cbdb7497c1bf38fdfe9b602a97488ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab656c3cc67e9739034241c24cec47486"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#ab656c3cc67e9739034241c24cec47486">getBoxMembership</a> (const gsl_vector *, const std::vector&lt; gsl_vector * &gt; *)</td></tr>
-<tr class="memdesc:ab656c3cc67e9739034241c24cec47486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get membership to a grid box of a single realization.  <a href="#ab656c3cc67e9739034241c24cec47486">More...</a><br /></td></tr>
-<tr class="separator:ab656c3cc67e9739034241c24cec47486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4ebb05a7389d4971ed1ff5f395c66b"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a4d4ebb05a7389d4971ed1ff5f395c66b">getGridMemMatrix</a> (const gsl_matrix *, const gsl_matrix *, const <a class="el" href="class_grid.html">Grid</a> *)</td></tr>
+<tr class="memdesc:a4d4ebb05a7389d4971ed1ff5f395c66b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get membership matrix from initial and final states for a grid.  <a href="#a4d4ebb05a7389d4971ed1ff5f395c66b">More...</a><br /></td></tr>
+<tr class="separator:a4d4ebb05a7389d4971ed1ff5f395c66b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8c4390533b604e9f7e29ca338c6388"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a3b8c4390533b604e9f7e29ca338c6388">getGridMemMatrix</a> (const gsl_matrix *, const <a class="el" href="class_grid.html">Grid</a> *, const size_t)</td></tr>
+<tr class="memdesc:a3b8c4390533b604e9f7e29ca338c6388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership vector from a single long trajectory.  <a href="#a3b8c4390533b604e9f7e29ca338c6388">More...</a><br /></td></tr>
+<tr class="separator:a3b8c4390533b604e9f7e29ca338c6388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1860ada3665e8198397893921098db61"><td class="memItemLeft" align="right" valign="top">gsl_vector_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a1860ada3665e8198397893921098db61">getGridMemVector</a> (const gsl_matrix *, const <a class="el" href="class_grid.html">Grid</a> *)</td></tr>
+<tr class="memdesc:a1860ada3665e8198397893921098db61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership matrix from a single long trajectory.  <a href="#a1860ada3665e8198397893921098db61">More...</a><br /></td></tr>
+<tr class="separator:a1860ada3665e8198397893921098db61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ef8bb46fa004dfd1fe8783976a613d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00ef8bb46fa004dfd1fe8783976a613d"></a>
+gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a00ef8bb46fa004dfd1fe8783976a613d">memVector2memMatrix</a> (const gsl_vector_uint *, size_t)</td></tr>
+<tr class="memdesc:a00ef8bb46fa004dfd1fe8783976a613d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the grid membership matrix from the membership vector for a given lag. <br /></td></tr>
+<tr class="separator:a00ef8bb46fa004dfd1fe8783976a613d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ade262c3c9d44a682ddc01c46439d36"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a2ade262c3c9d44a682ddc01c46439d36">memVectorList2memMatrix</a> (const std::vector&lt; gsl_vector_uint * &gt; *, size_t)</td></tr>
+<tr class="memdesc:a2ade262c3c9d44a682ddc01c46439d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenate a list of membership vectors into one membership matrix.  <a href="#a2ade262c3c9d44a682ddc01c46439d36">More...</a><br /></td></tr>
+<tr class="separator:a2ade262c3c9d44a682ddc01c46439d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78c05fd41fd2d16747500024d210ae1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#ac78c05fd41fd2d16747500024d210ae1">getBoxMembership</a> (const gsl_vector *, const <a class="el" href="class_grid.html">Grid</a> *)</td></tr>
+<tr class="memdesc:ac78c05fd41fd2d16747500024d210ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get membership to a grid box of a single realization.  <a href="#ac78c05fd41fd2d16747500024d210ae1">More...</a><br /></td></tr>
+<tr class="separator:ac78c05fd41fd2d16747500024d210ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1c2ade87db7304fd24f06c1ea5a5db5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="transfer_operator_8hpp.html#adc891013819d036cc469cf9390668e35">tripletUIntVector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#ae1c2ade87db7304fd24f06c1ea5a5db5">getTransitionCountTriplet</a> (const gsl_matrix_uint *, size_t)</td></tr>
 <tr class="memdesc:ae1c2ade87db7304fd24f06c1ea5a5db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get triplet vector from membership matrix.  <a href="#ae1c2ade87db7304fd24f06c1ea5a5db5">More...</a><br /></td></tr>
 <tr class="separator:ae1c2ade87db7304fd24f06c1ea5a5db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab0310947de93163e25b252d385aa250"><td class="memItemLeft" align="right" valign="top">std::vector&lt; gsl_vector * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#aab0310947de93163e25b252d385aa250">getGridRect</a> (size_t, size_t, double, double)</td></tr>
-<tr class="memdesc:aab0310947de93163e25b252d385aa250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a uniform rectangular grid.  <a href="#aab0310947de93163e25b252d385aa250">More...</a><br /></td></tr>
-<tr class="separator:aab0310947de93163e25b252d385aa250"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace613988dce3ed8ed5d9a0b459a69b48"><td class="memItemLeft" align="right" valign="top">std::vector&lt; gsl_vector * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#ace613988dce3ed8ed5d9a0b459a69b48">getGridRect</a> (const gsl_vector_uint *, const gsl_vector *, const gsl_vector *)</td></tr>
-<tr class="memdesc:ace613988dce3ed8ed5d9a0b459a69b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a uniform rectangular grid.  <a href="#ace613988dce3ed8ed5d9a0b459a69b48">More...</a><br /></td></tr>
-<tr class="separator:ace613988dce3ed8ed5d9a0b459a69b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9174a2e295e6ebbbaedb86db2a56fa0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#ad9174a2e295e6ebbbaedb86db2a56fa0">writeGridRect</a> (FILE *, const std::vector&lt; gsl_vector * &gt; *, bool)</td></tr>
-<tr class="memdesc:ad9174a2e295e6ebbbaedb86db2a56fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a uniform rectangular grid to file.  <a href="#ad9174a2e295e6ebbbaedb86db2a56fa0">More...</a><br /></td></tr>
-<tr class="separator:ad9174a2e295e6ebbbaedb86db2a56fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aa5c2fca78102e60b9802a87733d3c7"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a4aa5c2fca78102e60b9802a87733d3c7">memVector2memMatrix</a> (gsl_vector_uint *gridMemVect, const size_t tauStep)</td></tr>
-<tr class="separator:a4aa5c2fca78102e60b9802a87733d3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eb64905c4eb48a156abaf29cda24020"><td class="memItemLeft" align="right" valign="top">gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="transfer_operator_8hpp.html#a4eb64905c4eb48a156abaf29cda24020">memVector2memMatrix</a> (gsl_vector_uint *gridMemVect, size_t tauStep)</td></tr>
+<tr class="separator:a4eb64905c4eb48a156abaf29cda24020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Calculate discretized approximation of transfer operators from time series. The result is given as forward and backward Markov transition matrices and their distributions. </p>
 
 <p>Definition in file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ab656c3cc67e9739034241c24cec47486"></a>
+<a class="anchor" id="ac78c05fd41fd2d16747500024d210ae1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -191,8 +188,8 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; gsl_vector * &gt; *&#160;</td>
-          <td class="paramname"><em>gridBounds</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_grid.html">Grid</a> *&#160;</td>
+          <td class="paramname"><em>grid</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -204,26 +201,26 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <p>Get membership to a grid box of a single realization. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>GSL vector of a single state. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridBounds</td><td>STD vector of gsl_vector of grid box bounds for each dimension. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">grid</td><td>Pointer to <a class="el" href="class_grid.html" title="Grid class. ">Grid</a> object. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Box index to which the state belongs. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00519">519</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00716">716</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00073">transferOperator::N</a>.</p>
+<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00062">Grid::dim</a>, <a class="el" href="transfer_operator_8hpp_source.html#l00068">Grid::gridBounds</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00064">Grid::N</a>.</p>
 
-<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00393">getGridMembership()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00082">transferOperator::transferOperator()</a>.</p>
+<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00563">getGridMemMatrix()</a>, <a class="el" href="transfer_operator_8hpp_source.html#l00601">getGridMemVector()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00118">transferOperator::transferOperator()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3f2f77112c5289a4dd7f03f8f3d60339"></a>
+<a class="anchor" id="a4d4ebb05a7389d4971ed1ff5f395c66b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gsl_matrix_uint * getGridMembership </td>
+          <td class="memname">gsl_matrix_uint * getGridMemMatrix </td>
           <td>(</td>
           <td class="paramtype">const gsl_matrix *&#160;</td>
           <td class="paramname"><em>initStates</em>, </td>
@@ -237,8 +234,8 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; gsl_vector * &gt; *&#160;</td>
-          <td class="paramname"><em>gridBounds</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_grid.html">Grid</a> *&#160;</td>
+          <td class="paramname"><em>grid</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -251,26 +248,26 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">initStates</td><td>GSL matrix of initial states. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">finalStates</td><td>GSL matrix of final states. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridBounds</td><td>STD vector of gsl_vector of grid box bounds for each dimension. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">grid</td><td>Pointer to <a class="el" href="class_grid.html" title="Grid class. ">Grid</a> object. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL grid membership matrix. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00393">393</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00563">563</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00519">getBoxMembership()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00073">transferOperator::N</a>.</p>
+<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00062">Grid::dim</a>, <a class="el" href="transfer_operator_8hpp_source.html#l00716">getBoxMembership()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00064">Grid::N</a>.</p>
 
-<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00496">getGridMembership()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00082">transferOperator::transferOperator()</a>.</p>
+<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00118">transferOperator::transferOperator()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a21a051e585f52e4f7e0beaab7e3b2446"></a>
+<a class="anchor" id="a3b8c4390533b604e9f7e29ca338c6388"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gsl_matrix_uint * getGridMembership </td>
+          <td class="memname">gsl_matrix_uint * getGridMemMatrix </td>
           <td>(</td>
           <td class="paramtype">const gsl_matrix *&#160;</td>
           <td class="paramname"><em>states</em>, </td>
@@ -278,8 +275,8 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; gsl_vector * &gt; *&#160;</td>
-          <td class="paramname"><em>gridBounds</em>, </td>
+          <td class="paramtype">const <a class="el" href="class_grid.html">Grid</a> *&#160;</td>
+          <td class="paramname"><em>grid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -297,25 +294,25 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <p>Get the grid membership matrix from a single long trajectory. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">states</td><td>GSL matrix of states for each time step. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridBounds</td><td>STD vector of gsl_vector of grid box bounds for each dimension. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">grid</td><td>Pointer to <a class="el" href="class_grid.html" title="Grid class. ">Grid</a> object. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">tauStep</td><td>Lag used to calculate the transitions. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL grid membership matrix. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00496">496</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00658">658</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00393">getGridMembership()</a>, and <a class="el" href="transfer_operator_8hpp.html#a0cbdb7497c1bf38fdfe9b602a97488ee">memVector2memMatrix()</a>.</p>
+<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00601">getGridMemVector()</a>, and <a class="el" href="transfer_operator_8hpp.html#a00ef8bb46fa004dfd1fe8783976a613d">memVector2memMatrix()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af29b6e8ba7d3e3f25a9a591369476419"></a>
+<a class="anchor" id="a1860ada3665e8198397893921098db61"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gsl_vector_uint * getGridMembership </td>
+          <td class="memname">gsl_vector_uint * getGridMemVector </td>
           <td>(</td>
           <td class="paramtype">const gsl_matrix *&#160;</td>
           <td class="paramname"><em>states</em>, </td>
@@ -323,8 +320,8 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; gsl_vector * &gt; *&#160;</td>
-          <td class="paramname"><em>gridBounds</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_grid.html">Grid</a> *&#160;</td>
+          <td class="paramname"><em>grid</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -336,110 +333,17 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <p>Get the grid membership vector from a single long trajectory. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">states</td><td>GSL matrix of states for each time step. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridBounds</td><td>STD vector of gsl_vector of grid box bounds for each dimension. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">grid</td><td>Pointer to <a class="el" href="class_grid.html" title="Grid class. ">Grid</a> object. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL grid membership vector. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00438">438</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00601">601</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00519">getBoxMembership()</a>.</p>
+<p>References <a class="el" href="transfer_operator_8hpp_source.html#l00062">Grid::dim</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00716">getBoxMembership()</a>.</p>
 
-</div>
-</div>
-<a class="anchor" id="aab0310947de93163e25b252d385aa250"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; gsl_vector * &gt; * getGridRect </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>dim</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xmin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>xmax</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Get a uniform rectangular grid identically for each dimension. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">dim</td><td>Number of dimensions. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">nx</td><td>Number of boxes, identically for each dimension. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">xmin</td><td>Minimum box limit, identically for each dimension. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">xmax</td><td>Maximum box limit, identically for each dimension. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>STD vector of gsl_vectors of grid box bounds for each dimension. </dd></dl>
-
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00599">599</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
-
-<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00082">transferOperator::transferOperator()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ace613988dce3ed8ed5d9a0b459a69b48"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; gsl_vector * &gt; * getGridRect </td>
-          <td>(</td>
-          <td class="paramtype">const gsl_vector_uint *&#160;</td>
-          <td class="paramname"><em>nx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const gsl_vector *&#160;</td>
-          <td class="paramname"><em>xmin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const gsl_vector *&#160;</td>
-          <td class="paramname"><em>xmax</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Get a uniform rectangular grid with specific bounds for each dimension. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">nx</td><td>GSL vector giving the number of boxes for each dimension. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">xmin</td><td>GSL vector giving the minimum box limit for each dimension. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">xmax</td><td>GSL vector giving the maximum box limit for each dimension. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>STD vector of gsl_vectors of grid box bounds for each dimension. </dd></dl>
-
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00628">628</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00658">getGridMemMatrix()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00118">transferOperator::transferOperator()</a>.</p>
 
 </div>
 </div>
@@ -468,20 +372,20 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </div><div class="memdoc">
 <p>Get the triplet vector counting the transitions from pairs of grid boxes from the grid membership matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridMem</td><td>Grid membership matrix. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gridMem</td><td><a class="el" href="class_grid.html" title="Grid class. ">Grid</a> membership matrix. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>Size of the grid. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Triplet vector counting the transitions. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00567">567</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00757">757</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00082">transferOperator::transferOperator()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00229">transferOperator::~transferOperator()</a>.</p>
+<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00118">transferOperator::transferOperator()</a>, and <a class="el" href="transfer_operator_8hpp_source.html#l00290">Grid::~Grid()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4aa5c2fca78102e60b9802a87733d3c7"></a>
+<a class="anchor" id="a4eb64905c4eb48a156abaf29cda24020"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -494,7 +398,7 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>tauStep</em>&#160;</td>
         </tr>
         <tr>
@@ -506,38 +410,32 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </div><div class="memdoc">
 <p>Get the grid membership matrix from the membership vector for a given lag. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridMemVect</td><td>Grid membership vector of a long trajectory for a grid. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">gridMemVect</td><td><a class="el" href="class_grid.html" title="Grid class. ">Grid</a> membership vector of a long trajectory for a grid. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">tauStep</td><td>Lag used to calculate the transitions. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GSL grid membership matrix. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00472">472</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00634">634</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad9174a2e295e6ebbbaedb86db2a56fa0"></a>
+<a class="anchor" id="a2ade262c3c9d44a682ddc01c46439d36"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void writeGridRect </td>
+          <td class="memname">gsl_matrix_uint * memVectorList2memMatrix </td>
           <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>fp</em>, </td>
+          <td class="paramtype">const std::vector&lt; gsl_vector_uint * &gt; *&#160;</td>
+          <td class="paramname"><em>memList</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; gsl_vector * &gt; *&#160;</td>
-          <td class="paramname"><em>gridBounds</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>verbose</em> = <code>false</code>&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>tauStep</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -546,18 +444,20 @@ gsl_matrix_uint *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Print a uniform rectangular grid to file. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Concatenate a list of membership vectors into one membership matrix. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">fp</td><td>File descriptor of the file to which to print the grid. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">gridBounds</td><td>STD vector of gsl_vector of grid box bounds for each dimension. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">verbose</td><td>If true, also print to the standard output. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">memList</td><td>STD vector of membership GSL vectors each of them associated with a single long trajectory. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tauStep</td><td>Lag used to calculate the transitions. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>GSL grid membership matrix. </dd></dl>
 
-<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00659">659</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
+<p>Definition at line <a class="el" href="transfer_operator_8hpp_source.html#l00680">680</a> of file <a class="el" href="transfer_operator_8hpp_source.html">transferOperator.hpp</a>.</p>
 
-<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00082">transferOperator::transferOperator()</a>.</p>
+<p>References <a class="el" href="transfer_operator_8hpp.html#a00ef8bb46fa004dfd1fe8783976a613d">memVector2memMatrix()</a>.</p>
+
+<p>Referenced by <a class="el" href="transfer_operator_8hpp_source.html#l00118">transferOperator::transferOperator()</a>.</p>
 
 </div>
 </div>

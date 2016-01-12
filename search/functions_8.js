@@ -5,5 +5,6 @@ var searchData=
   ['printbackwardtransition',['printBackwardTransition',['../classtransfer_operator.html#a11615946b0992b7ed1e4e952f99b0131',1,'transferOperator']]],
   ['printfinaldist',['printFinalDist',['../classtransfer_operator.html#aa043459035f3eb5db2dcb6186f90b15c',1,'transferOperator']]],
   ['printforwardtransition',['printForwardTransition',['../classtransfer_operator.html#a8d6074bb9c660eb4682b7fdaf0cb2c61',1,'transferOperator']]],
+  ['printgrid',['printGrid',['../class_grid.html#a124cd13c4489a6361db5dc36201158b1',1,'Grid']]],
   ['printinitdist',['printInitDist',['../classtransfer_operator.html#a92908686f4a8db739093538393002174',1,'transferOperator']]]
 ];

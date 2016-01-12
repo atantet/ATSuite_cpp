@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['max',['max',['../atmatrix_8hpp.html#a63e14fdef3f074f3236ced46eaa811e0',1,'atmatrix.hpp']]],
-  ['maxit_5f',['maxit_',['../classconfig_a_r.html#a7861161b25d9f3fed104096ff2a9371e',1,'configAR']]],
-  ['memvector2memmatrix',['memVector2memMatrix',['../transfer_operator_8hpp.html#a0cbdb7497c1bf38fdfe9b602a97488ee',1,'memVector2memMatrix(const gsl_vector_uint *, const size_t):&#160;transferOperator.hpp'],['../transfer_operator_8hpp.html#a4aa5c2fca78102e60b9802a87733d3c7',1,'memVector2memMatrix(gsl_vector_uint *gridMemVect, const size_t tauStep):&#160;transferOperator.hpp']]],
-  ['min',['min',['../atmatrix_8hpp.html#a0c44a636963fd9ceddac62134f858c24',1,'atmatrix.hpp']]]
+  ['linearwienerfield',['linearWienerField',['../_s_d_e_solvers_8hpp.html#a244bca9917aa1346dc9412dfbed5f791',1,'SDESolvers.hpp']]],
+  ['linecount',['lineCount',['../atio_8hpp.html#a11fe7fac230fcc16bef7f449da98a8a2',1,'atio.hpp']]],
+  ['lorenzfield',['lorenzField',['../_o_d_e_solvers_8hpp.html#a1502a5c4513abf97721ab7a79eaa99ce',1,'ODESolvers.hpp']]],
+  ['lorenzlinearwienerem',['lorenzLinearWienerEM',['../_s_d_e_solvers_8hpp.html#ab8252333fb52d58718d9b1fe594b5988',1,'SDESolvers.hpp']]],
+  ['lorenzrk4',['lorenzRK4',['../_o_d_e_solvers_8hpp.html#a1a986b9469132dc0ba27c25d1b887769',1,'ODESolvers.hpp']]]
 ];
