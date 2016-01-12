@@ -13,7 +13,7 @@ Table of contents
 =================
 
   * [Installation] (#installation)
-    + [Getting the code] (#getting)
+    + [Getting the code] (#getting-the-code)
   * [Compiling]    (#compiling)
 
 Installation               {#installation}
