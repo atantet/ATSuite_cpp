@@ -17,8 +17,8 @@ Table of contents
     + [Installing the code] (#installing-the-code)
     + [Updating the code] (#updating-the-code)
   * [Compiling] (#compiling)
-    + [Without OpenMP] (#without-omp)
-    + [With OpenMP] (#with-omp)
+    + [Without OpenMP] (#without-openmp)
+    + [With OpenMP] (#with-openmp)
   * [Disclaimer] (#disclaimer)
   
 
