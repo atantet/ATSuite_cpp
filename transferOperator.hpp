@@ -46,6 +46,42 @@ typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatCSR;
  * Class declarations
  */
 
+/** \brief Grid class.
+ *
+ * Grid class used for the Galerin approximation of transfer operators
+ * by a transition matrix on a grid.
+ */
+class Grid {
+  /** \brief Allocate memory. */
+  void allocate(gsl_vector_uint *);
+  /** \brief Get uniform rectangular. */
+  void getRectGrid(gsl_vector_uint *, const gsl_vector *, const gsl_vector *);
+
+public:
+  /** Number of dimensions */
+  size_t dim;
+  /** Number of grid boxes */
+  size_t N;
+  /** Number of grid boxes per dimension */
+  gsl_vector_uint *nx;
+  /** Grid box bounds for each dimension */
+  std::vector<gsl_vector *> *gridBounds;
+
+  /** \brief Default constructor. */
+  Grid(){}
+  /** \brief Constructor allocating an empty grid. */
+  Grid(gsl_vector_uint *nx_){ allocate(nx_); }
+  /** \brief Construct a uniform rectangular grid with different dimensions. */
+  Grid(gsl_vector_uint *, const gsl_vector *, const gsl_vector *);
+  /** \brief Construct a uniform rectangular grid with same dimensions. */
+  Grid(size_t, size_t, double, double);
+  /** \brief Destructor. */
+  ~Grid();
+  
+  /** \brief Print the grid to file. */
+  int printGrid(const char *, const char *, bool);
+};
+
 /** \brief Transfer operator class.
  * 
  * Transfer operator class including
@@ -85,9 +121,9 @@ public:
   /** \brief Constructor from membership matrix and lag */
   transferOperator(const gsl_vector_uint *, size_t); 
   /** \brief Constructor from initial and final states for a given grid */
-  transferOperator(const gsl_matrix *, const gsl_matrix *, const std::vector<gsl_vector *> *);
+  transferOperator(const gsl_matrix *, const gsl_matrix *, const Grid *);
   /** \brief Constructor from a long trajectory for a given grid and lag */
-  transferOperator(const gsl_matrix *, const std::vector<gsl_vector *> *, size_t);
+  transferOperator(const gsl_matrix *, const Grid *, size_t);
   /** \brief Destructor */
   ~transferOperator();
 
@@ -108,30 +144,23 @@ public:
  */
 
 /** \brief Get membership matrix from initial and final states for a grid. */
-gsl_matrix_uint *getGridMembership(const gsl_matrix *, const gsl_matrix *,
-				   const std::vector<gsl_vector *> *);
+gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *, const gsl_matrix *, const Grid *);
 /** \brief Get the grid membership vector from a single long trajectory. */
-gsl_matrix_uint *getGridMembership(const gsl_matrix *,
-				   const std::vector<gsl_vector *> *, const size_t);
+gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *, const Grid *, const size_t);
 /** \brief Get the grid membership matrix from a single long trajectory. */
-gsl_vector_uint *getGridMembership(const gsl_matrix *, const std::vector<gsl_vector *> *);
+gsl_vector_uint *getGridMemVector(const gsl_matrix *, const Grid *);
 /** \brief Get the grid membership matrix from the membership vector for a given lag. */
-gsl_matrix_uint *memVector2memMatrix(const gsl_vector_uint *, const size_t);
+gsl_matrix_uint *memVector2memMatrix(const gsl_vector_uint *, size_t);
+/** \brief Concatenate a list of membership vectors into one membership matrix. */
+gsl_matrix_uint * memVectorList2memMatrix(const std::vector<gsl_vector_uint *> *, size_t);
 /** \brief Get membership to a grid box of a single realization. */
-int getBoxMembership(const gsl_vector *, const std::vector<gsl_vector *> *);
+int getBoxMembership(const gsl_vector *, const Grid *);
 /** \brief Get triplet vector from membership matrix. */
 tripletUIntVector *getTransitionCountTriplet(const gsl_matrix_uint *, size_t);
-/** \brief Get a uniform rectangular grid. */
-std::vector<gsl_vector *> *getGridRect(size_t, size_t, double, double);
-/** \brief Get a uniform rectangular grid. */
-std::vector<gsl_vector *> *getGridRect(const gsl_vector_uint *,
-				       const gsl_vector *, const gsl_vector *);
-/** \brief Print a uniform rectangular grid to file. */
-void writeGridRect(FILE *, const std::vector<gsl_vector *> *, bool);
 
 
 /*
- * Class constructors and destructors
+ * Constructors and destructors definitions
  */
 
 /**
@@ -142,7 +171,7 @@ void writeGridRect(FILE *, const std::vector<gsl_vector *> *, bool);
  * \param[in] gridSize       Number of grid boxes.
  */
 transferOperator::transferOperator(const gsl_matrix_uint *gridMem, size_t gridSize)
-  {
+{
   // Allocate
   allocate(gridSize);
 
@@ -158,27 +187,20 @@ transferOperator::transferOperator(const gsl_matrix_uint *gridMem, size_t gridSi
  * from the initial and final states of trajectories.
  * \param[in] initStates     GSL matrix of initial states.
  * \param[in] finalStates    GSL matrix of final states.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  */
 transferOperator::transferOperator(const gsl_matrix *initStates,
 				   const gsl_matrix *finalStates,
-				   const std::vector<gsl_vector *> *gridBounds)
+				   const Grid *grid)
 {
-  gsl_vector *bounds;
   gsl_matrix_uint *gridMem;
 
-  // Get grid dimensions
-  N = 1;
-  for (size_t dir = 0; dir < initStates->size2; dir++){
-    bounds = gridBounds->at(dir);
-    N *= bounds->size - 1;
-  }
-
   // Allocate
+  N = grid->N;
   allocate(N);
 
   // Get grid membership matrix
-  gridMem = getGridMembership(initStates, finalStates, gridBounds);
+  gridMem = getGridMemMatrix(initStates, finalStates, grid);
 
   // Get transition matrices and distributions from grid membership matrix
   buildFromMembership(gridMem);
@@ -193,28 +215,20 @@ transferOperator::transferOperator(const gsl_matrix *initStates,
  * Construct transferOperator calculating the forward and backward transition matrices
  * and distributions from a single long trajectory, for a given grid and lag.
  * \param[in] states         GSL matrix of states for each time step.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  * \param[in] tauStep        Lag used to calculate the transitions.
  */
-transferOperator::transferOperator(const gsl_matrix *states,
-				   const std::vector<gsl_vector *> *gridBounds,
+transferOperator::transferOperator(const gsl_matrix *states, const Grid *grid,
 				   const size_t tauStep)
 {
-  gsl_vector *bounds;
   gsl_matrix_uint *gridMem;
 
-  // Get grid dimensions
-  N = 1;
-  for (size_t dir = 0; dir < states->size2; dir++){
-    bounds = gridBounds->at(dir);
-    N *= bounds->size - 1;
-  }
-
   // Allocate
+  N = grid->N;
   allocate(N);
 
   // Get grid membership matrix from a single long trajectory
-  gridMem = getGridMembership(states, gridBounds, tauStep);
+  gridMem = getGridMemMatrix(states, grid, tauStep);
 
   // Get transition matrices and distributions from grid membership matrix
   buildFromMembership(gridMem);
@@ -234,13 +248,61 @@ transferOperator::~transferOperator()
   gsl_vector_free(finalDist);
 }
 
+/**
+ * Construct a uniform rectangular grid with specific bounds for each dimension.
+ * \param[in] nx_        GSL vector giving the number of boxes for each dimension.
+ * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
+ * \param[in] xmax       GSL vector giving the maximum box limit for each dimension.
+ */
+Grid::Grid(gsl_vector_uint *nx_, const gsl_vector *xmin, const gsl_vector *xmax)
+{
+  // Allocate and build uniform rectangular grid
+  getRectGrid(nx_, xmin, xmax);
+}
+
+/**
+ * Construct a uniform rectangular grid with same bounds for each dimension.
+ * \param[in] dim_        Number of dimensions.
+ * \param[in] inx         Number of boxes, identically for each dimension.
+ * \param[in] dxmin       Minimum box limit, identically for each dimension.
+ * \param[in] dxmax       Maximum box limit, identically for each dimension.
+ */
+Grid::Grid(size_t dim_, size_t inx, double dxmin, double dxmax)
+{
+  // Convert to uniform vectors to call getRectGrid.
+  gsl_vector_uint *nx_ = gsl_vector_uint_alloc(dim_);
+  gsl_vector *xmin_ = gsl_vector_alloc(dim_);
+  gsl_vector *xmax_ = gsl_vector_alloc(dim_);
+  gsl_vector_uint_set_all(nx_, inx);
+  gsl_vector_set_all(xmin_, dxmin);
+  gsl_vector_set_all(xmax_, dxmax);
+
+  // Allocate and build uniform rectangular grid
+  getRectGrid(nx_, xmin_, xmax_);
+
+  // Free
+  gsl_vector_uint_free(nx_);
+  gsl_vector_free(xmin_);
+  gsl_vector_free(xmax_);
+}
+
+/** Destructor desallocates memory used by the grid. */
+Grid::~Grid()
+{
+  gsl_vector_uint_free(nx);
+  for (size_t d = 0; d < dim; d++)
+    gsl_vector_free((*gridBounds)[d]);
+  delete gridBounds;
+}
+
 
 /*
- * Class methods
+ * Methods definitions
  */
 
 /**
  * Allocate memory for the transition matrices and distributions.
+ * \param[in] gridSize Number of grid boxes.
  */
 void
 transferOperator::allocate(size_t gridSize)
@@ -287,15 +349,18 @@ transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
 
 /**
  * Print forward transition matrix to file in compressed matrix format.
+ * \param[in] path Path to the file in which to print.
+ * \param[in] dataFormat      Format in which to print each element.
+ * \return         Status.
  */
 int
-transferOperator::printForwardTransition(const char * path, const char *dataFormat="%lf")
+transferOperator::printForwardTransition(const char *path, const char *dataFormat="%lf")
 {
   FILE *fp;
 
   // Open file
   if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for writing the forward transition matrix!\n", path);
+    fprintf(stderr, "Can't open %s for printing the forward transition matrix!\n", path);
     return(EXIT_FAILURE);
   }
 
@@ -310,15 +375,18 @@ transferOperator::printForwardTransition(const char * path, const char *dataForm
 
 /**
  * Print backward transition matrix to file in compressed matrix format.
+ * \param[in] path Path to the file in which to print.
+ * \param[in] dataFormat      Format in which to print each element.
+ * \return         Status.
  */
 int
-transferOperator::printBackwardTransition(const char * path, const char *dataFormat="%lf")
+transferOperator::printBackwardTransition(const char *path, const char *dataFormat="%lf")
 {
   FILE *fp;
 
   // Open file
   if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for writing the backward transition matrix!\n", path);
+    fprintf(stderr, "Can't open %s for printing the backward transition matrix!\n", path);
     return(EXIT_FAILURE);
   }
 
@@ -333,6 +401,9 @@ transferOperator::printBackwardTransition(const char * path, const char *dataFor
 
 /**
  * Print initial distribution to file.
+ * \param[in] path Path to the file in which to print.
+ * \param[in] dataFormat      Format in which to print each element.
+ * \return         Status.
  */
 int
 transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
@@ -341,7 +412,7 @@ transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
 
   // Open file
   if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for writing the initial distribution!\n", path);
+    fprintf(stderr, "Can't open %s for printing the initial distribution!\n", path);
     return(EXIT_FAILURE);
   }
 
@@ -356,6 +427,9 @@ transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
 
 /**
  * Print final distribution to file.
+ * \param[in] path Path to the file in which to print.
+ * \param[in] dataFormat      Format in which to print each element.
+ * \return         Status.
  */
 int
 transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
@@ -364,12 +438,108 @@ transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
 
   // Open file
   if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for writing the final distribution!\n", path);
+    fprintf(stderr, "Can't open %s for printing the final distribution!\n", path);
     return(EXIT_FAILURE);
   }
 
   // Print
   gsl_vector_fprintf(fp, finalDist, dataFormat);
+
+  // Close
+  fclose(fp);
+
+  return 0;
+}
+
+/**
+ * Allocate memory for the grid.
+ * \param[in] GSL vector of unsigned integers giving the number of boxes per dimension.
+ */
+void
+Grid::allocate(gsl_vector_uint *nx_)
+{
+  dim = nx_->size;
+  
+  nx = gsl_vector_uint_alloc(dim);
+  gsl_vector_uint_memcpy(nx, nx_);
+  
+  N = 1;
+  gridBounds = new std::vector<gsl_vector *>(dim);
+  for (size_t d = 0; d < dim; d++){
+    N *= gsl_vector_uint_get(nx, d);
+    (*gridBounds)[d] = gsl_vector_alloc(gsl_vector_uint_get(nx, d) + 1);
+  }
+
+  return;
+}
+
+/**
+ * Get a uniform rectangular grid with specific bounds for each dimension.
+ * \param[in] nx         GSL vector giving the number of boxes for each dimension.
+ * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
+ * \param[in] xmax       GSL vector giving the maximum box limit for each dimension.
+ */
+void
+Grid::getRectGrid(gsl_vector_uint *nx_, const gsl_vector *xmin, const gsl_vector *xmax)
+{
+  double delta;
+  
+  // Allocate
+  allocate(nx_);
+
+  // Build uniform grid bounds
+  for (size_t d = 0; d < dim; d++) {
+    // Get spatial step
+    delta = (gsl_vector_get(xmax, d) - gsl_vector_get(xmin, d))
+      / gsl_vector_uint_get(nx, d);
+    // Set grid bounds
+    gsl_vector_set((*gridBounds)[d], 0, gsl_vector_get(xmin, d));
+    for (size_t i = 1; i < gsl_vector_uint_get(nx, d) + 1; i++)
+      gsl_vector_set((*gridBounds)[d], i,
+		     gsl_vector_get((*gridBounds)[d], i-1) + delta);
+  }
+
+  return;
+}
+
+/**
+ * Print the grid to file.
+ * \param[in] path       Path to the file in which to print.
+ * \param[in] dataFormat Format in which to print each element.
+ * \param[in] verbose    If true, also print to the standard output.  
+ * \return               Status.
+ */
+int
+Grid::printGrid(const char *path, const char *dataFormat="%lf", bool verbose=false)
+{
+  gsl_vector *bounds;
+  FILE *fp;
+
+  // Open file
+  if ((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "Can't open %s for printing the grid!\n", path);
+    return(EXIT_FAILURE);
+  }
+
+  if (verbose)
+    std::cout << "Domain grid (min, max, n):" << std::endl;
+
+  // Print grid
+  for (size_t d = 0; d < dim; d++) {
+    bounds = (*gridBounds)[d];
+    if (verbose) {
+      std::cout << "dim " << d+1 << ": ("
+		<< gsl_vector_get(bounds, 0) << ", "
+		<< gsl_vector_get(bounds, bounds->size - 1) << ", "
+		<< (bounds->size - 1) << ")" << std::endl;
+    }
+    
+    for (size_t i = 0; i < bounds->size; i++){
+      fprintf(fp, dataFormat, gsl_vector_get((*gridBounds)[d], i));
+      fprintf(fp, " ");
+    }
+    fprintf(fp, "\n");
+  }
 
   // Close
   fclose(fp);
@@ -386,26 +556,19 @@ transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
  * Get membership matrix from initial and final states for a grid.
  * \param[in] initStates     GSL matrix of initial states.
  * \param[in] finalStates    GSL matrix of final states.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  * \return                   GSL grid membership matrix.
  */
 gsl_matrix_uint *
-getGridMembership(const gsl_matrix *initStates,
-		  const gsl_matrix *finalStates,
-		  const std::vector<gsl_vector *> *gridBounds)
+getGridMemMatrix(const gsl_matrix *initStates, const gsl_matrix *finalStates,
+		 const Grid *grid)
 {
   const size_t nTraj = initStates->size1;
   const size_t dim = initStates->size2;
-  size_t N = 1;
-  gsl_vector *bounds;
   gsl_matrix_uint *gridMem;
 
-  // Get grid size
-  for (size_t dir = 0; dir < dim; dir++){
-    bounds = gridBounds->at(dir);
-    N *= bounds->size - 1;
-  }
-  gridMem = gsl_matrix_uint_alloc(N, 2);
+  // Allocate
+  gridMem = gsl_matrix_uint_alloc(grid->N, 2);
   
   // Assign a pair of source and destination boxes to each trajectory
 #pragma omp parallel
@@ -416,11 +579,11 @@ getGridMembership(const gsl_matrix *initStates,
     for (size_t traj = 0; traj < nTraj; traj++) {
       // Find initial box
       gsl_matrix_get_row(X, initStates, traj);
-      gsl_matrix_uint_set(gridMem, traj, 0, getBoxMembership(X, gridBounds));
+      gsl_matrix_uint_set(gridMem, traj, 0, getBoxMembership(X, grid));
       
       // Find final box
       gsl_matrix_get_row(X, finalStates, traj);
-      gsl_matrix_uint_set(gridMem, traj, 1, getBoxMembership(X, gridBounds));
+      gsl_matrix_uint_set(gridMem, traj, 1, getBoxMembership(X, grid));
     }
     gsl_vector_free(X);
   }
@@ -431,12 +594,11 @@ getGridMembership(const gsl_matrix *initStates,
 /**
  * Get the grid membership vector from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  * \return                   GSL grid membership vector.
  */
 gsl_vector_uint *
-getGridMembership(const gsl_matrix *states,
-		  const std::vector<gsl_vector *> *gridBounds)
+getGridMemVector(const gsl_matrix *states, const Grid *grid)
 {
   const size_t nStates = states->size1;
   const size_t dim = states->size2;
@@ -453,7 +615,7 @@ getGridMembership(const gsl_matrix *states,
       gsl_matrix_get_row(X, states, traj);
 #pragma omp critical
       {
-	gsl_vector_uint_set(gridMem, traj, getBoxMembership(X, gridBounds));
+	gsl_vector_uint_set(gridMem, traj, getBoxMembership(X, grid));
       }
     }
     gsl_vector_free(X);
@@ -469,7 +631,7 @@ getGridMembership(const gsl_matrix *states,
  * \return                   GSL grid membership matrix.
  */
 gsl_matrix_uint *
-memVector2memMatrix(gsl_vector_uint *gridMemVect, const size_t tauStep)
+memVector2memMatrix(gsl_vector_uint *gridMemVect, size_t tauStep)
 {
   const size_t nStates = gridMemVect->size;
   gsl_matrix_uint *gridMem = gsl_matrix_uint_alloc(nStates - tauStep, 2);
@@ -488,17 +650,15 @@ memVector2memMatrix(gsl_vector_uint *gridMemVect, const size_t tauStep)
 /**
  * Get the grid membership matrix from a single long trajectory.
  * \param[in] states         GSL matrix of states for each time step.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  * \param[in] tauStep        Lag used to calculate the transitions.
  * \return                   GSL grid membership matrix.
  */
 gsl_matrix_uint *
-getGridMembership(const gsl_matrix *states,
-		  const std::vector<gsl_vector *> *gridBounds,
-		  const size_t tauStep)
+getGridMemMatrix(const gsl_matrix *states, const Grid *grid, const size_t tauStep)
 {
   // Get membership vector
-  gsl_vector_uint *gridMemVect = getGridMembership(states, gridBounds);
+  gsl_vector_uint *gridMemVect = getGridMemVector(states, grid);
 
   // Get membership matrix from vector
   gsl_matrix_uint *gridMem = memVector2memMatrix(gridMemVect, tauStep);
@@ -510,34 +670,64 @@ getGridMembership(const gsl_matrix *states,
 }
 
 /**
+ * Concatenate a list of membership vectors into one membership matrix.
+ * \param[in] memList    STD vector of membership GSL vectors each of them associated
+ * with a single long trajectory.
+ * \param[in] tauStep    Lag used to calculate the transitions.
+ * \return               GSL grid membership matrix.
+ */
+gsl_matrix_uint *
+memVectorList2memMatrix(const std::vector<gsl_vector_uint *> *memList, size_t tauStep)
+{
+  size_t nStatesTot = 0;
+  size_t count;
+  const size_t listSize = memList->size();
+  gsl_matrix_uint *gridMem, *gridMemMatrixL;
+
+  // Get total number of states and allocate grid membership matrix
+  for (size_t l = 0; l < listSize; l++)
+    nStatesTot += (memList->at(l))->size;
+  gridMem = gsl_matrix_uint_alloc(nStatesTot - tauStep * listSize, 2);
+  
+  // Get membership matrix from list of membership vectors
+  count = 0;
+  for (size_t l = 0; l < listSize; l++) {
+    gridMemMatrixL = memVector2memMatrix(memList->at(l), tauStep);
+    for (size_t t = 0; t < gridMemMatrixL->size1; t++) {
+      gsl_matrix_uint_set(gridMem, count, 0,
+			  gsl_matrix_uint_get(gridMemMatrixL, t, 0));
+      gsl_matrix_uint_set(gridMem, count, 1,
+			  gsl_matrix_uint_get(gridMemMatrixL, t, 1));
+      count++;
+    }
+    gsl_matrix_uint_free(gridMemMatrixL);
+  }
+  
+  return gridMem;
+}
+
+/**
  * Get membership to a grid box of a single realization.
  * \param[in] state          GSL vector of a single state.
- * \param[in] gridBounds     STD vector of gsl_vector of grid box bounds for each dimension.
+ * \param[in] grid           Pointer to Grid object.
  * \return                   Box index to which the state belongs.
  */
 int
-getBoxMembership(const gsl_vector *state, const std::vector<gsl_vector *> *gridBounds)
+getBoxMembership(const gsl_vector *state, const Grid *grid)
 {
   const size_t dim = state->size;
   size_t inBox, nBoxDir;
   size_t foundBox;
   size_t subbp, subbn, ids;
   gsl_vector *bounds;
-  size_t N = 1;
-
-  // Get grid dimensions
-  for (size_t d = 0; d < dim; d++){
-    bounds = gridBounds->at(d);
-    N *= bounds->size - 1;
-  }
 
   // Get box
-  foundBox = N;
-  for (size_t box = 0; box < N; box++){
+  foundBox = grid->N;
+  for (size_t box = 0; box < grid->N; box++){
     inBox = 0;
     subbp = box;
     for (size_t d = 0; d < dim; d++){
-      bounds = gridBounds->at(d);
+      bounds = grid->gridBounds->at(d);
       nBoxDir = bounds->size - 1;
       subbn = (size_t) (subbp / nBoxDir);
       ids = subbp - subbn * nBoxDir;
@@ -586,100 +776,6 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
 	    << "% of the trajectories ended up out of the domain." << std::endl;
 
   return T;
-}
-
-/**
- * Get a uniform rectangular grid identically for each dimension.
- * \param[in] dim        Number of dimensions.
- * \param[in] nx         Number of boxes, identically for each dimension.
- * \param[in] xmin       Minimum box limit, identically for each dimension.
- * \param[in] xmax       Maximum box limit, identically for each dimension.
- * \return               STD vector of gsl_vectors of grid box bounds for each dimension.
- */
-std::vector<gsl_vector *> *getGridRect(size_t dim, size_t nx,
-				       double xmin, double xmax)
-{
-  double delta;
-  std::vector<gsl_vector *> *gridBounds = new std::vector<gsl_vector *>(dim);
-
-  for (size_t d = 0; d < dim; d++) {
-    // Alloc one dimensional box boundaries vector
-    (*gridBounds)[d] = gsl_vector_alloc(nx + 1);
-    // Get spatial step
-    delta = (xmax - xmin) / nx;
-    gsl_vector_set((*gridBounds)[d], 0, xmin);
-    
-    for (size_t i = 1; i < nx + 1; i++)
-      gsl_vector_set((*gridBounds)[d], i,
-		     gsl_vector_get((*gridBounds)[d], i-1) + delta);
-  }
-
-  return gridBounds;
-}
-
-/**
- * Get a uniform rectangular grid with specific bounds for each dimension.
- * \param[in] nx         GSL vector giving the number of boxes for each dimension.
- * \param[in] xmin       GSL vector giving the minimum box limit for each dimension.
- * \param[in] xmax       GSL vector giving the maximum box limit for each dimension.
- * \return               STD vector of gsl_vectors of grid box bounds for each dimension.
- */
-std::vector<gsl_vector *> *
-getGridRect(const gsl_vector_uint *nx,
-	    const gsl_vector *xmin,
-	    const gsl_vector *xmax)
-{
-  const size_t dim = nx->size;
-  double delta;
-  std::vector<gsl_vector *> *gridBounds = new std::vector<gsl_vector *>(dim);
-
-  for (size_t d = 0; d < dim; d++) {
-    // Alloc one dimensional box boundaries vector
-    (*gridBounds)[d] = gsl_vector_alloc(gsl_vector_uint_get(nx, d) + 1);
-    // Get spatial step
-    delta = (gsl_vector_get(xmax, d) - gsl_vector_get(xmin, d))
-      / gsl_vector_uint_get(nx, d);
-    gsl_vector_set((*gridBounds)[d], 0, gsl_vector_get(xmin, d));
-    
-    for (size_t i = 1; i < gsl_vector_uint_get(nx, d) + 1; i++)
-      gsl_vector_set((*gridBounds)[d], i,
-		     gsl_vector_get((*gridBounds)[d], i-1) + delta);
-  }
-
-  return gridBounds;
-}
-
-/**
- * Print a uniform rectangular grid to file.
- * \param[in] fp            File descriptor of the file to which to print the grid.
- * \param[in] gridBounds    STD vector of gsl_vector of grid box bounds for each dimension.
- * \param[in] verbose       If true, also print to the standard output.  
- */
-void
-writeGridRect(FILE *fp, const std::vector<gsl_vector *> *gridBounds,
-	      bool verbose=false)
-{
-  gsl_vector *bounds;
-  size_t dim = gridBounds->size();
-  
-  if (verbose)
-    std::cout << "Domain grid (min, max, n):" << std::endl;
-  
-  for (size_t d = 0; d < dim; d++) {
-    bounds = (*gridBounds)[d];
-    if (verbose) {
-      std::cout << "dim " << d+1 << ": ("
-		<< gsl_vector_get(bounds, 0) << ", "
-		<< gsl_vector_get(bounds, bounds->size - 1) << ", "
-		<< (bounds->size - 1) << ")" << std::endl;
-    }
-    
-    for (size_t i = 0; i < bounds->size; i++)
-      fprintf(fp, "%lf ", gsl_vector_get((*gridBounds)[d], i));
-    fprintf(fp, "\n");
-  }
-
-  return;
 }
 
 #endif
