@@ -84,8 +84,8 @@ Updating the code
 Compiling
 =========
 
-Without [OpenMP][OMP]
--------------
+Without OpenMP
+--------------
 
 If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
 then either it should be added to CPLUS_INCLUDE_PATH or at compilation using -I$INCLUDE. E.g.
@@ -97,8 +97,8 @@ If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should 
 
      g++ -L$GSLDIR source.o -lgsl
      
-With [OpenMP][OMP]
--------------------
+With OpenMP
+-----------
 
 If OpenMP is to be used, then WITH_OMP should be set to 1,
 -fopenmp -DWITH_OMP=$WITH_OMP used when compiling
