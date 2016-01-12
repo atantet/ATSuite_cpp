@@ -4,8 +4,8 @@ Introduction
 ATSuite C++ is a collection of scientific routines in C++
 originally developed by Alexis Tantet for _research purpose_.
 These codes are open source in order to promote reproducibility.
-Visit Alexis' home page [UU] for contact.
-The full documentation can be found at [ATSuite_cpp_doc].
+Visit Alexis' [home page][UU] for contact.
+The full documentation can be found at [ATSuite C++][ATSuite_cpp_doc].
 
 
 Table of contents
@@ -25,7 +25,7 @@ Table of contents
 Installation
 ============
 
-Getting the code                
+Getting the code
 ----------------
 
 First the ATSuite_cpp repository should be cloned using [git].
@@ -47,7 +47,7 @@ Mandatory libraries:
 
 Specific libraries:
 - [ARPACK++] is an object-oriented version of the ARPACK package used to calculate the spectrum of sparse matrices in atspectrum.hpp.
-- [OMP] is used for multi-threading by transferOperator.hpp
+- [OpenMP][OMP] is used for multi-threading by transferOperator.hpp
 when WITH_OMP is set to 1 when compiling.
 
 Installing the code
@@ -68,7 +68,7 @@ add in your C++ file:
         #include <ATSuite/atmatrix.hpp>
     
 
-Updating the code            
+Updating the code          
 -----------------
 
 1. Pull the ATSuite_cpp repository:
@@ -81,10 +81,10 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Compiling           
+Compiling   
 =========
 
-Without [OMP]
+Without [OpenMP][OMP]
 -------------
 
 If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
@@ -97,8 +97,8 @@ If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should 
 
      g++ -L$GSLDIR source.o -lgsl
      
-With [OMP]
-----------
+With [OpenMP][OMP]
+-------------------
 
 If OpenMP is to be used, then WITH_OMP should be set to 1,
 -fopenmp -DWITH_OMP=$WITH_OMP used when compiling

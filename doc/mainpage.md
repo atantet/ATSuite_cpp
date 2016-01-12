@@ -7,8 +7,7 @@ Introduction                  {#introduction}
 ATSuite C++ is a collection of scientific routines in C++
 originally developed by Alexis Tantet for _research purpose_.
 These codes are open source in order to promote reproducibility.
-Visit Alexis' home page [UU] for contact.
-The full documentation can be found at [ATSuite_cpp_doc].
+Visit Alexis' [home page][UU] for contact.
 
 [TOC]
 
@@ -37,7 +36,7 @@ Mandatory libraries:
 
 Specific libraries:
 - [ARPACK++] is an object-oriented version of the ARPACK package used to calculate the spectrum of sparse matrices in atspectrum.hpp.
-- [OMP] is used for multi-threading by transferOperator.hpp
+- [OpenMP][OMP] is used for multi-threading by transferOperator.hpp
 when WITH_OMP is set to 1 when compiling.
 
 Installing the code                {#installing-the-code}
@@ -74,8 +73,8 @@ Updating the code              {#updating-the-code}
 Compiling                   {#compiling}
 =========
 
-Without [OMP]               {#without-omp}
--------------
+Without OpenMP               {#without-omp}
+--------------
 
 If INCLUDE is not a system directory such as /usr/include/ or /usr/local/include/
 then either it should be added to CPLUS_INCLUDE_PATH or at compilation using -I$INCLUDE. E.g.
@@ -87,8 +86,8 @@ If GSL's directory is not a system one or in LIBRARY_PATH then -L$GSLDIR should 
 
      g++ -L$GSLDIR source.o -lgsl
      
-With [OMP]                  {#with-omp}
-----------
+With OpenMP                  {#with-omp}
+-----------
 
 If OpenMP is to be used, then WITH_OMP should be set to 1,
 -fopenmp -DWITH_OMP=$WITH_OMP used when compiling
