@@ -17,8 +17,8 @@ Table of contents
     + [Installing the code] (#installing-the-code)
     + [Updating the code] (#updating-the-code)
   * [Compiling] (#compiling)
-    + [Without OMP] (#without-omp)
-    + [With OMP] (#with-omp)
+    + [Without OpenMP] (#without-omp)
+    + [With OpenMP] (#with-omp)
   * [Disclaimer] (#disclaimer)
   
 
@@ -68,7 +68,7 @@ add in your C++ file:
         #include <ATSuite/atmatrix.hpp>
     
 
-Updating the code          
+Updating the code
 -----------------
 
 1. Pull the ATSuite_cpp repository:
@@ -81,7 +81,7 @@ Updating the code
         cp *.hpp $INCLUDE/ATSuite
 
 
-Compiling   
+Compiling
 =========
 
 Without [OpenMP][OMP]
