@@ -19,7 +19,7 @@ Table of contents
 Installation               {#installation}
 ============
 
-Getting the code           {#getting}
+Getting the code
 ----------------
 
 First the ATSuite_cpp repository should be cloned using [git].
