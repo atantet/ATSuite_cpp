@@ -1,7 +1,6 @@
 #Ifndef SDESOLVERS_HPP
 #define SDESOLVERS_HPP
 
-#include <cmath>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <ODESolvers.hpp>

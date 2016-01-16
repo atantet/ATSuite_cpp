@@ -4,14 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <gsl/gsl_vector.h>
-#include <gsl/gsl_vector_uint.h>
 #include <gsl/gsl_matrix.h>
-#include <gsl/gsl_matrix_uint.h>
-#include <Eigen/Dense>
-#include <Eigen/Sparse>
-#include <ATSuite/atmatrix.hpp>
-#include <ATSuite/atmarkov.hpp>
-#include <ATSuite/atio.hpp>
+#include <gsl/gsl_spmatrix.h>
 #if defined (WITH_OMP) && WITH_OMP == 1
 #include <omp.h>
 #endif
@@ -22,25 +16,6 @@
  * Calculate discretized approximation of transfer operators from time series.
  * The result is given as forward and backward Markov transition matrices and their distributions.
  */
-
-
-/* 
- * Typedef declaration
- */
-
-/** \brief Eigen triplet of double. */
-typedef Eigen::Triplet<double> triplet;
-/** \brief STD vector of Eigen triplet of double. */
-typedef std::vector<triplet> tripletVector;
-/** \brief Eigen triplet of integer. */
-typedef Eigen::Triplet<size_t> tripletUInt;
-/** \brief STD vector of Eigen triplet of integer. */
-typedef std::vector<tripletUInt> tripletUIntVector;
-/** \brief Eigen CSC matrix of double type. */
-typedef Eigen::SparseMatrix<double, Eigen::ColMajor> SpMatCSC;
-/** \brief Eigen CSR matrix of double type. */
-typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SpMatCSR;
-
 
 /*
  * Class declarations
@@ -107,8 +82,8 @@ class transferOperator {
     
 public:
   size_t N;              //!< Size of the grid
-  SpMatCSR *P;           //!< Forward transition matrix
-  SpMatCSR *Q;           //!< Backward transition matrix
+  gsl_spmatrix *P;       //!< Forward transition matrix
+  gsl_spmatrix *Q;       //!< Backward transition matrix
   gsl_vector *initDist;  //!< Initial distribution
   gsl_vector *finalDist; //!< Final distribution
 
@@ -156,7 +131,11 @@ gsl_matrix_uint * memVectorList2memMatrix(const std::vector<gsl_vector_uint *> *
 /** \brief Get membership to a grid box of a single realization. */
 int getBoxMembership(const gsl_vector *, const Grid *);
 /** \brief Get triplet vector from membership matrix. */
-tripletUIntVector *getTransitionCountTriplet(const gsl_matrix_uint *, size_t);
+gsl_spmatrix *getTransitionCountTriplet(const gsl_matrix_uint *, size_t);
+/** \brief Normalize vector by the sum of its elements. */
+void gsl_vector_normalize(gsl_vector *v);
+/** \brief Get sum of vector elements. */
+double gsl_vector_get_sum(gsl_vector *v);
 
 
 /*
@@ -308,8 +287,8 @@ void
 transferOperator::allocate(size_t gridSize)
 {
   N = gridSize;
-  P = new SpMatCSR(N, N);
-  Q = new SpMatCSR(N, N);
+  P = gsl_spmatrix_alloc(N, N);
+  Q = gsl_spmatrix_alloc(N, N);
   initDist = gsl_vector_alloc(N);
   finalDist = gsl_vector_alloc(N);
   
@@ -325,24 +304,24 @@ void
 transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
 {
   // Get transition count triplets
-  tripletUIntVector *T = getTransitionCountTriplet(gridMem, N);
+  gsl_spmatrix *T = getTransitionCountTriplet(gridMem, N);
   
-  // Convert to CSR matrix
-  P->setFromTriplets(T->begin(), T->end());
+  // Convert to CCS and get transpose
+  P = gsl_spmatrix_compress(T);
+  Q = gsl_spmatrix_transpose_memcpy(P);
   
   // Get initial and final distribution
-  getRowSum(P, initDist);
-  getColSum(P, finalDist);
+  finalDist = gsl_spmatrix_get_colsum(P);
+  initDist = gsl_spmatrix_get_colsum(Q);
+  gsl_vector_normalize(initDist);
+  gsl_vector_normalize(finalDist);
   
-  // Get forward and backward transition matrices
-  *Q = SpMatCSR(P->transpose());
-  toLeftStochastic(P);
-  toLeftStochastic(Q);
-  normalizeVector(initDist);
-  normalizeVector(finalDist);
+  // Make left stochastic for matrix elements to be transition probabilities
+  gsl_spmatrix_div_cols(P, finalDist);
+  gsl_spmatrix_div_cols(Q, initDist);
 
   // Free
-  delete T;
+  gsl_spmatrix_free(T);
 
   return;
 }
@@ -365,7 +344,7 @@ transferOperator::printForwardTransition(const char *path, const char *dataForma
   }
 
   // Print
-  Eigen2Compressed(fp, P, dataFormat);
+  gsl_spmatrix_fprintf(fp, P, dataFormat);
 
   // Close
   fclose(fp);
@@ -391,7 +370,7 @@ transferOperator::printBackwardTransition(const char *path, const char *dataForm
   }
 
   // Print
-  Eigen2Compressed(fp, Q, dataFormat);
+  gsl_spmatrix_fprintf(fp, Q, dataFormat);
 
   // Close
   fclose(fp);
@@ -753,14 +732,13 @@ getBoxMembership(const gsl_vector *state, const Grid *grid)
  * \param[in] N       Size of the grid.
  * \return            Triplet vector counting the transitions.
  */
-tripletUIntVector *
+gsl_spmatrix *
 getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
 {
   const size_t nTraj = gridMem->size1;
   size_t box0, boxf;
   size_t nOut = 0;
-  tripletUIntVector *T = new tripletUIntVector;
-  T->reserve(nTraj);
+  gsl_spmatrix *T = gsl_spmatrix_alloc_nzmax(N, N, nTraj, GSL_SPMATRIX_TRIPLET);
 
   for (size_t traj = 0; traj < nTraj; traj++) {
     box0 = gsl_matrix_uint_get(gridMem, traj, 0);
@@ -768,7 +746,7 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
     
     // Add transition triplet
     if ((box0 < N) && (boxf < N))
-      T->push_back(tripletUInt(box0, boxf, 1));
+      gsl_spmatrix_set(T, box0, boxf, 1.);
     else
       nOut++;
   }
@@ -776,6 +754,37 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
 	    << "% of the trajectories ended up out of the domain." << std::endl;
 
   return T;
+}
+
+/**
+ * Normalize vector by the sum of its elements.
+ * \param[input] v Vector to normalize.
+ */
+void
+gsl_vector_normalize(gsl_vector *v)
+{
+  double sum = gsl_vector_get_sum(v);
+
+  for (size_t j = 0; j < v->size; j++)
+    v->data[j * v->stride] /= sum;
+  
+  return;
+}
+
+/**
+ * Get sum of vector elements.
+ * \param[input] v Vector from which to sum the elements.
+ * \return         Sum of vector elements.
+ */
+double
+gsl_vector_get_sum(gsl_vector *v)
+{
+  double sum = 0;
+
+  for (size_t j = 0; j < v->size; j++)
+    sum += v->data[j * v->stride];
+  
+  return;
 }
 
 #endif
