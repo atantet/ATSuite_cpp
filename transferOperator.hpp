@@ -5,7 +5,7 @@
 #include <vector>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
-#include <gsl/gsl_spmatrix.h>
+#include "gsl_spmatrix.h"
 #if defined (WITH_OMP) && WITH_OMP == 1
 #include <omp.h>
 #endif
@@ -306,19 +306,19 @@ transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
   // Get transition count triplets
   gsl_spmatrix *T = getTransitionCountTriplet(gridMem, N);
   
-  // Convert to CCS and get transpose
-  P = gsl_spmatrix_compress(T);
+  // Convert to CCS summing duplicates and get transpose
+  P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CCS, 1);
   Q = gsl_spmatrix_transpose_memcpy(P);
   
   // Get initial and final distribution
   finalDist = gsl_spmatrix_get_colsum(P);
   initDist = gsl_spmatrix_get_colsum(Q);
-  gsl_vector_normalize(initDist);
-  gsl_vector_normalize(finalDist);
   
   // Make left stochastic for matrix elements to be transition probabilities
   gsl_spmatrix_div_cols(P, finalDist);
   gsl_spmatrix_div_cols(Q, initDist);
+  gsl_vector_normalize(initDist);
+  gsl_vector_normalize(finalDist);
 
   // Free
   gsl_spmatrix_free(T);
@@ -784,7 +784,7 @@ gsl_vector_get_sum(gsl_vector *v)
   for (size_t j = 0; j < v->size; j++)
     sum += v->data[j * v->stride];
   
-  return;
+  return sum;
 }
 
 #endif
