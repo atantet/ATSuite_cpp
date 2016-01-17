@@ -5,6 +5,7 @@
 #include <vector>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
+#include <gsl/gsl_errno.h>
 #include "gsl_spmatrix.h"
 #if defined (WITH_OMP) && WITH_OMP == 1
 #include <omp.h>
@@ -13,8 +14,16 @@
 /** \file transferOperator.hpp
  * \brief Calculate discretized approximation of transfer operators from time series.
  *   
- * Calculate discretized approximation of transfer operators from time series.
+ * Calculate Galerkin approximation of transfer operators from time series.
  * The result is given as forward and backward Markov transition matrices and their distributions.
+
+ * Coordinate format with a one line header is followed
+ * for printing and scanning of the sparse transition matrices.
+ * The first line is a header giving the number of rows, columns and non-zero elements:
+ *      M    N    nnz
+ * Each following line gives the coordinate of one matrix element
+ * as its row, column and value:
+ *      i    j    d
  */
 
 /*
@@ -28,9 +37,11 @@
  */
 class Grid {
   /** \brief Allocate memory. */
-  void allocate(gsl_vector_uint *);
+  void allocate(gsl_vector_uint *nx_);
   /** \brief Get uniform rectangular. */
-  void getRectGrid(gsl_vector_uint *, const gsl_vector *, const gsl_vector *);
+  void getRectGrid(gsl_vector_uint *nx_,
+		   const gsl_vector *xmin,
+		   const gsl_vector *xmax);
 
 public:
   /** Number of dimensions */
@@ -47,14 +58,14 @@ public:
   /** \brief Constructor allocating an empty grid. */
   Grid(gsl_vector_uint *nx_){ allocate(nx_); }
   /** \brief Construct a uniform rectangular grid with different dimensions. */
-  Grid(gsl_vector_uint *, const gsl_vector *, const gsl_vector *);
+  Grid(gsl_vector_uint *nx_, const gsl_vector *xmin, const gsl_vector *xmax);
   /** \brief Construct a uniform rectangular grid with same dimensions. */
-  Grid(size_t, size_t, double, double);
+  Grid(size_t dim_, size_t inx, double xmin, double xmax);
   /** \brief Destructor. */
   ~Grid();
   
   /** \brief Print the grid to file. */
-  int printGrid(const char *, const char *, bool);
+  int printGrid(const char *path, const char *dataFormat, bool verbose);
 };
 
 /** \brief Transfer operator class.
@@ -75,42 +86,60 @@ public:
  * for the lag given.
  */
 class transferOperator {
+
   /** \brief Allocate memory. */
-  void allocate(size_t);
-/** \brief Get the transition matrices from a grid membership matrix. */
-  void buildFromMembership(const gsl_matrix_uint *);
-    
+  int allocate(size_t gridSize);
+  /** \brief Get the transition matrices from a grid membership matrix. */
+  int buildFromMembership(const gsl_matrix_uint *gridMem);
+
+  
 public:
   size_t N;              //!< Size of the grid
   gsl_spmatrix *P;       //!< Forward transition matrix
   gsl_spmatrix *Q;       //!< Backward transition matrix
-  gsl_vector *initDist;  //!< Initial distribution
-  gsl_vector *finalDist; //!< Final distribution
+  gsl_vector *rho0;      //!< Initial distribution
+  gsl_vector *rhof;      //!< Final distribution
 
+  
   /** \brief Default constructor */
   transferOperator(){}
   /** \brief Empty constructor allocating for grid size*/
   transferOperator(size_t gridSize){ allocate(gridSize); }
   /** \brief Constructor from the membership matrix. */
-  transferOperator(const gsl_matrix_uint *, size_t);
-  /** \brief Constructor from membership matrix and lag */
-  transferOperator(const gsl_vector_uint *, size_t); 
+  transferOperator(const gsl_matrix_uint *gridMem, size_t gridSize);
   /** \brief Constructor from initial and final states for a given grid */
-  transferOperator(const gsl_matrix *, const gsl_matrix *, const Grid *);
+  transferOperator(const gsl_matrix *initStates, const gsl_matrix *finalStates,
+		   const Grid *grid);
   /** \brief Constructor from a long trajectory for a given grid and lag */
-  transferOperator(const gsl_matrix *, const Grid *, size_t);
+  transferOperator(const gsl_matrix *states, const Grid *grid, size_t tauStep);
   /** \brief Destructor */
   ~transferOperator();
 
+  
+  /** \brief Filtering of weak Markov states. */
+  void filter(double tol);
+
+
   // Output methods
-  /** \brief Print forward transition matrix to file in compressed matrix format.*/
-  int printForwardTransition(const char *, const char *);
-  /** \brief Print backward transition matrix to file in compressed matrix format.*/
-  int printBackwardTransition(const char *, const char *);
+  /** \brief Print forward transition matrix to file in coordinate format.*/
+  int printForwardTransition(const char *path, const char *dataFormat);
+  /** \brief Print backward transition matrix to file in coordinate format.*/
+  int printBackwardTransition(const char *path, const char *dataFormat);
   /** \brief Print initial distribution to file.*/
-  int printInitDist(const char *, const char *);
+  int printInitDist(const char *path, const char *dataFormat);
   /** \brief Print final distribution to file.*/
-  int printFinalDist(const char *, const char *);
+  int printFinalDist(const char *path, const char *dataFormat);
+
+  
+  // Input methods
+  /** \brief Scan forward transition matrix to file in coordinate format.*/
+  int scanForwardTransition(const char *path);
+  /** \brief Scan backward transition matrix to file in coordinate format.*/
+  int scanBackwardTransition(const char *path);
+  /** \brief Scan initial distribution to file.*/
+  int scanInitDist(const char *path);
+  /** \brief Scan final distribution to file.*/
+  int scanFinalDist(const char *path);
 };
 
 
@@ -119,19 +148,26 @@ public:
  */
 
 /** \brief Get membership matrix from initial and final states for a grid. */
-gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *, const gsl_matrix *, const Grid *);
+gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *initStates,
+				  const gsl_matrix *finalStates,
+				  const Grid *grid);
 /** \brief Get the grid membership vector from a single long trajectory. */
-gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *, const Grid *, const size_t);
+gsl_matrix_uint *getGridMemMatrix(const gsl_matrix *states, const Grid *grid,
+				  const size_t tauStep);
 /** \brief Get the grid membership matrix from a single long trajectory. */
-gsl_vector_uint *getGridMemVector(const gsl_matrix *, const Grid *);
+gsl_vector_uint *getGridMemVector(const gsl_matrix *states, const Grid *grid);
 /** \brief Get the grid membership matrix from the membership vector for a given lag. */
-gsl_matrix_uint *memVector2memMatrix(const gsl_vector_uint *, size_t);
+gsl_matrix_uint *memVector2memMatrix(const gsl_vector_uint *gridMemVect, size_t tauStep);
 /** \brief Concatenate a list of membership vectors into one membership matrix. */
-gsl_matrix_uint * memVectorList2memMatrix(const std::vector<gsl_vector_uint *> *, size_t);
+gsl_matrix_uint * memVectorList2memMatrix(const std::vector<gsl_vector_uint *> *memList,
+					  size_t tauStep);
 /** \brief Get membership to a grid box of a single realization. */
-int getBoxMembership(const gsl_vector *, const Grid *);
+int getBoxMembership(const gsl_vector *state, const Grid *grid);
 /** \brief Get triplet vector from membership matrix. */
-gsl_spmatrix *getTransitionCountTriplet(const gsl_matrix_uint *, size_t);
+gsl_spmatrix *getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N);
+/** \brief Remove weak nodes from a transition matrix. */
+int filterStochasticMatrix(gsl_spmatrix *T, gsl_vector *rowCut, gsl_vector *colCut,
+			   double tol, int norm);
 /** \brief Normalize vector by the sum of its elements. */
 void gsl_vector_normalize(gsl_vector *v);
 /** \brief Get sum of vector elements. */
@@ -156,8 +192,6 @@ transferOperator::transferOperator(const gsl_matrix_uint *gridMem, size_t gridSi
 
   // Get transition matrices and distributions from grid membership matrix
   buildFromMembership(gridMem);
-
-  return;
 }
 
 /**
@@ -185,9 +219,7 @@ transferOperator::transferOperator(const gsl_matrix *initStates,
   buildFromMembership(gridMem);
 
   // Free
-  gsl_matrix_uint_free(gridMem);
-  
-  return;
+  gsl_matrix_uint_free(gridMem);  
 }
 
 /**
@@ -214,17 +246,15 @@ transferOperator::transferOperator(const gsl_matrix *states, const Grid *grid,
 
   // Free
   gsl_matrix_uint_free(gridMem);
-  
-  return;
 }
 
 /** Destructor of transferOperator: desallocate all pointers. */
 transferOperator::~transferOperator()
 {
-  delete P;
-  delete Q;
-  gsl_vector_free(initDist);
-  gsl_vector_free(finalDist);
+  gsl_spmatrix_free(P);
+  gsl_spmatrix_free(Q);
+  gsl_vector_free(rho0);
+  gsl_vector_free(rhof);
 }
 
 /**
@@ -282,52 +312,107 @@ Grid::~Grid()
 /**
  * Allocate memory for the transition matrices and distributions.
  * \param[in] gridSize Number of grid boxes.
+ * \return             Exit status.
  */
-void
+int
 transferOperator::allocate(size_t gridSize)
 {
   N = gridSize;
-  P = gsl_spmatrix_alloc(N, N);
-  Q = gsl_spmatrix_alloc(N, N);
-  initDist = gsl_vector_alloc(N);
-  finalDist = gsl_vector_alloc(N);
   
-  return;
+  P = gsl_spmatrix_alloc(N, N);
+  if (!P) {
+    fprintf(stderr, "Error allocating forward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
+  
+  Q = gsl_spmatrix_alloc(N, N);
+  if (!Q) {
+    fprintf(stderr, "Error allocating backward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
+  
+  rho0 = gsl_vector_alloc(N);
+  
+  rhof = gsl_vector_alloc(N);
+  
+  return 0;
 }
 
 /**
  * Method called from the constructor to get the transition matrices
  * from a grid membership matrix.
  * \param[in] gridMem Grid membership matrix.
+ * \return            Exit status.
  */
-void
+int
 transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
 {
+  gsl_spmatrix *T;
+
   // Get transition count triplets
-  gsl_spmatrix *T = getTransitionCountTriplet(gridMem, N);
+  if (!(T = getTransitionCountTriplet(gridMem, N))) {
+    fprintf(stderr, "Error getting transition triplet matrix.");
+    return EXIT_FAILURE;
+  }
   
-  // Convert to CCS summing duplicates and get transpose
-  P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CCS, 1);
-  Q = gsl_spmatrix_transpose_memcpy(P);
+  // Convert to CCS summing duplicates
+  if (!(P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CCS, 1))) {
+    fprintf(stderr, "Error converting transition triplet to CCS.\n");
+    return EXIT_FAILURE;
+  }
+
+  // Get transpose
+  if (!(Q = gsl_spmatrix_transpose_memcpy(P))) {
+    fprintf(stderr, "Error transposing transition matrix.\n");
+    return EXIT_FAILURE;
+  }
   
-  // Get initial and final distribution
-  finalDist = gsl_spmatrix_get_colsum(P);
-  initDist = gsl_spmatrix_get_colsum(Q);
+  // Get initial distribution
+  if (!(rho0 = gsl_spmatrix_get_colsum(Q))) {
+    fprintf(stderr, "Error getting initial distribution.\n");
+    return EXIT_FAILURE;
+  }
+
+  // Get final distribution
+  if (!(rhof = gsl_spmatrix_get_colsum(P))) {
+    fprintf(stderr, "Error getting final distribution.\n");
+    return EXIT_FAILURE;
+  }
   
   // Make left stochastic for matrix elements to be transition probabilities
-  gsl_spmatrix_div_cols(P, finalDist);
-  gsl_spmatrix_div_cols(Q, initDist);
-  gsl_vector_normalize(initDist);
-  gsl_vector_normalize(finalDist);
+  gsl_spmatrix_div_cols(P, rhof);
+  gsl_spmatrix_div_cols(Q, rho0);
+  gsl_vector_normalize(rho0);
+  gsl_vector_normalize(rhof);
 
   // Free
   gsl_spmatrix_free(T);
 
+  return 0;
+}
+
+
+/** 
+ * Filter weak Markov states (boxes) of forward and backward transition matrices
+ * based on their distributions.
+ * \param[in] tol Weight under which a state is filtered out.
+ */
+void
+transferOperator::filter(double tol)
+{
+  /** Filter forward transition matrix */
+  filterStochasticMatrix(P, rho0, rhof, tol, 2);
+
+  /** Filter forward transition matrix */
+  filterStochasticMatrix(Q, rhof, rho0, tol, 2);
+  
   return;
 }
 
+
 /**
- * Print forward transition matrix to file in compressed matrix format.
+ * Print forward transition matrix to file in coordinate format with header
+ * (see transferOperator.hpp)
  * \param[in] path Path to the file in which to print.
  * \param[in] dataFormat      Format in which to print each element.
  * \return         Status.
@@ -338,14 +423,19 @@ transferOperator::printForwardTransition(const char *path, const char *dataForma
   FILE *fp;
 
   // Open file
-  if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for printing the forward transition matrix!\n", path);
-    return(EXIT_FAILURE);
+  if (!(fp = fopen(path, "w"))){
+    fprintf(stderr, "Can't open %s for writing forward transition matrix", path);
+    perror("");
+    return EXIT_FAILURE;
   }
 
   // Print
   gsl_spmatrix_fprintf(fp, P, dataFormat);
-
+  if (ferror(fp)) {
+    fprintf(stderr, "Error while printing forward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
+  
   // Close
   fclose(fp);
 
@@ -353,7 +443,8 @@ transferOperator::printForwardTransition(const char *path, const char *dataForma
 }
 
 /**
- * Print backward transition matrix to file in compressed matrix format.
+ * Print backward transition matrix to file in coordinate format with header
+ * (see transferOperator.hpp)
  * \param[in] path Path to the file in which to print.
  * \param[in] dataFormat      Format in which to print each element.
  * \return         Status.
@@ -364,13 +455,18 @@ transferOperator::printBackwardTransition(const char *path, const char *dataForm
   FILE *fp;
 
   // Open file
-  if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for printing the backward transition matrix!\n", path);
-    return(EXIT_FAILURE);
+  if (!(fp = fopen(path, "w"))) {
+    fprintf(stderr, "Can't open %s for writing backward transition matrix", path);
+    perror("");
+    return EXIT_FAILURE;
   }
 
-  // Print
+  // Print 
   gsl_spmatrix_fprintf(fp, Q, dataFormat);
+  if (ferror(fp)) {
+    fprintf(stderr, "Error while printing backward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
 
   // Close
   fclose(fp);
@@ -390,13 +486,14 @@ transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
   FILE *fp;
 
   // Open file
-  if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for printing the initial distribution!\n", path);
-    return(EXIT_FAILURE);
+  if (!(fp = fopen(path, "w"))){
+    fprintf(stderr, "Can't open %s for writing initial distribution", path);
+    perror("");
+    return EXIT_FAILURE;
   }
 
   // Print
-  gsl_vector_fprintf(fp, initDist, dataFormat);
+  gsl_vector_fprintf(fp, rho0, dataFormat);
 
   // Close
   fclose(fp);
@@ -406,9 +503,9 @@ transferOperator::printInitDist(const char *path, const char *dataFormat="%lf")
 
 /**
  * Print final distribution to file.
- * \param[in] path Path to the file in which to print.
- * \param[in] dataFormat      Format in which to print each element.
- * \return         Status.
+ * \param[in] path       Path to the file in which to print.
+ * \param[in] dataFormat Format in which to print each element.
+ * \return               Status.
  */
 int
 transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
@@ -416,19 +513,156 @@ transferOperator::printFinalDist(const char *path, const char *dataFormat="%lf")
   FILE *fp;
 
   // Open file
-  if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for printing the final distribution!\n", path);
-    return(EXIT_FAILURE);
+  if (!(fp = fopen(path, "w"))) {
+    fprintf(stderr, "Can't open %s for writing final distribution", path);
+    perror("");
+    return EXIT_FAILURE;
   }
 
   // Print
-  gsl_vector_fprintf(fp, finalDist, dataFormat);
+  gsl_vector_fprintf(fp, rhof, dataFormat);
 
   // Close
   fclose(fp);
 
   return 0;
 }
+
+/**
+ * Scan forward transition matrix from file in coordinate format with header.
+ * (see transferOperator.hpp).
+ * No preliminary memory allocation needed.
+ * Previously allocated memory should first be freed to avoid memory leak.
+ * \param[in] path Path to the file in which to print.
+ * \return         0 in success, EXIT_FAILURE otherwise.
+ */
+int
+transferOperator::scanForwardTransition(const char *path)
+{
+  FILE *fp;
+  
+  // Open file
+  if (!(fp = fopen(path, "r"))){
+    fprintf(stderr, "Can't open %s for reading forward transition matrix", path);
+    perror("");
+    return EXIT_FAILURE;
+  }
+
+  /** Scan */
+  if (!(P = gsl_spmatrix_fscanf(fp))) {
+    fprintf(stderr, "Error while scanning forward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
+
+  /** Check if matrix dimensions consistent with grid size */
+  if ((P->size1 != P->size2) || (P->size1 != N)) {
+    fprintf(stderr, "Error: forward transition matrix dimensions inconsistent with grid\n");
+    return EXIT_FAILURE;
+  }
+
+  //Close
+  fclose(fp);
+  
+  return 0;
+}
+
+/**
+ * Scan backward transition matrix from file in coordinate format with header.
+ * (see transferOperator.hpp).
+ * No preliminary memory allocation needed.
+ * Previously allocated memory should first be freed to avoid memory leak.
+ * \param[in] path Path to the file in which to print.
+ * \return         0 in success, EXIT_FAILURE otherwise.
+ */
+int
+transferOperator::scanBackwardTransition(const char *path)
+{
+  FILE *fp;
+  
+  // Open file
+  if (!(fp = fopen(path, "r"))) {
+    fprintf(stderr, "Can't open %s for reading backward transition matrix", path);
+    perror("");
+    return EXIT_FAILURE;
+  }
+
+  /** Scan */
+  if (!(Q = gsl_spmatrix_fscanf(fp))) {
+    fprintf(stderr, "Error while scanning backward transition matrix.\n");
+    return EXIT_FAILURE;
+  }
+
+  /** Check if matrix dimensions consistent with grid size */
+  if ((Q->size1 != Q->size2) || (Q->size1 != N)) {
+    fprintf(stderr, "Error: backward transition matrix dimensions inconsistent with grid\n");
+    return EXIT_FAILURE;
+  }
+
+  //Close
+  fclose(fp);
+  
+  return 0;
+}
+
+
+/**
+ * Scan initial distribution from file.
+ * No preliminary memory allocation needed.
+ * Previously allocated memory should first be freed to avoid memory leak.
+ * \param[in] path Path to the file in which to print.
+ * \return         0 in success, EXIT_FAILURE otherwise.
+ */
+int
+transferOperator::scanInitDist(const char *path)
+{
+  FILE *fp;
+    
+  // Open file
+  if (!(fp = fopen(path, "r"))) {
+    fprintf(stderr, "Can't open %s for reading initial distribution", path);
+    perror("");
+    return EXIT_FAILURE;
+  }
+
+  /** Scan after preallocating */
+  rho0 = gsl_vector_alloc(N);
+  gsl_vector_fscanf(fp, rho0);
+  
+  //Close
+  fclose(fp);
+  
+  return 0;
+}
+
+/**
+ * Scan final distribution from file.
+ * No preliminary memory allocation needed.
+ * Previously allocated memory should first be freed to avoid memory leak.
+ * \param[in] path Path to the file in which to print.
+ * \return         0 in success, EXIT_FAILURE otherwise.
+ */
+int
+transferOperator::scanFinalDist(const char *path)
+{
+  FILE *fp;
+    
+  // Open file
+  if (!(fp = fopen(path, "r"))){
+    fprintf(stderr, "Can't open %s for reading final distribution", path);
+    perror("");
+    return EXIT_FAILURE;
+  }
+
+  /** Scan after preallocating */
+  rhof = gsl_vector_alloc(N);
+  gsl_vector_fscanf(fp, rhof);
+  
+  //Close
+  fclose(fp);
+  
+  return 0;
+}
+
 
 /**
  * Allocate memory for the grid.
@@ -495,9 +729,10 @@ Grid::printGrid(const char *path, const char *dataFormat="%lf", bool verbose=fal
   FILE *fp;
 
   // Open file
-  if ((fp = fopen(path, "w")) == NULL){
-    fprintf(stderr, "Can't open %s for printing the grid!\n", path);
-    return(EXIT_FAILURE);
+  if (!(fp = fopen(path, "w"))){
+    fprintf(stderr, "Can't open %s for printing grid", path);
+    perror("");
+    return EXIT_FAILURE;
   }
 
   if (verbose)
@@ -518,6 +753,12 @@ Grid::printGrid(const char *path, const char *dataFormat="%lf", bool verbose=fal
       fprintf(fp, " ");
     }
     fprintf(fp, "\n");
+  }
+
+  /** Check for printing errors */
+  if (ferror(fp)) {
+    fprintf(stderr, "Error printing grid to file %s\n", path);
+    return EXIT_FAILURE;
   }
 
   // Close
@@ -738,8 +979,15 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
   const size_t nTraj = gridMem->size1;
   size_t box0, boxf;
   size_t nOut = 0;
-  gsl_spmatrix *T = gsl_spmatrix_alloc_nzmax(N, N, nTraj, GSL_SPMATRIX_TRIPLET);
+  gsl_spmatrix *T;
 
+  /** Allocate triplet sparse matrix */
+  if (!(T = gsl_spmatrix_alloc_nzmax(N, N, nTraj, GSL_SPMATRIX_TRIPLET))) {
+    fprintf(stderr, "Error allocating transition triplet matrix.\n");
+    return NULL;
+  }      
+
+  /** Record transitions */
   for (size_t traj = 0; traj < nTraj; traj++) {
     box0 = gsl_matrix_uint_get(gridMem, traj, 0);
     boxf = gsl_matrix_uint_get(gridMem, traj, 1);
@@ -755,6 +1003,106 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
 
   return T;
 }
+
+
+/**
+ * Set weak states to 0 from a stochastic matrix and its distributions
+ * based on initial and final probability of each Markov state.
+ * Attention: elements are not actually removed from sparse matrix.
+ * \param[inout] T    The Eigen CSR transition matrix to filter.
+ * \param[in] rowCut  The probability distribution associated with each row.
+ * \param[in] colCut  The probability distribution associated with each column.
+ * \param[in] tol     Probability under which Markov states are removed.
+ * \param[in] norm    Choice of normalization,
+ * - norm = 0: normalize over all elements,
+ * - norm = 1: to right stochastic,
+ * - norm = 2: to left stochastic,
+ * - no normalization for any other choice.
+ */
+int
+filterStochasticMatrix(gsl_spmatrix *T,
+		       gsl_vector *rowCut, gsl_vector *colCut,
+		       double tol, int norm)
+{
+  size_t outerIdx, p, n;
+  size_t isRowOut, isColOut;
+  double totalSum;
+  gsl_vector *sum;
+  gsl_vector_uint *rowOut, *colOut;
+
+  /** Check which nodes should be filtered
+   * and set distribution to 0 */
+  rowOut = gsl_vector_uint_calloc(T->size1);
+  for (n = 0; n < T->size1; n++) {
+    if (gsl_vector_get(rowCut, n) < tol) {
+      gsl_vector_uint_set(rowOut, n, 1);
+      gsl_vector_set(rowCut, n, 0.);
+    }
+  }
+  colOut = gsl_vector_uint_calloc(T->size2);
+  for (n = 0; n < T->size2; n++) {
+    if (gsl_vector_get(colCut, n) < tol) {
+      gsl_vector_uint_set(colOut, n, 1);
+      gsl_vector_set(colCut, n, 0.);
+    }
+  }
+
+  if (GSLSP_ISTRIPLET(T)) {
+    fprintf(stderr, "Stochastic matrix to filter should not be triplet.\n");
+    return EXIT_FAILURE;
+  }
+  else if (GSLSP_ISCCS(T)) {
+    for (outerIdx = 0; outerIdx < T->outerSize; outerIdx++) {
+      isColOut = gsl_vector_uint_get(colOut, outerIdx);
+      for (p = T->p[outerIdx]; p < T->p[outerIdx + 1]; p++) {
+	isRowOut = gsl_vector_uint_get(rowOut, T->innerIdx[p]);
+	// Remove elements of states to be removed
+	if (isRowOut || isColOut)
+	  T->data[p] = 0.;
+      }
+    }
+  }
+  else if (GSLSP_ISCRS(T)) {
+    for (outerIdx = 0; outerIdx < T->outerSize; outerIdx++) {
+      isRowOut = gsl_vector_uint_get(rowOut, outerIdx);
+      for (p = T->p[outerIdx]; p < T->p[outerIdx + 1]; p++) {
+	isColOut = gsl_vector_uint_get(colOut, T->innerIdx[p]);
+	// Remove elements of states to be removed
+	if (isRowOut || isColOut)
+	  T->data[p] = 0.;
+      }
+    }
+  }
+    
+  /** Make matrix and vectors stochastic again */
+  switch (norm){
+  case 0:
+    totalSum = gsl_spmatrix_get_sum(T);
+    gsl_spmatrix_scale(T, 1. / totalSum);
+    break;
+  case 1:
+    sum = gsl_spmatrix_get_rowsum(T);
+    gsl_spmatrix_div_rows(T, sum);
+    gsl_vector_free(sum);
+    break;
+  case 2:
+    sum = gsl_spmatrix_get_colsum(T);
+    gsl_spmatrix_div_cols(T, sum);
+    gsl_vector_free(sum);
+    break;
+  default:
+    break;
+  }
+  gsl_vector_normalize(rowCut);
+  gsl_vector_normalize(colCut);
+
+  /** Free */
+  gsl_vector_uint_free(rowOut);
+  gsl_vector_uint_free(colOut);
+
+  return 0;
+}
+
 
 /**
  * Normalize vector by the sum of its elements.
