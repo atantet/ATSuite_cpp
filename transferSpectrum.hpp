@@ -8,11 +8,11 @@
 #include <arpack++/arlssym.h>
 #include <ATSuite/transferOperator.hpp>
 
-/** \file atspectrum.hpp
- *  \brief Get spectrum of sparse matrices using ARPACK++.
+/** \file transferSpectrum.hpp
+ *  \brief Get spectrum of transferOperator using ARPACK++.
  *   
- *  ATSuite functions to get spectrum of sparse matrices using ARPACK++.
- *  Also includes reading and conversion routines to ARPACK++ CSC matrices.
+ *  Analyse the spectrum of the forward and backward transition matrices
+ *  of a transferOperator object using ARPACK++.
  */
 
 
@@ -36,12 +36,18 @@ public:
 
 
   /** Constructor. */
-  configAR(const std::string&, int, double, int, double *, bool);
+  configAR(const std::string& which="LM", int ncv=0, double tol=0.,
+	   int maxit=0, double *resid=NULL, bool AutoShift=true);
 };
 /** Declare default class looking for largest magnitude eigenvalues */
 configAR defaultCfgAR ("LM");
 
 
+/** \brief Transfer operator spectrum.
+ *
+ *  Class used to calculate the spectrum of forward and backward
+ *  transition matrices of a transferOperator object.
+ */
 class transferSpectrum {
 public:
   int nev = 0;                  //!< Number of eigenvalues and vectors to search;
@@ -63,12 +69,12 @@ public:
 
 
   /** \brief Get transfer operator spectrum. */
-  int getSpectrum(const configAR cfgAR);
+  int getSpectrum(const configAR cfgAR=defaultCfgAR);
   
 
   /** \brief Write complex eigenvalues and eigenvectors from ARPACK++. */
-  void writeSpectrum(const char *EigValForwardFile, const char *EigVecForwardFile,
-		     const char *EigValBackwardFile, const char *EigVecBackwardFile);
+  int writeSpectrum(const char *EigValForwardFile, const char *EigVecForwardFile,
+		    const char *EigValBackwardFile, const char *EigVecBackwardFile);
 };
 
 
@@ -78,9 +84,9 @@ public:
 /** \brief Get spectrum of a nonsymmetric matrix using ARPACK++. */
 int getSpectrumAR(ARluNonSymMatrix<double, double> *M, int nev, configAR cfgAR,
 		  double *EigValReal, double *EigValImag, double *EigVec);
-void writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
-		     const double *EigValReal, const double *EigValImag,
-		     const double *EigVec, const int nev, const size_t N);
+int writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
+		    const double *EigValReal, const double *EigValImag,
+		    const double *EigVec, const int nev, const size_t N);
 
 
 /*
@@ -90,8 +96,8 @@ void writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
 /**
  *  Constructor of configAR with default parameters.
  */
-configAR::configAR(const std::string& which="LM", int ncv=0, double tol=0.,
-		   int maxit=0, double *resid=NULL, bool AutoShift=true)
+configAR::configAR(const std::string& which, int ncv, double tol,
+		   int maxit, double *resid, bool AutoShift)
 {
   which_ = which;
   ncv_ = ncv;
@@ -132,12 +138,12 @@ transferSpectrum::transferSpectrum(const int nev_, transferOperator *transferOp_
  */
 transferSpectrum::~transferSpectrum()
 {
-  delete[] eigValForwardReal;
-  delete[] eigValForwardImag;
-  delete[] eigVecForward;
-  delete[] eigValBackwardReal;
-  delete[] eigValBackwardImag;
-  delete[] eigVecBackward;
+  delete[] EigValForwardReal;
+  delete[] EigValForwardImag;
+  delete[] EigVecForward;
+  delete[] EigValBackwardReal;
+  delete[] EigValBackwardImag;
+  delete[] EigVecBackward;
 }
 
 
@@ -153,10 +159,11 @@ transferSpectrum::~transferSpectrum()
  * The vectors of eigenvalues and eigenvectors should not be preallocated.
  */
 int
-transferSpectrum::getSpectrum(configAR cfgAR=defaultCfg)
+transferSpectrum::getSpectrum(configAR cfgAR)
 {
-  int nconv;
+  int nconv, idx;
   ARluNonSymMatrix<double, double> *mAR;
+  int *irow, *pcol;
   
   /** Check if constructor has been called */
   if (!nev) {
@@ -167,33 +174,57 @@ to search and a transferOperator should be called before to get spectrum.\n");
 
   /** Get transpose of forward transition matrix in ARPACK CCS format.
    *  Transposing is trivial since the transition matrix is in CRS format.
+   *  However, indices should be converted from size_t to int.
    *  Use order = 2 for degree ordering of A.T + A */
   mAR = new ARluNonSymMatrix<double, double>;
+  irow = (int *) malloc(transferOp->P->nz * sizeof(int));
+  pcol = (int *) malloc((transferOp->N + 1) * sizeof(int));
+  for (idx = 0; idx < transferOp->P->nz; idx++)
+    irow[idx] = (int) transferOp->P->innerIdx[idx];
+  for (idx = 0; idx < transferOp->N + 1; idx++)
+    pcol[idx] = (int) transferOp->P->p[idx];
   mAR->DefineMatrix(transferOp->N, transferOp->P->nz, transferOp->P->data,
-		    (int *) transferOp->P->innerIdx, (int *) transferOp->P->p,
-		    0.1, 2, true);
+		    irow, pcol, 0.1, 2, true);
 
   /** Get eigenvalues and vectors of forward transition matrix */
   nconv = getSpectrumAR(mAR, nev, cfgAR, EigValForwardReal, EigValForwardImag, EigVecForward);
+  free(irow);
+  free(pcol);
   delete mAR;
 
   /** Get transpose of backward transition matrix in ARPACK CCS format */
   mAR = new ARluNonSymMatrix<double, double>;
+  irow = (int *) malloc(transferOp->Q->nz * sizeof(int));
+  pcol = (int *) malloc((transferOp->N + 1) * sizeof(int));
+  for (idx = 0; idx < transferOp->Q->nz; idx++)
+    irow[idx] = (int) transferOp->Q->innerIdx[idx];
+  for (idx = 0; idx < transferOp->N + 1; idx++)
+    pcol[idx] = (int) transferOp->Q->p[idx];
   mAR->DefineMatrix(transferOp->N, transferOp->Q->nz, transferOp->Q->data,
-		    (int *) transferOp->Q->innerIdx, (int *) transferOp->Q->p,
-		    0.1, 2, true);
-
+		    irow, pcol, 0.1, 2, true);
+  
   /** Get eigenvalues and vectors of backward transition matrix */
   nconv += getSpectrumAR(mAR, nev, cfgAR, EigValBackwardReal, EigValBackwardImag, EigVecBackward);
+  free(irow);
+  free(pcol);
   delete mAR;
   
   return nconv;
 }
     
 
+/**
+ * Write complex eigenvalues and eigenvectors
+ * of forward and backward transition matrices of a transfer operator to file.
+ * \param[in] EigValForwardFile  File name of the file to print forward eigenvalues.
+ * \param[in] EigVecForwardFile  File name of the file to print forward eigenvectors.
+ * \param[in] EigValBackwardFile File name of the file to print backward eigenvalues.
+ * \param[in] EigVecBackwardFile File name of the file to print backward eigenvectors.
+ * \return                       Exit status.
+ */
 int
-writeSpectrum(const char *EigValForwardFile, const char *EigVecForwardFile,
-	      const char *EigValBackwardFile, const char *EigVecBackwardFile)
+transferSpectrum::writeSpectrum(const char *EigValForwardFile, const char *EigVecForwardFile,
+				const char *EigValBackwardFile, const char *EigVecBackwardFile)
 {
   FILE *streamEigVal, *streamEigVec;
   
@@ -212,7 +243,42 @@ writeSpectrum(const char *EigValForwardFile, const char *EigVecForwardFile,
   }
 
   /** Write forward */
+  if (writeSpectrumAR(streamEigVal, streamEigVec,
+		      EigValForwardReal, EigValForwardImag, EigVecForward,
+		      nev, transferOp->N)) {
+    fprintf(stderr, "Error writing spectrum.\n");
+    return EXIT_FAILURE;
+  }
 
+  /** Close */
+  fclose(streamEigVal);
+  fclose(streamEigVec);
+
+  /** Open files for backward */
+  if (!(streamEigVal = fopen(EigValBackwardFile, "w"))){
+    fprintf(stderr, "Can't open %s for writing backward eigenvalues",
+	    EigValBackwardFile);
+    perror("");
+    return EXIT_FAILURE;
+  }
+  if (!(streamEigVec = fopen(EigVecBackwardFile, "w"))){
+    fprintf(stderr, "Can't open %s for writing backward eigenvectors",
+	    EigVecBackwardFile);
+    perror("");
+    return EXIT_FAILURE;
+  }
+
+  /** Write backward */
+  if (writeSpectrumAR(streamEigVal, streamEigVec,
+		      EigValBackwardReal, EigValBackwardImag, EigVecBackward,
+		      nev, transferOp->N)) {
+    fprintf(stderr, "Error writing spectrum.\n");
+    return EXIT_FAILURE;
+  }
+
+  /** Close */
+  fclose(streamEigVal);
+  fclose(streamEigVec);
   
   return 0;
 }
@@ -253,15 +319,16 @@ getSpectrumAR(ARluNonSymMatrix<double, double> *M, int nev, configAR cfgAR,
 
 /**
  * Write complex eigenvalues and eigenvectors obtained as arrays from ARPACK++.
- * \param[in] fEigVal File descriptor for eigenvalues.
- * \param[in] fEigVec File descriptor for eigenvectors.
+ * \param[in] fEigVal    File descriptor for eigenvalues.
+ * \param[in] fEigVec    File descriptor for eigenvectors.
  * \param[in] EigValReal Array of eigenvalues real parts.
  * \param[in] EigValImag Array of eigenvalues imaginary parts.
- * \param[in] EigVec Array of eigenvectors.
- * \param[in] nev Number of eigenvalues and eigenvectors.
- * \param[in] N Length of the eigenvectors.
+ * \param[in] EigVec     Array of eigenvectors.
+ * \param[in] nev        Number of eigenvalues and eigenvectors.
+ * \param[in] N          Length of the eigenvectors.
+ * \return               Exit status.
  */
-void
+int
 writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
 		const double *EigValReal, const double *EigValImag,
 		const double *EigVec, const int nev, const size_t N)
@@ -296,7 +363,17 @@ writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
     fprintf(fEigVec, "\n");
   }
 
-  return;
+  /** Check for printing errors */
+  if (ferror(fEigVal)) {
+    fprintf(stderr, "Error printing eigenvalues.\n");
+    return EXIT_FAILURE;
+  }
+  if (ferror(fEigVec)) {
+    fprintf(stderr, "Error printing eigenvectors.\n");
+    return EXIT_FAILURE;
+  }
+
+  return 0;
 }
 	
 #endif
