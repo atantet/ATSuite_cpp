@@ -293,7 +293,7 @@ gsl_spmatrix2AR<T>::gsl_spmatrix2AR(gsl_spmatrix *M_)
 
 /**
  * Matrix-vector product required by ARPACK++ when using user-defined matrices
- * (GSL sparse matrices).
+ * (GSL sparse matrices). Modified version of gsl_spblas_dgemv in gsl_spmatrix.h .
  * \param[in]  v Vector to multiply.
  * \param[out] w Vector storing the result of multiplication.
  */
@@ -301,19 +301,33 @@ template <class T>
 void
 gsl_spmatrix2AR<T>::MultMv(T *v, T *w)
 {
-  gsl_vector *vgsl = gsl_vector_alloc(M->size1);
-  gsl_vector *wgsl = gsl_vector_alloc(M->size1);
+  size_t j, outerIdx, p, n;
   
-  /** Convert to gsl vector */
-  for (size_t i = 0; i < M->size1; i++)
-    vgsl->data[i * vgsl->stride] = (double) v[i];
-  
-  /** Directly use GSL's sparse matrix vector product */
-  gsl_spblas_dgemv(1., M, vgsl, 0., wgsl);
+  /* form y := 0 */
+  for (j = 0; j < M->size1; ++j)
+    w[j] = 0.0;
 
-  /** Convert back */
-  for (size_t i = 0; i < M->size1; i++)
-    w[i] = (T) wgsl->data[i * wgsl->stride];
+  /* form w := M * v */
+  if (GSLSP_ISCRS(M))
+    {
+      /* (row, column) = (outerIdx, M->innerIdx) */
+      for (outerIdx = 0; outerIdx < M->outerSize; ++outerIdx)
+	for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
+	  w[outerIdx] += M->data[p] * v[M->innerIdx[p]];
+    }
+  else if (GSLSP_ISCCS(M))
+    {
+      /* (row, column) = (M->innerIdx, outerIdx) */
+      for (outerIdx = 0; outerIdx < M->outerSize; ++outerIdx)
+	for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
+	  w[M->innerIdx[p]] += M->data[p] * v[outerIdx];
+    }
+  else if (GSLSP_ISTRIPLET(M))
+    {
+      /* (row, column) = (M->innerIdx, M->p) */
+      for (n = 0; n < M->nz; ++n)
+	w[M->innerIdx[n]] += M->data[n] * v[M->p[n]];
+    }
   
   return;
 }
