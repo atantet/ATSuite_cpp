@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
-#include <arpack++/arlnsmat.h>
-#include <arpack++/arlssym.h>
+#include "gsl_spmatrix.h"
+#include <arpack++/arsnsym.h>
 #include <ATSuite/transferOperator.hpp>
 
 /** \file transferSpectrum.hpp
@@ -20,27 +20,22 @@
  * Class declarations
  */
 
+
 /**
- * \brief Utility class used to give configuration options to ARPACK++.
+ * \brief Utility structure used to give configuration options to ARPACK++.
  * 
- * Utility class used to give configuration options to ARPACK++.
+ * Utility structure used to give configuration options to ARPACK++.
  */
-class configAR {
-public:
-  std::string which_;       //!< Which eigenvalues to look for. 'LM' for Largest Magnitude
-  int ncv_ = 0;             //!< The number of Arnoldi vectors generated at each iteration of ARPACK
-  double tol_ = 0.;         //!< The relative accuracy to which eigenvalues are to be determined
-  int maxit_ = 0;           //!< The maximum number of iterations allowed
-  double *resid_ = NULL;    //!< A starting vector for the Arnoldi process
-  bool AutoShift_ = true;   //!< Shifts for the implicit restarting of the Arnoldi method
-
-
-  /** Constructor. */
-  configAR(const std::string& which="LM", int ncv=0, double tol=0.,
-	   int maxit=0, double *resid=NULL, bool AutoShift=true);
-};
-/** Declare default class looking for largest magnitude eigenvalues */
-configAR defaultCfgAR ("LM");
+typedef struct {
+  char *which; //!< Which eigenvalues to look for. 'LM' for Largest Magnitude
+  int ncv;           //!< The number of Arnoldi vectors generated at each iteration of ARPACK
+  double tol;        //!< The relative accuracy to which eigenvalues are to be determined
+  int maxit;         //!< The maximum number of iterations allowed
+  double *resid;     //!< A starting vector for the Arnoldi process
+  bool AutoShift;    
+} configAR;
+/** Declare default structure looking for largest magnitude eigenvalues */
+configAR defaultCfgAR = {"LM", 0, 0., 0, NULL, true};
 
 
 /** \brief Transfer operator spectrum.
@@ -78,11 +73,30 @@ public:
 };
 
 
+/** \brief Interface from GSL sparse matrices to ARPACK++
+ */
+template<class T>
+class gsl_spmatrix2AR {
+public:
+  gsl_spmatrix *M; //!< GSL sparse matrix
+
+
+  /** \brief Default constructor */
+  gsl_spmatrix2AR(){ M = NULL; }
+  /** \brief Constructor from GSL sparse matrix */
+  gsl_spmatrix2AR(gsl_spmatrix *M_);
+
+  
+  /** \brief Matrix-vector product required by ARPACK */
+  void MultMv(T *v, T *w);
+};
+
+
 /*
  *  Functions declarations
  */
 /** \brief Get spectrum of a nonsymmetric matrix using ARPACK++. */
-int getSpectrumAR(ARluNonSymMatrix<double, double> *M, int nev, configAR cfgAR,
+int getSpectrumAR(gsl_spmatrix2AR<double> *gsl2AR, int nev, configAR cfgAR,
 		  double *EigValReal, double *EigValImag, double *EigVec);
 int writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
 		    const double *EigValReal, const double *EigValImag,
@@ -92,21 +106,6 @@ int writeSpectrumAR(FILE *fEigVal, FILE *fEigVec,
 /*
  * Constructors and destructors definitions
  */
-
-/**
- *  Constructor of configAR with default parameters.
- */
-configAR::configAR(const std::string& which, int ncv, double tol,
-		   int maxit, double *resid, bool AutoShift)
-{
-  which_ = which;
-  ncv_ = ncv;
-  tol_ = tol;
-  maxit_ = maxit;
-  resid_ = resid;
-  AutoShift_ = AutoShift;
-}
-
 
 /**
  * Constructor allocating space for a given number of eigenvalues and vectors
@@ -161,9 +160,9 @@ transferSpectrum::~transferSpectrum()
 int
 transferSpectrum::getSpectrum(configAR cfgAR)
 {
-  int nconv, idx;
-  ARluNonSymMatrix<double, double> *mAR;
-  int *irow, *pcol;
+  gsl_spmatrix *cpy;
+  gsl_spmatrix2AR<double> gsl2AR;
+  int nconv = 0;
   
   /** Check if constructor has been called */
   if (!nev) {
@@ -172,43 +171,40 @@ to search and a transferOperator should be called before to get spectrum.\n");
     return EXIT_FAILURE;
   }
 
-  /** Get transpose of forward transition matrix in ARPACK CCS format.
+  /** Get transpose of forward transition matrix in CCS 
    *  Transposing is trivial since the transition matrix is in CRS format.
-   *  However, indices should be converted from size_t to int.
-   *  Use order = 2 for degree ordering of A.T + A */
-  mAR = new ARluNonSymMatrix<double, double>;
-  irow = (int *) malloc(transferOp->P->nz * sizeof(int));
-  pcol = (int *) malloc((transferOp->N + 1) * sizeof(int));
-  for (idx = 0; idx < transferOp->P->nz; idx++)
-    irow[idx] = (int) transferOp->P->innerIdx[idx];
-  for (idx = 0; idx < transferOp->N + 1; idx++)
-    pcol[idx] = (int) transferOp->P->p[idx];
-  mAR->DefineMatrix(transferOp->N, transferOp->P->nz, transferOp->P->data,
-		    irow, pcol, 0.1, 2, true);
+   *  However, it is more secure to avoid directly changing the type of
+   *  the transition matrix. */
+  cpy = gsl_spmatrix_alloc_nzmax(transferOp->P->size2, transferOp->P->size1, 0, GSL_SPMATRIX_CCS);
+  cpy->innerSize = transferOp->P->innerSize;
+  cpy->outerSize = transferOp->P->outerSize;
+  cpy->innerIdx = transferOp->P->innerIdx;
+  cpy->data = transferOp->P->data;
+  cpy->p = transferOp->P->p;
+  cpy->nzmax = transferOp->P->nzmax;
+  cpy->nz = transferOp->P->nz;
+  gsl2AR = gsl_spmatrix2AR<double>(cpy);
 
-  /** Get eigenvalues and vectors of forward transition matrix */
-  nconv = getSpectrumAR(mAR, nev, cfgAR, EigValForwardReal, EigValForwardImag, EigVecForward);
-  free(irow);
-  free(pcol);
-  delete mAR;
+  /** Solve eigen value problem using user-defined ARPACK++ */
+  nconv += getSpectrumAR(&gsl2AR, nev, cfgAR,
+			 EigValForwardReal, EigValForwardImag, EigVecForward);
 
+  
   /** Get transpose of backward transition matrix in ARPACK CCS format */
-  mAR = new ARluNonSymMatrix<double, double>;
-  irow = (int *) malloc(transferOp->Q->nz * sizeof(int));
-  pcol = (int *) malloc((transferOp->N + 1) * sizeof(int));
-  for (idx = 0; idx < transferOp->Q->nz; idx++)
-    irow[idx] = (int) transferOp->Q->innerIdx[idx];
-  for (idx = 0; idx < transferOp->N + 1; idx++)
-    pcol[idx] = (int) transferOp->Q->p[idx];
-  mAR->DefineMatrix(transferOp->N, transferOp->Q->nz, transferOp->Q->data,
-		    irow, pcol, 0.1, 2, true);
+  cpy = gsl_spmatrix_alloc_nzmax(transferOp->Q->size2, transferOp->Q->size1, 0, GSL_SPMATRIX_CCS);
+  cpy->innerSize = transferOp->Q->innerSize;
+  cpy->outerSize = transferOp->Q->outerSize;
+  cpy->innerIdx = transferOp->Q->innerIdx;
+  cpy->data = transferOp->Q->data;
+  cpy->p = transferOp->Q->p;
+  cpy->nzmax = transferOp->Q->nzmax;
+  cpy->nz = transferOp->Q->nz;
+  gsl2AR = gsl_spmatrix2AR<double>(cpy);
   
   /** Get eigenvalues and vectors of backward transition matrix */
-  nconv += getSpectrumAR(mAR, nev, cfgAR, EigValBackwardReal, EigValBackwardImag, EigVecBackward);
-  free(irow);
-  free(pcol);
-  delete mAR;
-  
+  nconv += getSpectrumAR(&gsl2AR, nev, cfgAR,
+			 EigValBackwardReal, EigValBackwardImag, EigVecBackward);
+    
   return nconv;
 }
     
@@ -282,6 +278,47 @@ transferSpectrum::writeSpectrum(const char *EigValForwardFile, const char *EigVe
   
   return 0;
 }
+
+
+/**
+ * Constructor for interface from GSL sparse matrices to ARPACK++.
+ * \param[in] M_ GSL sparse matrix from which the spectrum will be calculated.
+ */
+template <class T>
+gsl_spmatrix2AR<T>::gsl_spmatrix2AR(gsl_spmatrix *M_)
+{
+  M = M_;
+}
+
+
+/**
+ * Matrix-vector product required by ARPACK++ when using user-defined matrices
+ * (GSL sparse matrices).
+ * \param[in]  v Vector to multiply.
+ * \param[out] w Vector storing the result of multiplication.
+ */
+template <class T>
+void
+gsl_spmatrix2AR<T>::MultMv(T *v, T *w)
+{
+  gsl_vector *vgsl = gsl_vector_alloc(M->size1);
+  gsl_vector *wgsl = gsl_vector_alloc(M->size1);
+  
+  /** Convert to gsl vector */
+  for (size_t i = 0; i < M->size1; i++)
+    vgsl->data[i * vgsl->stride] = (double) v[i];
+  
+  /** Directly use GSL's sparse matrix vector product */
+  gsl_spblas_dgemv(1., M, vgsl, 0., wgsl);
+
+  /** Convert back */
+  for (size_t i = 0; i < M->size1; i++)
+    w[i] = (T) wgsl->data[i * wgsl->stride];
+  
+  return;
+}
+
+
 /*
  * Functions definitions
  */
@@ -289,24 +326,26 @@ transferSpectrum::writeSpectrum(const char *EigValForwardFile, const char *EigVe
 /**
  *
  * Get spectrum of a nonsymmetric matrix using ARPACK++.
- * \param[in] P ARPACK++ CSC sparse matrix from which to calculate the spectrum.
- * \param[in] nev Number of eigenvalues and eigenvectors to find.
- * \param[in] cfgAR Configuration options passed as a configAR object.
+ * \param[in]  gsl2AR     Object interfacing the GSL sparse matrix to ARPACK++.
+ * \param[in]  nev        Number of eigenvalues and eigenvectors to find.
+ * \param[in]  cfgAR      Configuration options passed as a configAR object.
  * \param[out] EigValReal Real part of found eigenvalues.
  * \param[out] EigValImag Imaginary  part of found eigenvalues.
- * \param[out] EigVec Found eigenvectors.
- * \return Number of eigenvalues and eigenvectors found.
+ * \param[out] EigVec     Found eigenvectors.
+ * \return                Number of eigenvalues and eigenvectors found.
  */
 int
-getSpectrumAR(ARluNonSymMatrix<double, double> *M, int nev, configAR cfgAR,
+getSpectrumAR(gsl_spmatrix2AR<double> *gsl2AR, int nev, configAR cfgAR,
 	      double *EigValReal, double *EigValImag, double *EigVec)
 {
-  ARluNonSymStdEig<double> EigProb;
   int nconv;
-
+  
   // Define eigen problem
-  EigProb = ARluNonSymStdEig<double>(nev, *M, cfgAR.which_, cfgAR.ncv_, cfgAR.tol_,
-				     cfgAR.maxit_, cfgAR.resid_, cfgAR.AutoShift_);
+  ARNonSymStdEig<double, gsl_spmatrix2AR<double> > EigProb(gsl2AR->M->size1, nev, gsl2AR,
+							   &gsl_spmatrix2AR<double>::MultMv,
+							   cfgAR.which, cfgAR.ncv, cfgAR.tol,
+							   cfgAR.maxit, cfgAR.resid,
+							   cfgAR.AutoShift);
   
   // Find eigenvalues and left eigenvectors
   EigProb.EigenValVectors(EigVec, EigValReal, EigValImag);

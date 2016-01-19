@@ -196,8 +196,8 @@ double gsl_vector_get_sum(gsl_vector *v);
  */
 transferOperator::transferOperator(const gsl_matrix_uint *gridMem, size_t gridSize)
 {
-  // Allocate
-  allocate(gridSize);
+  // Set grid size
+  N = gridSize;
 
   // Get transition matrices and distributions from grid membership matrix
   buildFromMembership(gridMem);
@@ -217,9 +217,8 @@ transferOperator::transferOperator(const gsl_matrix *initStates,
 {
   gsl_matrix_uint *gridMem;
 
-  // Allocate
+  // Set grid size
   N = grid->N;
-  allocate(N);
 
   // Get grid membership matrix
   gridMem = getGridMemMatrix(initStates, finalStates, grid);
@@ -243,9 +242,8 @@ transferOperator::transferOperator(const gsl_matrix *states, const Grid *grid,
 {
   gsl_matrix_uint *gridMem;
 
-  // Allocate
+  // Set grid size
   N = grid->N;
-  allocate(N);
 
   // Get grid membership matrix from a single long trajectory
   gridMem = getGridMemMatrix(states, grid, tauStep);
