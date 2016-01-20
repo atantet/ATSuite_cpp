@@ -6,7 +6,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_errno.h>
-#include "gsl_spmatrix.h"
+#include <gsl/gsl_spmatrix.h>
 #if defined (WITH_OMP) && WITH_OMP == 1
 #include <omp.h>
 #endif
@@ -362,37 +362,42 @@ transferOperator::buildFromMembership(const gsl_matrix_uint *gridMem)
     return EXIT_FAILURE;
   }
   
-  // Convert to CRS summing duplicates
-  if (!(P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS, 1))) {
+  /** Convert to CRS summing duplicates */
+  if (!(P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS))) {
     fprintf(stderr, "Error converting transition triplet to CRS.\n");
     return EXIT_FAILURE;
   }
 
-  // Get transpose
-  if (!(Q = gsl_spmatrix_transpose_memcpy(P))) {
+  /** Get transpose copy */
+  if (!(Q = gsl_spmatrix_alloc_nzmax(N, N, P->nz, GSL_SPMATRIX_CRS))) {
+    fprintf(stderr, "Error allocating backward transition matrix \
+before transpose copy.\n");
+    return EXIT_FAILURE;
+  }      
+  if (gsl_spmatrix_transpose_memcpy(Q, P)) {
     fprintf(stderr, "Error transposing transition matrix.\n");
     return EXIT_FAILURE;
   }
   
-  // Get initial distribution
+  /** Get initial distribution */
   if (!(rho0 = gsl_spmatrix_get_colsum(Q))) {
     fprintf(stderr, "Error getting initial distribution.\n");
     return EXIT_FAILURE;
   }
 
-  // Get final distribution
+  /** Get final distribution */
   if (!(rhof = gsl_spmatrix_get_colsum(P))) {
     fprintf(stderr, "Error getting final distribution.\n");
     return EXIT_FAILURE;
   }
   
-  // Make left stochastic for matrix elements to be transition probabilities
+  /** Make left stochastic for matrix elements to be transition probabilities */
   gsl_spmatrix_div_cols(P, rhof);
   gsl_spmatrix_div_cols(Q, rho0);
   gsl_vector_normalize(rho0);
   gsl_vector_normalize(rhof);
 
-  // Free
+  /** Free */
   gsl_spmatrix_free(T);
 
   return 0;
@@ -565,14 +570,14 @@ transferOperator::scanForwardTransition(const char *path)
     return EXIT_FAILURE;
   }
 
-  /** Scan */
-  if (!(T = gsl_spmatrix_fscanf(fp))) {
+  /** Scan, summing if duplicate */
+  if (!(T = gsl_spmatrix_fscanf(fp, 1))) {
     fprintf(stderr, "Error while scanning forward transition matrix.\n");
     return EXIT_FAILURE;
   }
 
   /** Compress */
-  P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS, 1);
+  P = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS);
   gsl_spmatrix_free(T);
   if (!P) {
     fprintf(stderr, "Error converting transition triplet to CRS.\n");
@@ -612,14 +617,14 @@ transferOperator::scanBackwardTransition(const char *path)
     return EXIT_FAILURE;
   }
 
-  /** Scan */
-  if (!(T = gsl_spmatrix_fscanf(fp))) {
+  /** Scan, summing if duplicate */
+  if (!(T = gsl_spmatrix_fscanf(fp, 1))) {
     fprintf(stderr, "Error while scanning backward transition matrix.\n");
     return EXIT_FAILURE;
   }
 
   /** Compress */
-  Q = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS, 1);
+  Q = gsl_spmatrix_compress(T, GSL_SPMATRIX_CRS);
   gsl_spmatrix_free(T);
   if (!Q) {
     fprintf(stderr, "Error converting transition triplet to CRS.\n");
@@ -1026,9 +1031,9 @@ getTransitionCountTriplet(const gsl_matrix_uint *gridMem, size_t N)
     box0 = gsl_matrix_uint_get(gridMem, traj, 0);
     boxf = gsl_matrix_uint_get(gridMem, traj, 1);
     
-    // Add transition triplet
+    /** Add transition triplet, summing if duplicate */
     if ((box0 < N) && (boxf < N))
-      gsl_spmatrix_set(T, box0, boxf, 1.);
+      gsl_spmatrix_set(T, box0, boxf, 1., 1);
     else
       nOut++;
   }
@@ -1081,26 +1086,26 @@ filterStochasticMatrix(gsl_spmatrix *M,
     }
   }
 
-  if (GSLSP_ISTRIPLET(M)) {
+  if (GSL_SPMATRIX_ISTRIPLET(M)) {
     fprintf(stderr, "Stochastic matrix to filter should not be triplet.\n");
     return EXIT_FAILURE;
   }
-  else if (GSLSP_ISCCS(M)) {
+  else if (GSL_SPMATRIX_ISCCS(M)) {
     for (outerIdx = 0; outerIdx < M->outerSize; outerIdx++) {
       isColOut = gsl_vector_uint_get(colOut, outerIdx);
       for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; p++) {
-	isRowOut = gsl_vector_uint_get(rowOut, M->innerIdx[p]);
+	isRowOut = gsl_vector_uint_get(rowOut, M->i[p]);
 	// Remove elements of states to be removed
 	if (isRowOut || isColOut)
 	  M->data[p] = 0.;
       }
     }
   }
-  else if (GSLSP_ISCRS(M)) {
+  else if (GSL_SPMATRIX_ISCRS(M)) {
     for (outerIdx = 0; outerIdx < M->outerSize; outerIdx++) {
       isRowOut = gsl_vector_uint_get(rowOut, outerIdx);
       for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; p++) {
-	isColOut = gsl_vector_uint_get(colOut, M->innerIdx[p]);
+	isColOut = gsl_vector_uint_get(colOut, M->i[p]);
 	// Remove elements of states to be removed
 	if (isRowOut || isColOut)
 	  M->data[p] = 0.;

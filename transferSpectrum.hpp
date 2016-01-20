@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
-#include "gsl_spmatrix.h"
+#include <gsl/gsl_spmatrix.h>
 #include <arpack++/arsnsym.h>
 #include <ATSuite/transferOperator.hpp>
 
@@ -178,7 +178,7 @@ to search and a transferOperator should be called before to get spectrum.\n");
   cpy = gsl_spmatrix_alloc_nzmax(transferOp->P->size2, transferOp->P->size1, 0, GSL_SPMATRIX_CCS);
   cpy->innerSize = transferOp->P->innerSize;
   cpy->outerSize = transferOp->P->outerSize;
-  cpy->innerIdx = transferOp->P->innerIdx;
+  cpy->i = transferOp->P->i;
   cpy->data = transferOp->P->data;
   cpy->p = transferOp->P->p;
   cpy->nzmax = transferOp->P->nzmax;
@@ -194,7 +194,7 @@ to search and a transferOperator should be called before to get spectrum.\n");
   cpy = gsl_spmatrix_alloc_nzmax(transferOp->Q->size2, transferOp->Q->size1, 0, GSL_SPMATRIX_CCS);
   cpy->innerSize = transferOp->Q->innerSize;
   cpy->outerSize = transferOp->Q->outerSize;
-  cpy->innerIdx = transferOp->Q->innerIdx;
+  cpy->i = transferOp->Q->i;
   cpy->data = transferOp->Q->data;
   cpy->p = transferOp->Q->p;
   cpy->nzmax = transferOp->Q->nzmax;
@@ -308,25 +308,35 @@ gsl_spmatrix2AR<T>::MultMv(T *v, T *w)
     w[j] = 0.0;
 
   /* form w := M * v */
-  if (GSLSP_ISCRS(M))
+  if (GSL_SPMATRIX_ISCRS(M))
     {
-      /* (row, column) = (outerIdx, M->innerIdx) */
+      /* (row, column) = (outerIdx, M->i) */
       for (outerIdx = 0; outerIdx < M->outerSize; ++outerIdx)
-	for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
-	  w[outerIdx] += M->data[p] * v[M->innerIdx[p]];
+	{
+	  for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
+	    {
+	      w[outerIdx] += M->data[p] * v[M->i[p]];
+	    }
+	}
     }
-  else if (GSLSP_ISCCS(M))
+  else if (GSL_SPMATRIX_ISCCS(M))
     {
-      /* (row, column) = (M->innerIdx, outerIdx) */
+      /* (row, column) = (M->i, outerIdx) */
       for (outerIdx = 0; outerIdx < M->outerSize; ++outerIdx)
-	for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
-	  w[M->innerIdx[p]] += M->data[p] * v[outerIdx];
+	{
+	  for (p = M->p[outerIdx]; p < M->p[outerIdx + 1]; ++p)
+	    {
+	      w[M->i[p]] += M->data[p] * v[outerIdx];
+	    }
+	}
     }
-  else if (GSLSP_ISTRIPLET(M))
+  else if (GSL_SPMATRIX_ISTRIPLET(M))
     {
-      /* (row, column) = (M->innerIdx, M->p) */
+      /* (row, column) = (M->i, M->p) */
       for (n = 0; n < M->nz; ++n)
-	w[M->innerIdx[n]] += M->data[n] * v[M->p[n]];
+	{
+	  w[M->i[n]] += M->data[n] * v[M->p[n]];
+	}
     }
   
   return;
