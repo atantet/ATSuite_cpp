@@ -21,32 +21,26 @@
  * Class declarations:
  */
 
-// /** \brief Data structure containing the simulation parameters.
-//  *    
-//  * Data structure containing the simulation parameters.
-//  */
-// typedef struct {
-//   double length;    //!< Duration of the simulation.
-//   double spinup;    //!< Spinup period length to be removed.
-//   size_t sampling;  //!< Time step between each recorded state
-// } simulationParam;
-
-
 /** \brief Abstract class defining a vector field.
  *
  *  Abstract class defining a vector field. 
  */
 class vectorField {
   const size_t dim;   //!< Phase space dimension
+  
 public:
   /** \brief Default constructor. */
   vectorField() {}
+  
   /** \brief Constructor setting the dimension. */
   vectorField(const size_t dim_) : dim(dim_) {}
+  
   /** \brief Destructor. */
   ~vectorfield() {}
+  
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
+  
   /** \brief Virtual method for evaluating the vector field at a given state. */
   virtual void evalField(gsl_vector *state, gsl_vector *field) = 0;
 };
@@ -57,16 +51,23 @@ public:
  *  Vector field defined by a linear operator:
  *  \f$ F(x) = A x \f$.
  */
-class linearField : vectorField {
+class linearField : public vectorField {
   gsl_matrix *A;  //!< Matrix representation of the linear operator \f$ A \f$.
+  
 public:
   /** \brief Default constructor. */
   linearField(){}
   /** \brief Construction by copying the matrix of the linear operator. */
-  linearField(gsl_matrix *A_) : vectorField(A_->size1)
+  linearField(const gsl_matrix *A_) : vectorField(A_->size1)
   { gsl_matrix_memcpy(A, A_); }
   /** Destructor freeing the matrix. */
   ~linearField(){ gsl_matrix_free(A); }
+
+  /** \brief Return the parameters of the model. */
+  void getParameters(gsl_matrix *A_) { gsl_matrix_memcpy(A_, A); return; }
+
+  /** \brief Set parameters of the model. */
+  void setParameters(const gsl_matrix *A_) { gsl_matrix_memcpy(A, A_); return; }
 
   /** \brief Evaluate the linear vector field at a given state. */
   void evalField(gsl_vector *state, gsl_vector *field);
@@ -79,17 +80,26 @@ public:
  * (Guckenheimer and Holmes, 1988, Strogatz 1994):
  *  \f$ F(x) = h + r x - x^3 \f$.
  */
-class cuspField : vectorField {
+class cuspField : public vectorField {
   double r;  //< Parameter \f$ r \f$ related to the pitchfork bifurcation.
   double h;  //< Parameter \f$ h \f$ related to the catastrophe.
   
 public:
   /** \brief Default constructor, just defining the phase space dimension. */
   cuspField() : vectorField(1) {}
+  
   /** \brief Constructor defining the model parameters. */
   cuspField(const double r_, const double h_)
     : vectorField(1), r(r_), h(h_) {}
+
+  /** \brief Destructor. */
   ~cuspField(){}
+
+  /** \brief Return the parameters of the model. */
+  void getParameters(double *r_, double *h_) { *r_ = r; *h_ = h; return; }
+
+  /** \brief Set parameters of the model. */
+  void setParameters(const double r_, const double h_) { r = r_; h = h_; return; }
 
   /** \brief Evaluate the cusp vector field at a given state. */
   void evalField(gsl_vector *state, gsl_vector *field);
@@ -106,19 +116,29 @@ public:
  *
  *  \f$ F_3(x) = x_1 x_2 - \beta x_3 \f$.
  */
-class Lorenz63 : vectorField {
-  const double rho;     //!< Parameter \f$ \rho \f$ corresponding to the Rayleigh number
-  const double sigma;   //!< Parameter \f$ \sigma \f$
-  const double beta;    //!< Parameter \f$ \beta \f$
+class Lorenz63 : public vectorField {
+  double rho;     //!< Parameter \f$ \rho \f$ corresponding to the Rayleigh number
+  double sigma;   //!< Parameter \f$ \sigma \f$
+  double beta;    //!< Parameter \f$ \beta \f$
   
 public:
   /** \brief Default constructor, just defining the phase space dimension. */
   Lorenz63() : dim(3) {}
+
   /** \brief Constructor defining the model parameters. */
   Lorenz63(const double rho_, const double sigma_, const double beta_)
     : vectorField(3),  rho(rho_), sigma(sigma_), beta(beta_) {}
+
   /** \brief Destructor. */
   ~Lorenz63() {}
+
+  /** \brief Return the parameters of the model. */
+  void getParameters(double *rho_, double *sigma_, double *beta_)
+  { *rho_ = rho; *sigma_ = sigma; *beta_ = beta; return; }
+
+  /** \brief Set parameters of the model. */
+  void setParameters(const double rho_, const double sigma_, const double *beta_)
+  { rho = rho_; sigma = sigma_; beta = beta_; return; }
 
   /** \brief Evaluate the vector field of the Lorenz 63 model for a given state. */
   void evalField(gsl_vector *state, gsl_vector *field);
@@ -135,7 +155,7 @@ class numericalScheme {
   const size_t dimWork;  //!< Dimension of the workspace used to evaluate the field
   
 protected:
-  const double dt;       //!< Time step of integration.
+  double dt;             //!< Time step of integration.
   gsl_matrix *work;      //!< Workspace used to evaluate the vector field
 
 public:
@@ -149,6 +169,12 @@ public:
   
   /** \brief Destructor freeing workspace. */
   ~numericalScheme() { gsl_matrix_free(work); }
+
+  /** \brief Return the time step used for the integration. */
+  double getTimeStep() { return dt; }
+
+  /** \brief Set or change the time step of integration. */
+  void setTimeStep(const double dt_) { dt = dt_; return; }
 
   /** \brief Virtual method to integrate the model one step forward. */
   virtual void stepForward(const vectorField *field, gsl_vector *currentState) = 0;
@@ -180,7 +206,7 @@ public:
  * 
  *  Runge-Kutta 4 scheme for numerical integration. 
  */
-class RungeKutta4 : numericalScheme {
+class RungeKutta4 : public numericalScheme {
 public:
   /** \brief Default constructor */
   RungeKutta4(){}
@@ -200,11 +226,14 @@ public:
  *  Numerical model class.
  *  A model is defined by a vector field and a numerical scheme.
  *  The current state of the model is also recorded.
+ *  Attention: the constructors do not copy the vector field
+ *  and the numerical scheme given to them, so that
+ *  any modification or freeing will affect the model.
  */
 class model {
   const size_t dim;              //!< Phase space dimension
   const vectorField *field;      //!< Vector field
-  const numericalScheme *scheme; //!< Numerical scheme
+  numericalScheme *scheme; //!< Numerical scheme
   gsl_vector *currentState;      //!< Current state
   
 public:
@@ -229,11 +258,11 @@ public:
   /** \brief Destructor freeing memory. */
   ~model() { gsl_vector_free(currentState); }
 
-  /** \brief One time-step forward Integration of the model using the numerical scheme. */
+  /** \brief One time-step forward Integration of the model. */
   void stepForward();
 
   /** \brief Integrate the model forward for a given period. */
-  gsl_matrix *model::integrateForward(const double length, const double spinup,
+  gsl_matrix *integrateForward(const double length, const double spinup,
 			       const size_t sampling);
 };
 

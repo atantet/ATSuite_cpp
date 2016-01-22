@@ -3,372 +3,270 @@
 
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
+#include <gsl/gsl_blas.h>
 #include <ODESolvers.hpp>
 
+
 /** \file SDESolvers.hpp
- *  \brief Stochastic differential equation solvers.
+ *  \brief Solve stocahstic differential equations.
  *   
- *  ATSuite stochastic differential equation solvers.
+ *  Library to solve stochastic differential equations.
+ *  The library uses polymorphism to design a
+ *  stochastic model (class stochasticModel) from building blocks.
+ *  Those building blocks are the vector field (class vectorField),
+ *  inherited from class model
+ *  and a stochastic numerical scheme (class stochasticNumericalScheme),
+ *  and a stochastic vector field (class stochasticVectorField).
  */
 
-// Declarations
-gsl_matrix * generateCuspAdditiveWienerEM(gsl_vector *, double, double,
-					  gsl_matrix *, double,
-					  double, double, int, double);
-gsl_matrix * generateCuspAdditiveWienerEM(gsl_vector *, double,
-					  gsl_vector *,
-					  gsl_matrix *, double,
-					  double, double, int, double);
-gsl_vector * cuspAdditiveWienerEM(gsl_vector *, double, double,
-				  gsl_vector *, double, double);
-gsl_matrix * generateLorenzLinearWienerEM(gsl_vector *, double, double, double,
-					  gsl_matrix *, double,
-					  double, double, int, double);
-gsl_vector * lorenzLinearWienerEM(gsl_vector *, double, double, double,
-				  gsl_vector *, double, double);
-gsl_vector * additiveWienerField(double, gsl_vector *);
-gsl_vector * linearWienerField(gsl_vector *, double, gsl_vector *);
 
-
-// Definitions
-
-/**
- * \brief Integrate the cusp normal form with additive Wiener and EM scheme.
- *
- * Integrate the cusp normal form (see Strogatz, 1994)
- * with additive Wiener process, with an Euler-Maruyama scheme.
- * \param[in] state        Initial state.
- * \param[in] r            Parameter \f$r\f$.
- * \param[in] h            Parameter \f$h\f$.
- * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
- * \param[in] Q            Noise intensity.
- * \param[in] length       Length of integration.
- * \param[in] dt           Time step.
- * \param[in] sampling     Step between each sampled state.
- * \param[in] spinup       Lenght of initial spinup period to discard.
- * \return                 GSL matrix recording the integration.
+/*
+ * Class declarations:
  */
-gsl_matrix *
-generateCuspAdditiveWienerEM(gsl_vector *state,
-			     double r, double h,
-			     gsl_matrix *noiseSamples, double Q,
-			     double length, double dt,
-			     int sampling, double spinup)
-{
-  size_t nt = length / dt;
-  size_t ntSpinup = spinup / dt;
-  size_t dim = state->size;
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt/sampling), dim);
-  gsl_vector *newState, *initState, *noiseSample;
 
-  initState = gsl_vector_alloc(dim);
-  gsl_vector_memcpy(initState, state);
+/** \brief Abstract stochastic vector field class.
+ * 
+ *  Abstract stochastic vector field class inheriting
+ *  from the ordinary vector field class.
+ */
+class stochasticVectorField : public vectorField {
+  gsl_rng *rng;              //!< Random number gnerator
+  gsl_vector *noiseState;    //!< Current noise state (mainly a workspace)
+public:
+  /** \brief Default constructor. */
+  stochasticVectorField() {}
   
-  // Get spinup
-  for (size_t i = 1; i <= ntSpinup; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, i);
-    
-    // Get new state
-    newState = cuspAdditiveWienerEM(initState, r, h,
-				    noiseSample, Q,
-				    dt);
-
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
+  /** \brief Constructor setting the dimension, the generator and allocating. */
+  stochasticVectorField(const size_t dim_, gsl_rng *rng_)
+    : vectorField(dim_), rng(rng_)
+  { noiseState = gsl_vector_alloc(dim); }
+  
+  /** \brief Destructor freeing noise. */
+  ~stochasticVectorfield() { gsl_vector_free(noiseState); }
+  
+  /** Update noise realization. */
+  void stepForwardNoise() {
+    for (size_t i = 0; i < dim; i++)
+      gsl_vector_set(noiseState, i, gsl_ran_gaussian(r, 1.));
   }
-  
-  // Get record
-  for (size_t i = 1; i <= nt; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, ntSpinup+i);
-    
-    // Get new state
-    newState = cuspAdditiveWienerEM(initState, r, h,
-				    noiseSample, Q, dt);
 
-    // Save new state
-    if (i%sampling == 0)
-      gsl_matrix_set_row(data, i/sampling-1, newState);
+  /** \brief Virtual method for evaluating the vector field at a given state. */
+  virtual void evalField(gsl_vector *state, gsl_vector *field) = 0;
+};
 
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
-  }
-  gsl_vector_free(initState);
-  
-  return data;
-}
 
-/**
- * \brief Transient int. of the cusp normal form with additive Wiener and EM scheme.
+/** \brief Additive Wiener process.
  *
- * Transient integration of the cusp normal form (see Strogatz, 1994)
- * with additive Wiener process, with an Euler-Maruyama scheme.
- * \param[in] state        Initial state.
- * \param[in] r            Parameter \f$r\f$.
- * \param[in] hTransient   GSL vector of the variable parameter \f$h(t)\f$ for each time step.
- * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
- * \param[in] Q            Noise intensity.
- * \param[in] length       Length of integration.
- * \param[in] dt           Time step.
- * \param[in] sampling     Step between each sampled state.
- * \param[in] spinup       Lenght of initial spinup period to discard.
- * \return                 GSL matrix recording the integration.
+ *  Additive Wiener process stochastic vector field.
  */
-gsl_matrix *
-generateCuspAdditiveWienerEM(gsl_vector *state,
-			     double r, gsl_vector *hTransient,
-			     gsl_matrix *noiseSamples, double Q,
-			     double length, double dt,
-			     int sampling, double spinup)
-{
-  size_t nt = length / dt;
-  size_t ntSpinup = spinup / dt;
-  size_t dim = state->size;
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt/sampling), dim);
-  gsl_vector *newState, *initState, *noiseSample;
-  double h;
-
-  initState = gsl_vector_alloc(dim);
-  gsl_vector_memcpy(initState, state);
+class additiveWiener : public stochasticVectorField {
+  gsl_matrix *Q;  //!< Correlation matrix to apply to noise realization.
+public:
+  /** \brief Default constructor. */
+  additiveWiener(){}
   
-  // Get spinup
-  for (size_t i = 1; i <= ntSpinup; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, i);
-
-    // Get transient parameter value
-    h = gsl_vector_get(hTransient, i);
-    
-    // Get new state
-    newState = cuspAdditiveWienerEM(initState, r, h,
-				    noiseSample, Q,
-				    dt);
-
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
-  }
+  /** \brief Construction by copying the matrix of the linear operator. */
+  additiveWiener(const gsl_matrix *Q_, gsl_rng *rng_)
+    : stochasticVectorField(A_->size1, rng_)
+  { gsl_matrix_memcpy(Q, Q_); }
   
-  // Get record
-  for (size_t i = 1; i <= nt; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, ntSpinup+i);
-    
-    // Get transient parameter value
-    h = gsl_vector_get(hTransient, i);
-    
-    // Get new state
-    newState = cuspAdditiveWienerEM(initState, r, h,
-				    noiseSample, Q, dt);
+  /** Destructor freeing the matrix. */
+  ~additiveWiener(){ gsl_matrix_free(Q); }
 
-    // Save new state
-    if (i%sampling == 0)
-      gsl_matrix_set_row(data, i/sampling-1, newState);
+  /** \brief Return the parameters of the model. */
+  void getParameters(gsl_matrix *Q_) { gsl_matrix_memcpy(Q_, Q); return; }
 
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
-  }
-  gsl_vector_free(initState);
+  /** \brief Set parameters of the model. */
+  void setParameters(const gsl_matrix *Q_) { gsl_matrix_memcpy(Q, Q_); return; }
+
+  /** \brief Evaluate the linear vector field at a given state. */
+  void evalField(gsl_vector *state, gsl_vector *field);
+};
+
+
+/** \brief Linear multiplicative Wiener process.
+ * 
+ *  Linear multiplicative Wiener process stochastic vector field.
+ *  Note: nondiagonal state multiplication not (yet) implemented.
+ */
+class multiplicativeLinearWiener : public stochasticVectorField {
+  gsl_matrix *Q;   //!< Correlation matrix to apply to noise realization.
+public:
+  /** \brief Default constructor. */
+  multiplicativeLinearWiener(){}
   
-  return data;
-}
+  /** \brief Construction by copying the matrix of the linear operator. */
+  multiplicativeLinearWiener(const gsl_matrix *Q_, gsl_rng *rng_)
+    : stochasticVectorField(A_->size1, rng_)
+  { gsl_matrix_memcpy(Q, Q_); }
+  
+  /** Destructor freeing the matrix. */
+  ~multiplicativeLinearWiener(){ gsl_matrix_free(Q); }
+
+  /** \brief Return the parameters of the model. */
+  void getParameters(gsl_matrix *Q_) { gsl_matrix_memcpy(Q_, Q); return; }
+
+  /** \brief Set parameters of the model. */
+  void setParameters(const gsl_matrix *Q_) { gsl_matrix_memcpy(Q, Q_); return; }
+
+  /** \brief Evaluate the linear vector field at a given state. */
+  void evalField(gsl_vector *state, gsl_vector *field);
+};
 
 
-/**
- * \brief Integrate one step the cusp normal form with an additive Wiener and EM scheme.
+/** \brief Abstract stochastic numerical scheme class.
  *
- * Integrate one step forward the cusp normal form (see Strogatz, 1994)
- * with an additive Wiener process, with an Euler-Maruyama scheme.
- * \param[in] state        Present state.
- * \param[in] r            Parameter r.
- * \param[in] h            Parameter h.
- * \param[in] noiseSample  GSL matrix of noise realizations for each time step.
- * \param[in] Q            Noise intensity.
- * \param[in] dt           Time step.
- * \return                 GSL vector of the future state.
+ *  Abstract stochastic numerical scheme class inheriting
+ *  from the ordinary numerical scheme class.
  */
-gsl_vector *
-cuspAdditiveWienerEM(gsl_vector *state,
-		     double r, double h,
-		     gsl_vector *noiseSample, double Q,
-		     double dt)
-{
-  size_t dim = state->size;
-  gsl_vector *field, *newState;
-
-  newState = gsl_vector_alloc(dim);
-  gsl_vector_memcpy(newState, state);
-    
-  field = cuspField(state, r, h);
-  gsl_vector_scale(field, dt);
-  gsl_vector_add(newState, field);
-  gsl_vector_free(field);
+class stochasticNumericalScheme : public numericalScheme {
+public:
+    /** \brief Default constructor. */
+  stochasticNumericalScheme() {}
   
-  field = additiveWienerField(Q, noiseSample);
-  gsl_vector_scale(field, sqrt(dt));
-  gsl_vector_add(newState, field);
-  gsl_vector_free(field);
+  /** \brief Constructor defining the dimensions, time step and allocating workspace. */
+  stochasticNumericalScheme(const size_t dim_, const size_t dimWork_, const double dt_)
+    : numericalScheme(dim_, dimWork_, dt_) {}
+  
+  /** \brief Destructor freeing workspace. */
+  ~stochasticNumericalScheme() {}
 
-  return newState;
-}
+  /** \brief Virtual method to integrate the stochastic model one step forward. */
+  virtual void stepForward(const vectorField *field,
+			   const stochasticVectorField *stocField,
+			   gsl_vector *currentState) = 0;
+};
+
+
+/** \brief Euler-Maruyama stochastic numerical scheme.
+ *  Euler-Maruyama stochastic numerical scheme.
+ */
+class EulerMaruyama : public stochasticNumericalScheme {
+public:
+    /** \brief Default constructor. */
+  EulerMaruyama() {}
+  
+  /** \brief Constructor defining the dimensions, time step and allocating workspace. */
+  EulerMaruyama(const size_t dim_, const double dt_)
+    : stochasticNumericalScheme(dim_, 2, dt_) {}
+  
+  /** \brief Destructor freeing workspace. */
+  ~EulerMaruyama() {}
+
+  /** \brief Virtual method to integrate the stochastic model one step forward. */
+  virtual void stepForward(const vectorField *field,
+			   const stochasticVectorField *stocField,
+			   gsl_vector *currentState);
+};
+
+
+/** \brief Stochastic model class.
+ * 
+ * Stochstic model class.
+ *  A stochastic model is defined by a vector field,
+ *  a stochastic vector field and a numerical scheme.
+ *  The current state of the model is also recorded.
+ *  Attention: the constructors do not copy the vector field
+ *  and the numerical scheme given to them, so that
+ *  any modification or freeing will affect the model.
+ */
+
+class stochasticModel : public model {
+  const stochasticVectorField *stocField; //!< Stochastic vector field (diffusion)
+  
+public:
+  /** \brief Default constructor */
+  stochasticModel() {}
+
+  /** \brief Constructor assigning a vector field, a numerical scheme
+   *  and a stochastic vector field and setting initial state to origin. */
+  stochasticModel(vectorField *field_, numericalScheme *scheme_,
+		  stochasticVectorField *stocField_)
+    : model(field_, scheme_), stocField(stocField_) {}
+
+  /** \brief Constructor assigning a vector field, a numerical scheme
+   *  and a stochastic vector field and setting initial state. */
+  stochasticModel(vectorField *field_, numericalScheme *scheme_,
+		  stochasticVectorField *stocField_, gsl_vector *initState)
+    : model(field_, scheme_, initState_), stocField(stocField_) {}
+
+  /** \brief Destructor freeing memory. */
+  ~stochasticModel() {}
+
+  /** \brief One time-step forward stochastic Integration of the model. */
+  void stepForward();
+};
+  
 
 /**
- * \brief Integrate the Lorenz, 1963 with multiplicative linear Wiener and EM scheme.
- *
- * Integrate the Lorenz, 1963 with multiplicative linear Wiener process,
- * with an Euler-Maruyama Scheme.
- * \param[in] state        Initial state.
- * \param[in] rho          Parameter \f$\rho\f$.
- * \param[in] sigma        Parameter \f$\sigma\f$.
- * \param[in] beta         Parameter \f$\beta\f$.
- * \param[in] noiseSamples GSL matrix of noise realizations for each time step.
- * \param[in] Q            Noise intensity.
- * \param[in] length       Length of integration.
- * \param[in] dt           Time step.
- * \param[in] sampling     Step between each sampled state.
- * \param[in] spinup       Lenght of initial spinup period to discard.
- * \return                 GSL matrix recording the integration.
+ * Method definitions
  */
-gsl_matrix *
-generateLorenzLinearWienerEM(gsl_vector *state, double rho,
-			     double sigma, double beta,
-			     gsl_matrix *noiseSamples, double Q,
-			     double length, double dt,
-			     int sampling, double spinup)
-{
-  size_t nt = length / dt;
-  size_t ntSpinup = spinup / dt;
-  size_t dim = state->size;
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt/sampling), dim);
-  gsl_vector *newState, *initState, *noiseSample;
 
-  initState = gsl_vector_alloc(dim);
-  gsl_vector_memcpy(initState, state);
-  
-  // Get spinup
-  for (size_t i = 1; i <= ntSpinup; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, i);
+void
+additiveWiener::evalField(gsl_vector *state, gsl_vector *field)
+{
+  // Get new noise realization
+  stepForwardNoise();
     
-    // Get new state
-    newState = lorenzLinearWienerEM(initState, rho, sigma, beta,
-			       noiseSample, Q,
-			       dt);
+  // Wiener: apply correlation matrix Q to noise realization
+  gsl_blas_dgemv(CblasNoTrans, 1., Q, noiseState, 0., field);
 
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
-  }
-  
-  // Get record
-  for (size_t i = 1; i <= nt; i++){
-    // Get noise sample
-    noiseSample = gsl_vector_alloc(dim);
-    gsl_matrix_get_row(noiseSample, noiseSamples, ntSpinup+i);
-    
-    // Get new state
-    newState = lorenzLinearWienerEM(initState, rho, sigma, beta,
-			       noiseSample, Q, dt);
-
-    // Save new state
-    if (i%sampling == 0)
-      gsl_matrix_set_row(data, i/sampling-1, newState);
-
-    gsl_vector_memcpy(initState, newState);
-    gsl_vector_free(newState);
-    gsl_vector_free(noiseSample);
-  }
-  gsl_vector_free(initState);
-  
-  return data;
-}
-
-/**
- * \brief Integrate one step the Lorenz, 1963 with multiplicative linear Wiener,
- * and EM Scheme.
- *
- * Integrate one step the Lorenz, 1963 with multiplicative linear Wiener process,
- * with an Euler-Maruyama Scheme.
- * \param[in] state        Initial state.
- * \param[in] rho          Parameter \f$\rho\f$.
- * \param[in] sigma        Parameter \f$\sigma\f$.
- * \param[in] beta         Parameter \f$\beta\f$.
- * \param[in] noiseSample  GSL matrix of noise realizations for each time step.
- * \param[in] Q            Noise intensity.
- * \param[in] dt           Time step.
- * \return                 GSL matrix recording the integration.
- */
-gsl_vector * lorenzLinearWienerEM(gsl_vector *state,
-				  double rho, double sigma, double beta,
-				  gsl_vector *noiseSample, double Q,
-				  double dt)
-{
-  size_t dim = state->size;
-  gsl_vector *field, *newState;
-
-  newState = gsl_vector_alloc(dim);
-  gsl_vector_memcpy(newState, state);
-    
-  field = lorenzField(state, rho, sigma, beta);
-  gsl_vector_scale(field, dt);
-  gsl_vector_add(newState, field);
-  gsl_vector_free(field);
-  
-  field = linearWienerField(state, Q, noiseSample);
-  gsl_vector_scale(field, sqrt(dt));
-  gsl_vector_add(newState, field);
-  gsl_vector_free(field);
-
-  return newState;
-}
-
-/**
- * \brief Get the field of the additive Wiener.
- *
- * Get the field of the additive Wiener process.
- * \param[in] Q            Noise intensity.
- * \param[in] noiseSample  GSL vector of noise realization for this time step.
- * \return                 GSL vector of the field at the state.
- */
-gsl_vector * additiveWienerField(double Q, gsl_vector *noiseSample)
-{
-  size_t dim = noiseSample->size;
-  gsl_vector *field = gsl_vector_alloc(dim);
-
-  gsl_vector_memcpy(field, noiseSample);
-  gsl_vector_scale(field, Q);
-  
-  return field;
-}
-
-/**
- * \brief Get the field of the multiplicative linear Wiener.
-
- * Get the field of the multiplicative linear Wiener process.
- * \param[in] state        Present state.
- * \param[in] Q            Noise intensity.
- * \param[in] noiseSample  GSL vector of noise realization for this time step.
- * \return                 GSL vector of the field at the state.
- */
-gsl_vector * linearWienerField(gsl_vector *state, double Q, gsl_vector *noiseSample)
-{
-  size_t dim = noiseSample->size;
-  gsl_vector *field = gsl_vector_alloc(dim);
-
-  gsl_vector_memcpy(field, noiseSample);
-  gsl_vector_scale(field, Q);
+  // Multiply state
   gsl_vector_mul(field, state);
-  
-  return field;
+
+  return;
 }
+
+
+void
+multiplicativeLinearWiener::evalField(gsl_vector *state, gsl_vector *field)
+{
+  // Get new noise realization
+  stepForwardNoise();
+  
+  // Additive Wiener: apply correlation matrix Q to noise realization
+  gsl_blas_dgemv(CblasNoTrans, 1., Q, noiseState, 0., field);
+
+  return;
+}
+
+
+void
+EulerMaruyama::stepForward(const vectorField *field,
+			   const stochasticVectorField *stocField,
+			   gsl_vector *currentState)
+{
+  gsl_vector_view tmp = gsl_matrix_row(work, 0);
+  gsl_vector_view tmp1 = gsl_matrix_row(work, 1);
+
+  // Evalueate fields
+  field->evalField(currentState, &tmp.vector);
+  stocField->evalField(currentState, &tmp1.vector);
+
+  // Add drift
+  gsl_vector_scale(&tmp.vector, dt);
+  gsl_vector_add(currentState, &tmp.vector);
+
+  // Add diffusion
+  gsl_vector_scale(&tmp1.vector, sqrt(dt));
+  gsl_vector_add(currentState, &tmp2.vector);
+
+  return;
+}
+
+
+/**
+ * Integrate one step forward the stochastic model
+ * by calling the numerical scheme.
+ */
+void
+stochasticModel::stepForward()
+{
+  // Apply stochastic numerical scheme to step forward
+  scheme.stepForward(field, stocField, currentState);
+    
+  return;
+}
+
 
 #endif
