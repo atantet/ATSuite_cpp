@@ -46,7 +46,7 @@ public:
   { noiseState = gsl_vector_alloc(dim); }
   
   /** \brief Destructor freeing noise. */
-  ~vectorFieldStochastic() { gsl_vector_free(noiseState); }
+  virtual ~vectorFieldStochastic() { gsl_vector_free(noiseState); }
   
   /** \brief Get noise state. */
   void getNoiseState(gsl_vector *noiseState_)
@@ -140,7 +140,7 @@ public:
   { work = gsl_matrix_alloc(dimWork, dim); }
   
   /** \brief Destructor freeing workspace. */
-  ~numericalSchemeStochastic() { gsl_matrix_free(work); }
+  virtual ~numericalSchemeStochastic() { gsl_matrix_free(work); }
 
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
@@ -318,7 +318,7 @@ modelStochastic::integrateForward(const double length, const double spinup,
 {
   size_t nt = length / scheme->getTimeStep();
   size_t ntSpinup = spinup / scheme->getTimeStep();
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt / sampling), dim);
+  gsl_matrix *data = gsl_matrix_alloc((size_t) ((nt - ntSpinup) / sampling), dim);
 
   // Get spinup
   for (size_t i = 1; i <= ntSpinup; i++)

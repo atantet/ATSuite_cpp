@@ -34,7 +34,7 @@ public:
   vectorField(const size_t dim_) : dim(dim_) {}
   
   /** \brief Destructor. */
-  ~vectorField() {}
+  virtual ~vectorField() {}
   
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
@@ -51,7 +51,7 @@ public:
  */
 class linearField : public vectorField {
   
-  gsl_matrix *A;  //!< Matrix representation of the linear operator \f$ A \f$.
+gsl_matrix *A;  //!< Matrix representation of the linear operator \f$ A \f$.
   
 public:
   /** \brief Construction by allocating matrix of the linear operator. */
@@ -70,6 +70,40 @@ public:
 
   /** \brief Set parameters of the model. */
   void setParameters(const gsl_matrix *A_) { gsl_matrix_memcpy(A, A_); return; }
+
+  /** \brief Evaluate the linear vector field at a given state. */
+  void evalField(gsl_vector *state, gsl_vector *field);
+};
+
+
+/** \brief One-dimensional polynomial vector field
+ *
+ * One-dimensional polynomial vector field
+ *  \f$ F(x) = \sum_{k = 0}^{degree} coeff_k x^k \f$
+ */
+class polynomial1D : public vectorField {
+
+  const size_t degree; //!< Degree of the polynomial (coeff->size - 1)
+  gsl_vector *coeff;   //!< Coefficients of the polynomial
+  
+public:
+/** \brief Construction by allocating vector of coefficients. */
+polynomial1D(const size_t degree_) : degree(degree_), vectorField(1)
+  { coeff = gsl_vector_alloc(degree + 1); }
+
+  /** \brief Construction by copying coefficients of polynomial. */
+    polynomial1D(const gsl_vector *coeff_)
+    : degree(coeff_->size - 1), vectorField(1)
+  { coeff = gsl_vector_alloc(degree + 1); gsl_vector_memcpy(coeff, coeff_); }
+
+  /** Destructor freeing the matrix. */
+  ~polynomial1D(){ gsl_vector_free(coeff); }
+
+  /** \brief Return the coefficients of the polynomial field (should be allocated first). */
+  void getParameters(gsl_vector *coeff_) { gsl_vector_memcpy(coeff_, coeff); return; }
+  
+  /** \brief Set parameters of the model. */
+  void setParameters(const gsl_vector *coeff_) { gsl_vector_memcpy(coeff, coeff_); return; }
 
   /** \brief Evaluate the linear vector field at a given state. */
   void evalField(gsl_vector *state, gsl_vector *field);
@@ -171,7 +205,7 @@ public:
   { work = gsl_matrix_alloc(dimWork, dim); }
   
   /** \brief Destructor freeing workspace. */
-  ~numericalScheme() { gsl_matrix_free(work); }
+  virtual ~numericalScheme() { gsl_matrix_free(work); }
 
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
@@ -285,6 +319,30 @@ linearField::evalField(gsl_vector *state, gsl_vector *field)
 {
   // Linear field: apply operator A to state
   gsl_blas_dgemv(CblasNoTrans, 1., A, state, 0., field);
+
+  return;
+}
+
+
+/** 
+ * Evaluate the one-dimensional polynomial vector field at a given state.
+ * \param[in]  state State at which to evaluate the vector field.
+ * \param[out] field Vector resulting from the evaluation of the vector field.
+ */
+void
+polynomial1D::evalField(gsl_vector *state, gsl_vector *field)
+{
+  double tmp;
+  double stateScal = gsl_vector_get(state, 0);
+
+  // One-dimensional polynomial field:
+  tmp = gsl_vector_get(coeff, 0);
+  for (size_t c = 1; c < degree + 1; c++)
+    {
+      tmp += gsl_vector_get(coeff, c) * gsl_pow_uint(stateScal, c);
+    }
+  
+  gsl_vector_set(field, 0, tmp);
 
   return;
 }
@@ -461,7 +519,7 @@ model::integrateForward(const double length, const double spinup,
 {
   size_t nt = length / scheme->getTimeStep();
   size_t ntSpinup = spinup / scheme->getTimeStep();
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt / sampling), dim);
+  gsl_matrix *data = gsl_matrix_alloc((size_t) ((nt - ntSpinup) / sampling), dim);
 
   // Get spinup
   for (size_t i = 1; i <= ntSpinup; i++)

@@ -36,17 +36,16 @@ protected:
   const size_t dim;              //!< Phase space dimension
   const size_t nDelays;          //!< Number of delayed fields
   const size_t delayMax;         //!< Maximum delay in time steps
-  const gsl_vector_uint *delays; //!< Delays
-  vector<vectorField *> *fields; //!< Vector of delayed vector fields
+  gsl_vector_uint *delays;       //!< Delays
+  std::vector<vectorField *> *fields; //!< Vector of delayed vector fields
   gsl_vector *work;              //!< Workspace used to evaluate the delayed field
 
 public:
   /** \brief Constructor setting the dimension and allocating. */
-  vectorFieldDelay(vector<vectorField *> *fields_, const gsl_vector_uint *delays_);
+  vectorFieldDelay(std::vector<vectorField *> *fields_, const gsl_vector_uint *delays_);
 
   /** \brief Destructor freeing fields and workspace. */
-  ~vectorFieldDelay()
-  { delete fields; gsl_vector_uint_free(delays); gsl_vector_free(work); }
+  virtual ~vectorFieldDelay();
   
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
@@ -54,13 +53,13 @@ public:
   /** \brief Number of delays access method. */
   size_t getNDelays() { return nDelays; }
 
+  /** \brief Number of delays access method. */
+  size_t getDelayMax() { return delayMax; }
+
   /** \brief Get delays */
-  void getDelays(gsl_vector *delays_)
+  void getDelays(gsl_vector_uint *delays_)
   { gsl_vector_uint_memcpy(delays_, delays); return; }
 
-  /** \brief Update past states of a historic by one step */
-  void updateHistoric(gsl_matrix *state);
-    
   /** \brief Method for evaluating the delayed vector field at a given state. */
   void evalField(gsl_matrix *state, gsl_vector *field);
 };
@@ -78,6 +77,9 @@ protected:
   double dt;             //!< Time step of integration.
   gsl_matrix *work;      //!< Workspace used to evaluate the vector field
 
+  /** \brief Update past states of a historic by one step */
+  void updateHistoric(gsl_matrix *currentState);
+    
 public:
   /** \brief Constructor defining the dimensions, time step and allocating workspace. */
   numericalSchemeSDDE(const size_t dim_, const size_t nDelays_, const size_t dimWork_,
@@ -86,7 +88,7 @@ public:
   { work = gsl_matrix_alloc(dimWork, dim); }
   
   /** \brief Destructor freeing workspace. */
-  ~numericalSchemeSDDE() { gsl_matrix_free(work); }
+  virtual ~numericalSchemeSDDE() { gsl_matrix_free(work); }
 
   /** \brief Dimension access method. */
   size_t getDim() { return dim; }
@@ -143,7 +145,7 @@ protected:
   const size_t dim;                 //!< Phase space dimension
   const size_t nDelays;             //!< Number of delays
   const size_t delayMax;            //!< Maximum delay in number of time steps
-  vecorFieldDelay *delayedField;    //!< Vector field for each delay
+  vectorFieldDelay *delayedField;    //!< Vector field for each delay
   vectorFieldStochastic *stocField; //!< Stochastic vector field
   numericalSchemeSDDE *scheme;      //!< Numerical scheme
   gsl_matrix *currentState;         //!< Current state (historic)
@@ -154,9 +156,9 @@ public:
   modelSDDE(vectorFieldDelay *delayedField_, vectorFieldStochastic *stocField_,
 	    numericalSchemeSDDE *scheme_)
     : delayedField(delayedField_),
-      dim((delayedField->at(0))->getDim()),
-      nDelays(delayedField->nDelays),
-      delayMax(delayedField->delayMax),
+      dim(delayedField_->getDim()),
+      nDelays(delayedField_->getNDelays()),
+      delayMax(delayedField_->getDelayMax()),
       stocField(stocField_),
       scheme(scheme_)
   { currentState = gsl_matrix_calloc(delayMax + 1, dim); }
@@ -166,9 +168,9 @@ public:
   modelSDDE(vectorFieldDelay *delayedField_, vectorFieldStochastic *stocField_,
 	    numericalSchemeSDDE *scheme_, gsl_matrix *initState)
     : delayedField(delayedField_),
-      dim((delayedField->at(0))->getDim()),
-      nDelays(delayedField->nDelays),
-      delayMax(delayedField->delayMax),
+      dim(delayedField_->getDim()),
+      nDelays(delayedField_->getNDelays()),
+      delayMax(delayedField_->getDelayMax()),
       stocField(stocField_),
       scheme(scheme_)
   {
@@ -201,40 +203,34 @@ public:
  * \param[in] fields_ Vector of vector fields for each delay.
  * \param[in] delays_ Delays associated with each vector field.
  */
-vectorFieldDelay::vectorFieldDelay(vector<vectorField *> *fields_,
+vectorFieldDelay::vectorFieldDelay(std::vector<vectorField *> *fields_,
 				   const gsl_vector_uint *delays_)
-  : dim((fields->at(0))->getDim()), nDelays(delays_->size),
-    delayMax(gsl_vector_get(delays_, nDelays - 1))
+  : dim(fields_->at(0)->getDim()), nDelays(delays_->size),
+    delayMax(gsl_vector_uint_get(delays_, nDelays - 1)), fields(fields_)
   {
     // Copy delays
+    delays = gsl_vector_uint_alloc(nDelays);
     gsl_vector_uint_memcpy(delays, delays_);
 			   
-    // Copy pointers to vector fields (only the pointers)
-    fields = new vector<gsl_vector *>(nDelays);
-    for (size_t d = 0; d < nDelays; d++)
-      fields->at(d) = fields_->at(d);
-
     // Allocate workspace
     work = gsl_vector_alloc(dim);
   }
 
 
 /**
- * Update past states of historic by one time step.
- * \param[in/out] currentState Historic to update.
+ * Destructor for a delayed vector field, desallocating.
  */
-void vectorFieldDelay::updateHistoric(gsl_matrix *state)
+vectorFieldDelay::~vectorFieldDelay()
 {
-  gsl_vector_view delayedState, afterState;
-
-  for (size_t d = 0; d < nDelays - 1; d++)
+  for (size_t d = 0; d < nDelays; d++)
     {
-      delayedState = gsl_matrix_row(state, delayMax - d);
-      afterState = gsl_vector_row(state, delayMax - d + 1);
-      gsl_vector_memcpy(&delayedState.vector, &afterState.vector);
+      delete fields->at(d);
     }
-
-  return;
+  delete fields;
+  
+  gsl_vector_uint_free(delays);
+  
+  gsl_vector_free(work);
 }
 
 
@@ -250,7 +246,7 @@ vectorFieldDelay::evalField(gsl_matrix *state, gsl_vector *field)
   unsigned int delay;
 
   // Set field evaluation to 0
-  gsl_vector_set_zero(field)
+  gsl_vector_set_zero(field);
 
   /** Add delayed drifts */
   for (size_t d = 0; d < nDelays; d++)
@@ -261,7 +257,7 @@ vectorFieldDelay::evalField(gsl_matrix *state, gsl_vector *field)
       delayedState = gsl_matrix_row(state, delay);
       
       // Evaluate vector field at delayed state
-      (fields->at(nDelays - d - 1))->evalField(&delayedState.vector, work);
+      fields->at(nDelays - d - 1)->evalField(&delayedState.vector, work);
       
       // Add to newState in workspace
       gsl_vector_add(field, work);
@@ -274,6 +270,26 @@ vectorFieldDelay::evalField(gsl_matrix *state, gsl_vector *field)
 /*
  * Numerical schemes definitions:
  */
+
+/**
+ * Update past states of historic by one time step.
+ * \param[in/out] currentState Historic to update.
+ */
+void numericalSchemeSDDE::updateHistoric(gsl_matrix *currentState)
+{
+  gsl_vector_view delayedState, afterState;
+  size_t delayMax = currentState->size1 - 1;
+
+  for (size_t d = 0; d < delayMax; d++)
+    {
+      delayedState = gsl_matrix_row(currentState, delayMax - d);
+      afterState = gsl_matrix_row(currentState, delayMax - d - 1);
+      gsl_vector_memcpy(&delayedState.vector, &afterState.vector);
+    }
+
+  return;
+}
+
 
 /**
  * Integrate SDDE  one step forward for a given vector field
@@ -293,7 +309,7 @@ EulerMaruyamaSDDE::stepForward(vectorFieldDelay *delayedField,
   gsl_vector_view presentState;
 
   /** Evaluate drift */
-  delayedField->evalField(currentState, &tmp.vector)
+  delayedField->evalField(currentState, &tmp.vector);
   // Scale by time step
   gsl_vector_scale(&tmp.vector, dt);
 
@@ -348,7 +364,7 @@ modelSDDE::integrateForward(const double length, const double spinup,
 {
   size_t nt = length / scheme->getTimeStep();
   size_t ntSpinup = spinup / scheme->getTimeStep();
-  gsl_matrix *data = gsl_matrix_alloc((size_t) (nt / sampling), dim);
+  gsl_matrix *data = gsl_matrix_alloc((size_t) ((nt - ntSpinup) / sampling), dim);
   gsl_vector_view presentState;
 
   // Get spinup
@@ -368,7 +384,8 @@ modelSDDE::integrateForward(const double length, const double spinup,
       if (i%sampling == 0)
 	{
 	  presentState = gsl_matrix_row(currentState, 0);
-	  gsl_matrix_set_row(data, (i - ntSpinup) / sampling - 1, presentState);
+	  gsl_matrix_set_row(data, (i - ntSpinup) / sampling - 1,
+			     &presentState.vector);
 	}
     }
 
